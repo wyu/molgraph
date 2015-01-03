@@ -1,0 +1,4826 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uniprot xmlns="http://uniprot.org/uniprot"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://uniprot.org/uniprot http://www.uniprot.org/support/docs/uniprot.xsd">
+<entry version="22" modified="2014-05-14" created="2011-06-28" dataset="Swiss-Prot">
+  <accession>Q6GZV8</accession>
+  <name>017L_FRG3G</name>
+  <protein>
+    <recommendedName>
+      <fullName>Uncharacterized protein 017L</fullName>
+    </recommendedName>
+  </protein>
+  <gene>
+    <name type="ORF">FV3-017L</name>
+  </gene>
+  <organism>
+    <name type="scientific">Frog virus 3</name>
+    <name type="common">isolate Goorha</name>
+    <name type="synonym">FV-3</name>
+    <dbReference id="654924" type="NCBI Taxonomy"/>
+    <lineage>
+      <taxon>Viruses</taxon>
+      <taxon>dsDNA viruses, no RNA stage</taxon>
+      <taxon>Iridoviridae</taxon>
+      <taxon>Ranavirus</taxon>
+    </lineage>
+  </organism>
+  <organismHost>
+    <name type="scientific">Ambystoma</name>
+    <name type="common">mole salamanders</name>
+    <dbReference id="8295" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Hyla versicolor</name>
+    <name type="common">chameleon treefrog</name>
+    <dbReference id="30343" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Lithobates pipiens</name>
+    <name type="common">Northern leopard frog</name>
+    <name type="synonym">Rana pipiens</name>
+    <dbReference id="8404" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Notophthalmus viridescens</name>
+    <name type="common">Eastern newt</name>
+    <name type="synonym">Triturus viridescens</name>
+    <dbReference id="8316" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Rana sylvatica</name>
+    <name type="common">Wood frog</name>
+    <dbReference id="45438" type="NCBI Taxonomy"/>
+  </organismHost>
+  <reference key="1">
+    <citation last="84" first="70" volume="323" name="Virology" date="2004" type="journal article">
+      <title>Comparative genomic analyses of frog virus 3, type species of the genus Ranavirus (family Iridoviridae).</title>
+      <authorList>
+        <person name="Tan W.G."/>
+        <person name="Barkman T.J."/>
+        <person name="Gregory Chinchar V."/>
+        <person name="Essani K."/>
+      </authorList>
+      <dbReference id="15165820" type="PubMed"/>
+      <dbReference id="10.1016/j.virol.2004.02.019" type="DOI"/>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]</scope>
+  </reference>
+  <dbReference id="AY548484" type="EMBL">
+    <property value="AAT09676.1" type="protein sequence ID"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="YP_031595.1" type="RefSeq">
+    <property value="NC_005946.1" type="nucleotide sequence ID"/>
+  </dbReference>
+  <dbReference id="2947737" type="GeneID"/>
+  <proteinExistence type="predicted"/>
+  <keyword id="KW-0181">Complete proteome</keyword>
+  <keyword id="KW-1185">Reference proteome</keyword>
+  <feature description="Uncharacterized protein 017L" id="PRO_0000410557" type="chain">
+    <location>
+      <begin position="1"/>
+      <end position="502"/>
+    </location>
+  </feature>
+  <feature description="Poly-Ala" type="compositionally biased region">
+    <location>
+      <begin position="425"/>
+      <end position="428"/>
+    </location>
+  </feature>
+  <sequence version="1" modified="2004-07-19" checksum="A747EE6F952CBAD7" mass="53469" length="502">METMSDYSKEVSEALSALRGELSALSAAISNTVRAGSYSAPVAKDCKAGHCDSKAVLKSLSRSARDLDSAVEAVSSNCEWASSGYGKQIARALRDDAVRVKREVESTRDAVDVVTPSCCVQGLAEEAGKLSEMAAVYRCMATVFETADSHGVREMLAKVDGLKQTMSGFKRLLGKTAEIDGLSDSVIRLGRSIGEVLPATEGKAMRDLVKQCERLNGLVVDGSRKVEEQCSKLRDMASQSYVVADLASQYDVLGGKAQEALSASDALEQAAAVALRAKAAADAVAKSLDSLDVKKLDRLLEQASAVSGLLAKKNDLDAVVTSLAGLEALVAKKDELYKICAAVNSVDKSKLELLNVKPDRLKSLTEQTVVVSQMTTALATFNEDKLDSVLGKYMQMHRFLGMATQLKLMSDSLAEFQPAKMAQMAAAASQLKDFLTDQTVSRLEKVSAAVDATDVTKYASAFSDGGMVSDMTKAYETVKAFAAVVNSLDSKKLKLVAECAKK</sequence>
+</entry>
+<entry version="23" modified="2014-10-01" created="2011-06-28" dataset="Swiss-Prot">
+  <accession>Q6GZT6</accession>
+  <name>040R_FRG3G</name>
+  <protein>
+    <recommendedName>
+      <fullName>Uncharacterized protein 040R</fullName>
+    </recommendedName>
+  </protein>
+  <gene>
+    <name type="ORF">FV3-040R</name>
+  </gene>
+  <organism>
+    <name type="scientific">Frog virus 3</name>
+    <name type="common">isolate Goorha</name>
+    <name type="synonym">FV-3</name>
+    <dbReference id="654924" type="NCBI Taxonomy"/>
+    <lineage>
+      <taxon>Viruses</taxon>
+      <taxon>dsDNA viruses, no RNA stage</taxon>
+      <taxon>Iridoviridae</taxon>
+      <taxon>Ranavirus</taxon>
+    </lineage>
+  </organism>
+  <organismHost>
+    <name type="scientific">Ambystoma</name>
+    <name type="common">mole salamanders</name>
+    <dbReference id="8295" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Hyla versicolor</name>
+    <name type="common">chameleon treefrog</name>
+    <dbReference id="30343" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Lithobates pipiens</name>
+    <name type="common">Northern leopard frog</name>
+    <name type="synonym">Rana pipiens</name>
+    <dbReference id="8404" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Notophthalmus viridescens</name>
+    <name type="common">Eastern newt</name>
+    <name type="synonym">Triturus viridescens</name>
+    <dbReference id="8316" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Rana sylvatica</name>
+    <name type="common">Wood frog</name>
+    <dbReference id="45438" type="NCBI Taxonomy"/>
+  </organismHost>
+  <reference key="1">
+    <citation last="84" first="70" volume="323" name="Virology" date="2004" type="journal article">
+      <title>Comparative genomic analyses of frog virus 3, type species of the genus Ranavirus (family Iridoviridae).</title>
+      <authorList>
+        <person name="Tan W.G."/>
+        <person name="Barkman T.J."/>
+        <person name="Gregory Chinchar V."/>
+        <person name="Essani K."/>
+      </authorList>
+      <dbReference id="15165820" type="PubMed"/>
+      <dbReference id="10.1016/j.virol.2004.02.019" type="DOI"/>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]</scope>
+  </reference>
+  <dbReference id="AY548484" type="EMBL">
+    <property value="AAT09699.1" type="protein sequence ID"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="YP_031618.1" type="RefSeq">
+    <property value="NC_005946.1" type="nucleotide sequence ID"/>
+  </dbReference>
+  <dbReference id="2947819" type="GeneID"/>
+  <proteinExistence type="inferred from homology"/>
+  <keyword id="KW-0181">Complete proteome</keyword>
+  <keyword id="KW-1185">Reference proteome</keyword>
+  <keyword id="KW-0732">Signal</keyword>
+  <feature evidence="1" type="signal peptide">
+    <location>
+      <begin position="1"/>
+      <end position="26"/>
+    </location>
+  </feature>
+  <feature description="Uncharacterized protein 040R" id="PRO_0000410544" type="chain">
+    <location>
+      <begin position="27"/>
+      <end position="182"/>
+    </location>
+  </feature>
+  <feature description="Poly-Thr" type="compositionally biased region">
+    <location>
+      <begin position="88"/>
+      <end position="91"/>
+    </location>
+  </feature>
+  <evidence key="1" type="ECO:0000255">
+    <source/>
+  </evidence>
+  <sequence precursor="true" version="1" modified="2004-07-19" checksum="FCF64F420039CF35" mass="19577" length="182">MIRALCTIVLIAAGVAVALYLSLVYGYYMSVGVQDASWLTALTGNRPDAKVPFFDKAVGEAPEDKVAYTERPYPVSSTQSPTTTQSPTTTTLKPTTMAVLASIGATPTPVVCHNVRGDMQGIACNVVMKKTVAAALKVQPEAKKDNVNAQYRYGMWTPLRRSRSPFGVWNIPKKLAIAAPDV</sequence>
+</entry>
+<entry version="14" modified="2011-09-21" created="2009-06-16" dataset="Swiss-Prot">
+  <accession>Q197A3</accession>
+  <name>057L_IIV3</name>
+  <protein>
+    <recommendedName>
+      <fullName>Uncharacterized protein 057L</fullName>
+    </recommendedName>
+  </protein>
+  <gene>
+    <name type="ORF">IIV3-057L</name>
+  </gene>
+  <organism>
+    <name type="scientific">Invertebrate iridescent virus 3</name>
+    <name type="common">IIV-3</name>
+    <name type="synonym">Mosquito iridescent virus</name>
+    <dbReference id="345201" type="NCBI Taxonomy"/>
+    <lineage>
+      <taxon>Viruses</taxon>
+      <taxon>dsDNA viruses, no RNA stage</taxon>
+      <taxon>Iridoviridae</taxon>
+      <taxon>Chloriridovirus</taxon>
+    </lineage>
+  </organism>
+  <organismHost>
+    <name type="scientific">Aedes vexans</name>
+    <name type="common">Inland floodwater mosquito</name>
+    <name type="synonym">Culex vexans</name>
+    <dbReference id="7163" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Culex territans</name>
+    <dbReference id="42431" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Culiseta annulata</name>
+    <dbReference id="332058" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Ochlerotatus sollicitans</name>
+    <name type="common">eastern saltmarsh mosquito</name>
+    <dbReference id="310513" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Ochlerotatus taeniorhynchus</name>
+    <name type="common">Black salt marsh mosquito</name>
+    <name type="synonym">Aedes taeniorhynchus</name>
+    <dbReference id="329105" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Psorophora ferox</name>
+    <dbReference id="7183" type="NCBI Taxonomy"/>
+  </organismHost>
+  <reference key="1">
+    <citation last="8449" first="8439" volume="80" name="J. Virol." date="2006" type="journal article">
+      <title>Genome of invertebrate iridescent virus type 3 (mosquito iridescent virus).</title>
+      <authorList>
+        <person name="Delhon G."/>
+        <person name="Tulman E.R."/>
+        <person name="Afonso C.L."/>
+        <person name="Lu Z."/>
+        <person name="Becnel J.J."/>
+        <person name="Moser B.A."/>
+        <person name="Kutish G.F."/>
+        <person name="Rock D.L."/>
+      </authorList>
+      <dbReference id="16912294" type="PubMed"/>
+      <dbReference id="10.1128/JVI.00464-06" type="DOI"/>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]</scope>
+  </reference>
+  <dbReference id="DQ643392" type="EMBL">
+    <property value="ABF82087.1" type="protein sequence ID"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="YP_654629.1" type="RefSeq">
+    <property value="NC_008187.1" type="nucleotide sequence ID"/>
+  </dbReference>
+  <dbReference id="4156307" type="GeneID"/>
+  <proteinExistence type="predicted"/>
+  <keyword id="KW-0181">Complete proteome</keyword>
+  <keyword id="KW-1185">Reference proteome</keyword>
+  <feature description="Uncharacterized protein 057L" id="PRO_0000377955" type="chain">
+    <location>
+      <begin position="1"/>
+      <end position="130"/>
+    </location>
+  </feature>
+  <sequence version="1" modified="2006-07-11" checksum="0A95A328C7ABA865" mass="14846" length="130">MFKIYRTSCMGQHQSQFLHSGTVVQTVDGVTTTSFFQPCLVFPFSIEIISISLVSLNTTNETKLIKMSIMENSELVDYNESAYTLAHLPGKQMTYLKYPAPFTIRQHQPFFFVHHGDLGDASLTLEYRIK</sequence>
+</entry>
+<entry version="25" modified="2014-05-14" created="2011-06-28" dataset="Swiss-Prot">
+  <accession>Q6GZP7</accession>
+  <name>078L_FRG3G</name>
+  <protein>
+    <recommendedName>
+      <fullName>Uncharacterized protein 078L</fullName>
+    </recommendedName>
+  </protein>
+  <gene>
+    <name type="ORF">FV3-078L</name>
+  </gene>
+  <organism>
+    <name type="scientific">Frog virus 3</name>
+    <name type="common">isolate Goorha</name>
+    <name type="synonym">FV-3</name>
+    <dbReference id="654924" type="NCBI Taxonomy"/>
+    <lineage>
+      <taxon>Viruses</taxon>
+      <taxon>dsDNA viruses, no RNA stage</taxon>
+      <taxon>Iridoviridae</taxon>
+      <taxon>Ranavirus</taxon>
+    </lineage>
+  </organism>
+  <organismHost>
+    <name type="scientific">Ambystoma</name>
+    <name type="common">mole salamanders</name>
+    <dbReference id="8295" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Hyla versicolor</name>
+    <name type="common">chameleon treefrog</name>
+    <dbReference id="30343" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Lithobates pipiens</name>
+    <name type="common">Northern leopard frog</name>
+    <name type="synonym">Rana pipiens</name>
+    <dbReference id="8404" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Notophthalmus viridescens</name>
+    <name type="common">Eastern newt</name>
+    <name type="synonym">Triturus viridescens</name>
+    <dbReference id="8316" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Rana sylvatica</name>
+    <name type="common">Wood frog</name>
+    <dbReference id="45438" type="NCBI Taxonomy"/>
+  </organismHost>
+  <reference key="1">
+    <citation last="84" first="70" volume="323" name="Virology" date="2004" type="journal article">
+      <title>Comparative genomic analyses of frog virus 3, type species of the genus Ranavirus (family Iridoviridae).</title>
+      <authorList>
+        <person name="Tan W.G."/>
+        <person name="Barkman T.J."/>
+        <person name="Gregory Chinchar V."/>
+        <person name="Essani K."/>
+      </authorList>
+      <dbReference id="15165820" type="PubMed"/>
+      <dbReference id="10.1016/j.virol.2004.02.019" type="DOI"/>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]</scope>
+  </reference>
+  <dbReference id="AY548484" type="EMBL">
+    <property value="AAT09738.1" type="protein sequence ID"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="YP_031657.1" type="RefSeq">
+    <property value="NC_005946.1" type="nucleotide sequence ID"/>
+  </dbReference>
+  <dbReference id="2947797" type="GeneID"/>
+  <proteinExistence type="predicted"/>
+  <keyword id="KW-0181">Complete proteome</keyword>
+  <keyword id="KW-1185">Reference proteome</keyword>
+  <feature description="Uncharacterized protein 078L" id="PRO_0000410552" type="chain">
+    <location>
+      <begin position="1"/>
+      <end position="212"/>
+    </location>
+  </feature>
+  <sequence version="1" modified="2004-07-19" checksum="920D63B5324F6A2F" mass="23985" length="212">MSIGETFAISAHPEGGALFGTISPGMWNQDFIPWIRKTAVDGHLLIVSGSESELGAWRELGARGLSYDEFTFLCPGDRMVWLSEPTEEWLARKRAPMWRCQAVWIQTEKCRLGKNADATLGRAAPHTDAEHLMGMMEGIRELNVHEPQTMVIVSKIGHKNYFSAAGLVTVSFADLAIRPARWVKDRVFAVVRRDDWESDRFRGLCYKWGIEM</sequence>
+</entry>
+<entry version="3" modified="2014-10-01" created="2009-05-05" dataset="Swiss-Prot">
+  <accession>P0C9E9</accession>
+  <name>1001R_ASFWA</name>
+  <protein>
+    <recommendedName>
+      <fullName>Protein MGF 100-1R</fullName>
+    </recommendedName>
+  </protein>
+  <gene>
+    <name type="ordered locus">War-018</name>
+  </gene>
+  <organism>
+    <name type="scientific">African swine fever virus</name>
+    <name type="common">isolate Warthog/Namibia/Wart80/1980</name>
+    <name type="synonym">ASFV</name>
+    <dbReference id="561444" type="NCBI Taxonomy"/>
+    <lineage>
+      <taxon>Viruses</taxon>
+      <taxon>dsDNA viruses, no RNA stage</taxon>
+      <taxon>Asfarviridae</taxon>
+      <taxon>Asfivirus</taxon>
+    </lineage>
+  </organism>
+  <organismHost>
+    <name type="scientific">Ornithodoros</name>
+    <name type="common">relapsing fever ticks</name>
+    <dbReference id="6937" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Phacochoerus aethiopicus</name>
+    <name type="common">Warthog</name>
+    <dbReference id="85517" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Phacochoerus africanus</name>
+    <name type="common">Warthog</name>
+    <dbReference id="41426" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Potamochoerus larvatus</name>
+    <name type="common">Bushpig</name>
+    <dbReference id="273792" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Sus scrofa</name>
+    <name type="common">Pig</name>
+    <dbReference id="9823" type="NCBI Taxonomy"/>
+  </organismHost>
+  <reference key="1">
+    <citation db="EMBL/GenBank/DDBJ databases" date="2003-03" type="submission">
+      <title>African swine fever virus genomes.</title>
+      <authorList>
+        <person name="Kutish G.F."/>
+        <person name="Rock D.L."/>
+      </authorList>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]</scope>
+  </reference>
+  <comment evidence="1" type="function">
+    <text>Plays a role in virus cell tropism, and may be required for efficient virus replication in macrophages.</text>
+  </comment>
+  <comment evidence="2" type="similarity">
+    <text>Belongs to the asfivirus MGF 100 family.</text>
+  </comment>
+  <dbReference id="AY261366" type="EMBL">
+    <property value="NOT_ANNOTATED_CDS" type="status"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <proteinExistence type="inferred from homology"/>
+  <keyword id="KW-0181">Complete proteome</keyword>
+  <feature description="Protein MGF 100-1R" id="PRO_0000373169" type="chain">
+    <location>
+      <begin position="1"/>
+      <end position="124"/>
+    </location>
+  </feature>
+  <evidence key="1" type="ECO:0000250">
+    <source/>
+  </evidence>
+  <evidence key="2" type="ECO:0000305">
+    <source/>
+  </evidence>
+  <sequence version="1" modified="2009-05-05" checksum="C1EC5CC5B6D3E2BB" mass="15327" length="124">MVRLFRNPIKCIFYRRSRKIQEKKLRKSLKKLNFYHPPEDCCQIYRLLENVPGGTYFITENMTNDLIMVVKDSVDKKIKSIKLYLHGSYIKIHQHYYINIYMYLMRYTQIYKYPLICFNKYYNI</sequence>
+</entry>
+<entry version="12" modified="2014-10-29" created="2009-05-05" dataset="Swiss-Prot">
+  <accession>P0C9K0</accession>
+  <name>11013_ASFWA</name>
+  <protein>
+    <recommendedName>
+      <fullName>Protein MGF 110-13L</fullName>
+    </recommendedName>
+  </protein>
+  <gene>
+    <name type="ordered locus">War-020</name>
+  </gene>
+  <organism>
+    <name type="scientific">African swine fever virus</name>
+    <name type="common">isolate Warthog/Namibia/Wart80/1980</name>
+    <name type="synonym">ASFV</name>
+    <dbReference id="561444" type="NCBI Taxonomy"/>
+    <lineage>
+      <taxon>Viruses</taxon>
+      <taxon>dsDNA viruses, no RNA stage</taxon>
+      <taxon>Asfarviridae</taxon>
+      <taxon>Asfivirus</taxon>
+    </lineage>
+  </organism>
+  <organismHost>
+    <name type="scientific">Ornithodoros</name>
+    <name type="common">relapsing fever ticks</name>
+    <dbReference id="6937" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Phacochoerus aethiopicus</name>
+    <name type="common">Warthog</name>
+    <dbReference id="85517" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Phacochoerus africanus</name>
+    <name type="common">Warthog</name>
+    <dbReference id="41426" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Potamochoerus larvatus</name>
+    <name type="common">Bushpig</name>
+    <dbReference id="273792" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Sus scrofa</name>
+    <name type="common">Pig</name>
+    <dbReference id="9823" type="NCBI Taxonomy"/>
+  </organismHost>
+  <reference key="1">
+    <citation db="EMBL/GenBank/DDBJ databases" date="2003-03" type="submission">
+      <title>African swine fever virus genomes.</title>
+      <authorList>
+        <person name="Kutish G.F."/>
+        <person name="Rock D.L."/>
+      </authorList>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]</scope>
+  </reference>
+  <comment evidence="1" type="function">
+    <text>Plays a role in virus cell tropism, and may be required for efficient virus replication in macrophages.</text>
+  </comment>
+  <comment type="subcellular location">
+    <subcellularLocation>
+      <location evidence="3">Host membrane</location>
+      <topology evidence="3">Multi-pass membrane protein</topology>
+    </subcellularLocation>
+  </comment>
+  <comment evidence="3" type="similarity">
+    <text>Belongs to the asfivirus MGF 110 family.</text>
+  </comment>
+  <dbReference id="AY261366" type="EMBL">
+    <property value="NOT_ANNOTATED_CDS" type="status"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="GO:0033644" type="GO">
+    <property value="C:host cell membrane" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="UniProtKB-KW" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0016021" type="GO">
+    <property value="C:integral component of membrane" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="UniProtKB-KW" type="project"/>
+  </dbReference>
+  <dbReference id="IPR004848" type="InterPro">
+    <property value="V110_vir" type="entry name"/>
+  </dbReference>
+  <dbReference id="PF01639" type="Pfam">
+    <property value="v110" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <proteinExistence type="inferred from homology"/>
+  <keyword id="KW-0181">Complete proteome</keyword>
+  <keyword id="KW-1043">Host membrane</keyword>
+  <keyword id="KW-0472">Membrane</keyword>
+  <keyword id="KW-0812">Transmembrane</keyword>
+  <keyword id="KW-1133">Transmembrane helix</keyword>
+  <feature description="Protein MGF 110-13L" id="PRO_0000373222" type="chain">
+    <location>
+      <begin position="1"/>
+      <end position="160"/>
+    </location>
+  </feature>
+  <feature evidence="2" description="Helical" type="transmembrane region">
+    <location>
+      <begin position="13"/>
+      <end position="33"/>
+    </location>
+  </feature>
+  <feature evidence="2" description="Helical" type="transmembrane region">
+    <location>
+      <begin position="35"/>
+      <end position="55"/>
+    </location>
+  </feature>
+  <evidence key="1" type="ECO:0000250">
+    <source/>
+  </evidence>
+  <evidence key="2" type="ECO:0000255">
+    <source/>
+  </evidence>
+  <evidence key="3" type="ECO:0000305">
+    <source/>
+  </evidence>
+  <sequence version="1" modified="2009-05-05" checksum="DD09EE9D6979916B" mass="19115" length="160">MGGGDYWPIIIRHCCFYLVFSIAFVGYIVFAYYKNLHLNTTMKLIALLCILIWLSQPGLNRPLSIFYMKQNLPRTYTPPIRELEYWCTYGKHCDFCWECRNGICKNKVWDDMPLIKQNDYISQCSIARYFDRCMYFIKPKTPYIHYMDCSQPTAYKGFSH</sequence>
+</entry>
+<entry version="4" modified="2014-10-01" created="2009-05-05" dataset="Swiss-Prot">
+  <accession>P0C9I2</accession>
+  <name>1107L_ASFK5</name>
+  <protein>
+    <recommendedName>
+      <fullName>Protein MGF 110-7L</fullName>
+    </recommendedName>
+  </protein>
+  <gene>
+    <name type="ordered locus">Ken-016</name>
+  </gene>
+  <organism>
+    <name type="scientific">African swine fever virus</name>
+    <name type="common">isolate Pig/Kenya/KEN-50/1950</name>
+    <name type="synonym">ASFV</name>
+    <dbReference id="561445" type="NCBI Taxonomy"/>
+    <lineage>
+      <taxon>Viruses</taxon>
+      <taxon>dsDNA viruses, no RNA stage</taxon>
+      <taxon>Asfarviridae</taxon>
+      <taxon>Asfivirus</taxon>
+    </lineage>
+  </organism>
+  <organismHost>
+    <name type="scientific">Ornithodoros</name>
+    <name type="common">relapsing fever ticks</name>
+    <dbReference id="6937" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Phacochoerus aethiopicus</name>
+    <name type="common">Warthog</name>
+    <dbReference id="85517" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Phacochoerus africanus</name>
+    <name type="common">Warthog</name>
+    <dbReference id="41426" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Potamochoerus larvatus</name>
+    <name type="common">Bushpig</name>
+    <dbReference id="273792" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Sus scrofa</name>
+    <name type="common">Pig</name>
+    <dbReference id="9823" type="NCBI Taxonomy"/>
+  </organismHost>
+  <reference key="1">
+    <citation db="EMBL/GenBank/DDBJ databases" date="2003-03" type="submission">
+      <title>African swine fever virus genomes.</title>
+      <authorList>
+        <person name="Kutish G.F."/>
+        <person name="Rock D.L."/>
+      </authorList>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]</scope>
+  </reference>
+  <comment evidence="1" type="function">
+    <text>Plays a role in virus cell tropism, and may be required for efficient virus replication in macrophages.</text>
+  </comment>
+  <comment evidence="3" type="similarity">
+    <text>Belongs to the asfivirus MGF 110 family.</text>
+  </comment>
+  <dbReference id="AY261360" type="EMBL">
+    <property value="NOT_ANNOTATED_CDS" type="status"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="IPR004848" type="InterPro">
+    <property value="V110_vir" type="entry name"/>
+  </dbReference>
+  <dbReference id="PF01639" type="Pfam">
+    <property value="v110" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <proteinExistence type="inferred from homology"/>
+  <keyword id="KW-0181">Complete proteome</keyword>
+  <keyword id="KW-0325">Glycoprotein</keyword>
+  <keyword id="KW-0732">Signal</keyword>
+  <feature evidence="2" type="signal peptide">
+    <location>
+      <begin position="1"/>
+      <end position="20"/>
+    </location>
+  </feature>
+  <feature description="Protein MGF 110-7L" id="PRO_0000373204" type="chain">
+    <location>
+      <begin position="21"/>
+      <end position="137"/>
+    </location>
+  </feature>
+  <feature evidence="2" description="N-linked (GlcNAc...); by host" type="glycosylation site">
+    <location>
+      <position position="69"/>
+    </location>
+  </feature>
+  <feature evidence="2" description="N-linked (GlcNAc...); by host" type="glycosylation site">
+    <location>
+      <position position="70"/>
+    </location>
+  </feature>
+  <feature evidence="2" description="N-linked (GlcNAc...); by host" type="glycosylation site">
+    <location>
+      <position position="105"/>
+    </location>
+  </feature>
+  <evidence key="1" type="ECO:0000250">
+    <source/>
+  </evidence>
+  <evidence key="2" type="ECO:0000255">
+    <source/>
+  </evidence>
+  <evidence key="3" type="ECO:0000305">
+    <source/>
+  </evidence>
+  <sequence precursor="true" version="1" modified="2009-05-05" checksum="53D9E7E525DB5A33" mass="15994" length="137">MLVIILGVIGLLASSNLVSSSTSTRVGGHLPLTFDPPENELGYWCTYVESCRFCWDCEDGVCTSRIWGNNSTSIVENSYIKYCEVSRWGDQCRYDVEEHIYYTMNCSDPKPWNPYKIARKEWKKNEHFRKDLKKDEF</sequence>
+</entry>
+<entry version="14" modified="2011-09-21" created="2009-06-16" dataset="Swiss-Prot">
+  <accession>Q196T7</accession>
+  <name>123L_IIV3</name>
+  <protein>
+    <recommendedName>
+      <fullName>Uncharacterized protein 123L</fullName>
+    </recommendedName>
+  </protein>
+  <gene>
+    <name type="ORF">IIV3-123L</name>
+  </gene>
+  <organism>
+    <name type="scientific">Invertebrate iridescent virus 3</name>
+    <name type="common">IIV-3</name>
+    <name type="synonym">Mosquito iridescent virus</name>
+    <dbReference id="345201" type="NCBI Taxonomy"/>
+    <lineage>
+      <taxon>Viruses</taxon>
+      <taxon>dsDNA viruses, no RNA stage</taxon>
+      <taxon>Iridoviridae</taxon>
+      <taxon>Chloriridovirus</taxon>
+    </lineage>
+  </organism>
+  <organismHost>
+    <name type="scientific">Aedes vexans</name>
+    <name type="common">Inland floodwater mosquito</name>
+    <name type="synonym">Culex vexans</name>
+    <dbReference id="7163" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Culex territans</name>
+    <dbReference id="42431" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Culiseta annulata</name>
+    <dbReference id="332058" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Ochlerotatus sollicitans</name>
+    <name type="common">eastern saltmarsh mosquito</name>
+    <dbReference id="310513" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Ochlerotatus taeniorhynchus</name>
+    <name type="common">Black salt marsh mosquito</name>
+    <name type="synonym">Aedes taeniorhynchus</name>
+    <dbReference id="329105" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Psorophora ferox</name>
+    <dbReference id="7183" type="NCBI Taxonomy"/>
+  </organismHost>
+  <reference key="1">
+    <citation last="8449" first="8439" volume="80" name="J. Virol." date="2006" type="journal article">
+      <title>Genome of invertebrate iridescent virus type 3 (mosquito iridescent virus).</title>
+      <authorList>
+        <person name="Delhon G."/>
+        <person name="Tulman E.R."/>
+        <person name="Afonso C.L."/>
+        <person name="Lu Z."/>
+        <person name="Becnel J.J."/>
+        <person name="Moser B.A."/>
+        <person name="Kutish G.F."/>
+        <person name="Rock D.L."/>
+      </authorList>
+      <dbReference id="16912294" type="PubMed"/>
+      <dbReference id="10.1128/JVI.00464-06" type="DOI"/>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]</scope>
+  </reference>
+  <dbReference id="DQ643392" type="EMBL">
+    <property value="ABF82153.1" type="protein sequence ID"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="YP_654695.1" type="RefSeq">
+    <property value="NC_008187.1" type="nucleotide sequence ID"/>
+  </dbReference>
+  <dbReference id="4156334" type="GeneID"/>
+  <proteinExistence type="predicted"/>
+  <keyword id="KW-0181">Complete proteome</keyword>
+  <keyword id="KW-1185">Reference proteome</keyword>
+  <feature description="Uncharacterized protein 123L" id="PRO_0000377820" type="chain">
+    <location>
+      <begin position="1"/>
+      <end position="139"/>
+    </location>
+  </feature>
+  <feature description="Poly-Gly" type="compositionally biased region">
+    <location>
+      <begin position="92"/>
+      <end position="103"/>
+    </location>
+  </feature>
+  <sequence version="1" modified="2006-07-11" checksum="2B665977E3DE3C2A" mass="15787" length="139">MNSCRVAPTPHEVTIDPGPSVLLQVEKLWLKYHELQTLYYSAYVESFHFRYFHIEALRYLKLYNNFKTVCRLLERVKRLLSLKYATFTPEMGGGGCGGGCGGGDVPSTLGSEELKVLVNYKDIKKFLDTNNLWSVVESS</sequence>
+</entry>
+<entry version="85" modified="2014-11-26" created="2001-12-05" dataset="Swiss-Prot">
+  <accession>Q9C5W6</accession>
+  <accession>Q9FZD3</accession>
+  <name>14312_ARATH</name>
+  <protein>
+    <recommendedName>
+      <fullName>14-3-3-like protein GF14 iota</fullName>
+    </recommendedName>
+    <alternativeName>
+      <fullName>General regulatory factor 12</fullName>
+    </alternativeName>
+  </protein>
+  <gene>
+    <name type="primary">GRF12</name>
+    <name type="ordered locus">At1g26480</name>
+    <name type="ORF">T1K7.15</name>
+  </gene>
+  <organism>
+    <name type="scientific">Arabidopsis thaliana</name>
+    <name type="common">Mouse-ear cress</name>
+    <dbReference id="3702" type="NCBI Taxonomy"/>
+    <lineage>
+      <taxon>Eukaryota</taxon>
+      <taxon>Viridiplantae</taxon>
+      <taxon>Streptophyta</taxon>
+      <taxon>Embryophyta</taxon>
+      <taxon>Tracheophyta</taxon>
+      <taxon>Spermatophyta</taxon>
+      <taxon>Magnoliophyta</taxon>
+      <taxon>eudicotyledons</taxon>
+      <taxon>Gunneridae</taxon>
+      <taxon>Pentapetalae</taxon>
+      <taxon>rosids</taxon>
+      <taxon>malvids</taxon>
+      <taxon>Brassicales</taxon>
+      <taxon>Brassicaceae</taxon>
+      <taxon>Camelineae</taxon>
+      <taxon>Arabidopsis</taxon>
+    </lineage>
+  </organism>
+  <reference key="1">
+    <citation db="EMBL/GenBank/DDBJ databases" date="2001-01" type="submission">
+      <title>Novel 14-3-3 isoforms in Arabidopsis thaliana.</title>
+      <authorList>
+        <person name="Alsterfjord M."/>
+        <person name="Rosenquist M."/>
+        <person name="Larsson C."/>
+        <person name="Sommarin M."/>
+      </authorList>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [MRNA]</scope>
+  </reference>
+  <reference key="2">
+    <citation last="820" first="816" volume="408" name="Nature" date="2000" type="journal article">
+      <title>Sequence and analysis of chromosome 1 of the plant Arabidopsis thaliana.</title>
+      <authorList>
+        <person name="Theologis A."/>
+        <person name="Ecker J.R."/>
+        <person name="Palm C.J."/>
+        <person name="Federspiel N.A."/>
+        <person name="Kaul S."/>
+        <person name="White O."/>
+        <person name="Alonso J."/>
+        <person name="Altafi H."/>
+        <person name="Araujo R."/>
+        <person name="Bowman C.L."/>
+        <person name="Brooks S.Y."/>
+        <person name="Buehler E."/>
+        <person name="Chan A."/>
+        <person name="Chao Q."/>
+        <person name="Chen H."/>
+        <person name="Cheuk R.F."/>
+        <person name="Chin C.W."/>
+        <person name="Chung M.K."/>
+        <person name="Conn L."/>
+        <person name="Conway A.B."/>
+        <person name="Conway A.R."/>
+        <person name="Creasy T.H."/>
+        <person name="Dewar K."/>
+        <person name="Dunn P."/>
+        <person name="Etgu P."/>
+        <person name="Feldblyum T.V."/>
+        <person name="Feng J.-D."/>
+        <person name="Fong B."/>
+        <person name="Fujii C.Y."/>
+        <person name="Gill J.E."/>
+        <person name="Goldsmith A.D."/>
+        <person name="Haas B."/>
+        <person name="Hansen N.F."/>
+        <person name="Hughes B."/>
+        <person name="Huizar L."/>
+        <person name="Hunter J.L."/>
+        <person name="Jenkins J."/>
+        <person name="Johnson-Hopson C."/>
+        <person name="Khan S."/>
+        <person name="Khaykin E."/>
+        <person name="Kim C.J."/>
+        <person name="Koo H.L."/>
+        <person name="Kremenetskaia I."/>
+        <person name="Kurtz D.B."/>
+        <person name="Kwan A."/>
+        <person name="Lam B."/>
+        <person name="Langin-Hooper S."/>
+        <person name="Lee A."/>
+        <person name="Lee J.M."/>
+        <person name="Lenz C.A."/>
+        <person name="Li J.H."/>
+        <person name="Li Y.-P."/>
+        <person name="Lin X."/>
+        <person name="Liu S.X."/>
+        <person name="Liu Z.A."/>
+        <person name="Luros J.S."/>
+        <person name="Maiti R."/>
+        <person name="Marziali A."/>
+        <person name="Militscher J."/>
+        <person name="Miranda M."/>
+        <person name="Nguyen M."/>
+        <person name="Nierman W.C."/>
+        <person name="Osborne B.I."/>
+        <person name="Pai G."/>
+        <person name="Peterson J."/>
+        <person name="Pham P.K."/>
+        <person name="Rizzo M."/>
+        <person name="Rooney T."/>
+        <person name="Rowley D."/>
+        <person name="Sakano H."/>
+        <person name="Salzberg S.L."/>
+        <person name="Schwartz J.R."/>
+        <person name="Shinn P."/>
+        <person name="Southwick A.M."/>
+        <person name="Sun H."/>
+        <person name="Tallon L.J."/>
+        <person name="Tambunga G."/>
+        <person name="Toriumi M.J."/>
+        <person name="Town C.D."/>
+        <person name="Utterback T."/>
+        <person name="Van Aken S."/>
+        <person name="Vaysberg M."/>
+        <person name="Vysotskaia V.S."/>
+        <person name="Walker M."/>
+        <person name="Wu D."/>
+        <person name="Yu G."/>
+        <person name="Fraser C.M."/>
+        <person name="Venter J.C."/>
+        <person name="Davis R.W."/>
+      </authorList>
+      <dbReference id="11130712" type="PubMed"/>
+      <dbReference id="10.1038/35048500" type="DOI"/>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]</scope>
+    <source>
+      <strain>cv. Columbia</strain>
+    </source>
+  </reference>
+  <reference key="3">
+    <citation db="EMBL/GenBank/DDBJ databases" date="2011-04" type="submission">
+      <authorList>
+        <consortium name="The Arabidopsis Information Resource (TAIR)"/>
+      </authorList>
+    </citation>
+    <scope>GENOME REANNOTATION</scope>
+    <source>
+      <strain>cv. Columbia</strain>
+    </source>
+  </reference>
+  <reference key="4">
+    <citation last="846" first="842" volume="302" name="Science" date="2003" type="journal article">
+      <title>Empirical analysis of transcriptional activity in the Arabidopsis genome.</title>
+      <authorList>
+        <person name="Yamada K."/>
+        <person name="Lim J."/>
+        <person name="Dale J.M."/>
+        <person name="Chen H."/>
+        <person name="Shinn P."/>
+        <person name="Palm C.J."/>
+        <person name="Southwick A.M."/>
+        <person name="Wu H.C."/>
+        <person name="Kim C.J."/>
+        <person name="Nguyen M."/>
+        <person name="Pham P.K."/>
+        <person name="Cheuk R.F."/>
+        <person name="Karlin-Newmann G."/>
+        <person name="Liu S.X."/>
+        <person name="Lam B."/>
+        <person name="Sakano H."/>
+        <person name="Wu T."/>
+        <person name="Yu G."/>
+        <person name="Miranda M."/>
+        <person name="Quach H.L."/>
+        <person name="Tripp M."/>
+        <person name="Chang C.H."/>
+        <person name="Lee J.M."/>
+        <person name="Toriumi M.J."/>
+        <person name="Chan M.M."/>
+        <person name="Tang C.C."/>
+        <person name="Onodera C.S."/>
+        <person name="Deng J.M."/>
+        <person name="Akiyama K."/>
+        <person name="Ansari Y."/>
+        <person name="Arakawa T."/>
+        <person name="Banh J."/>
+        <person name="Banno F."/>
+        <person name="Bowser L."/>
+        <person name="Brooks S.Y."/>
+        <person name="Carninci P."/>
+        <person name="Chao Q."/>
+        <person name="Choy N."/>
+        <person name="Enju A."/>
+        <person name="Goldsmith A.D."/>
+        <person name="Gurjal M."/>
+        <person name="Hansen N.F."/>
+        <person name="Hayashizaki Y."/>
+        <person name="Johnson-Hopson C."/>
+        <person name="Hsuan V.W."/>
+        <person name="Iida K."/>
+        <person name="Karnes M."/>
+        <person name="Khan S."/>
+        <person name="Koesema E."/>
+        <person name="Ishida J."/>
+        <person name="Jiang P.X."/>
+        <person name="Jones T."/>
+        <person name="Kawai J."/>
+        <person name="Kamiya A."/>
+        <person name="Meyers C."/>
+        <person name="Nakajima M."/>
+        <person name="Narusaka M."/>
+        <person name="Seki M."/>
+        <person name="Sakurai T."/>
+        <person name="Satou M."/>
+        <person name="Tamse R."/>
+        <person name="Vaysberg M."/>
+        <person name="Wallender E.K."/>
+        <person name="Wong C."/>
+        <person name="Yamamura Y."/>
+        <person name="Yuan S."/>
+        <person name="Shinozaki K."/>
+        <person name="Davis R.W."/>
+        <person name="Theologis A."/>
+        <person name="Ecker J.R."/>
+      </authorList>
+      <dbReference id="14593172" type="PubMed"/>
+      <dbReference id="10.1126/science.1088305" type="DOI"/>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [LARGE SCALE MRNA]</scope>
+    <source>
+      <strain>cv. Columbia</strain>
+    </source>
+  </reference>
+  <comment evidence="1" type="function">
+    <text>Is associated with a DNA binding complex that binds to the G box, a well-characterized cis-acting DNA regulatory element found in plant genes.</text>
+  </comment>
+  <comment evidence="2" type="similarity">
+    <text>Belongs to the 14-3-3 family.</text>
+  </comment>
+  <dbReference id="AF335544" type="EMBL">
+    <property value="AAK11271.1" type="protein sequence ID"/>
+    <property value="mRNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="AC013427" type="EMBL">
+    <property value="AAF98570.1" type="protein sequence ID"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="CP002684" type="EMBL">
+    <property value="AEE30696.1" type="protein sequence ID"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="BT006230" type="EMBL">
+    <property value="AAP12879.1" type="protein sequence ID"/>
+    <property value="mRNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="F86391" type="PIR">
+    <property value="F86391" type="entry name"/>
+  </dbReference>
+  <dbReference id="NP_564249.1" type="RefSeq">
+    <property value="NM_102411.2" type="nucleotide sequence ID"/>
+  </dbReference>
+  <dbReference id="At.15965" type="UniGene"/>
+  <dbReference id="Q9C5W6" type="ProteinModelPortal"/>
+  <dbReference id="Q9C5W6" type="SMR">
+    <property value="9-238" type="residue range"/>
+  </dbReference>
+  <dbReference id="24425" type="BioGrid">
+    <property value="2" type="interactions"/>
+  </dbReference>
+  <dbReference id="Q9C5W6" type="IntAct">
+    <property value="1" type="interactions"/>
+  </dbReference>
+  <dbReference id="MINT-8059115" type="MINT"/>
+  <dbReference id="Q9C5W6" type="PaxDb"/>
+  <dbReference id="Q9C5W6" type="PRIDE"/>
+  <dbReference id="AT1G26480.1" type="EnsemblPlants">
+    <property value="AT1G26480.1" type="protein sequence ID"/>
+    <property value="AT1G26480" type="gene ID"/>
+  </dbReference>
+  <dbReference id="839189" type="GeneID"/>
+  <dbReference id="ath:AT1G26480" type="KEGG"/>
+  <dbReference id="AT1G26480" type="TAIR"/>
+  <dbReference id="COG5040" type="eggNOG"/>
+  <dbReference id="HOG000240379" type="HOGENOM"/>
+  <dbReference id="Q9C5W6" type="InParanoid"/>
+  <dbReference id="TICNDIL" type="OMA"/>
+  <dbReference id="Q9C5W6" type="PhylomeDB"/>
+  <dbReference id="REACT_220111" type="Reactome">
+    <property value="Regulation of HSF1-mediated heat shock response" type="pathway name"/>
+  </dbReference>
+  <dbReference id="REACT_257743" type="Reactome">
+    <property value="HSF1 activation" type="pathway name"/>
+  </dbReference>
+  <dbReference id="Q9C5W6" type="Genevestigator"/>
+  <dbReference id="1.20.190.20" type="Gene3D">
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="IPR000308" type="InterPro">
+    <property value="14-3-3" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR023409" type="InterPro">
+    <property value="14-3-3_CS" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR023410" type="InterPro">
+    <property value="14-3-3_domain" type="entry name"/>
+  </dbReference>
+  <dbReference id="PTHR18860" type="PANTHER">
+    <property value="PTHR18860" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PF00244" type="Pfam">
+    <property value="14-3-3" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PIRSF000868" type="PIRSF">
+    <property value="14-3-3" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PR00305" type="PRINTS">
+    <property value="1433ZETA" type="entry name"/>
+  </dbReference>
+  <dbReference id="SM00101" type="SMART">
+    <property value="14_3_3" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="SSF48445" type="SUPFAM">
+    <property value="SSF48445" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PS00796" type="PROSITE">
+    <property value="1433_1" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PS00797" type="PROSITE">
+    <property value="1433_2" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <proteinExistence type="evidence at transcript level"/>
+  <keyword id="KW-0181">Complete proteome</keyword>
+  <keyword id="KW-1185">Reference proteome</keyword>
+  <feature evidence="1" description="Removed" type="initiator methionine">
+    <location>
+      <position position="1"/>
+    </location>
+  </feature>
+  <feature description="14-3-3-like protein GF14 iota" id="PRO_0000058674" type="chain">
+    <location>
+      <begin position="2"/>
+      <end position="268"/>
+    </location>
+  </feature>
+  <feature ref="2" evidence="2" description="(in Ref. 2; AAF98570)" type="sequence conflict">
+    <original>N</original>
+    <variation>VVIHFKMRTDQRAWKLNEI</variation>
+    <location>
+      <position position="268"/>
+    </location>
+  </feature>
+  <evidence key="1" type="ECO:0000250">
+    <source/>
+  </evidence>
+  <evidence key="2" type="ECO:0000305">
+    <source/>
+  </evidence>
+  <sequence version="1" modified="2001-06-01" checksum="914F394CEC07A28C" mass="30545" length="268">MSSSGSDKERETFVYMAKLSEQAERYDEMVETMKKVARVNSELTVEERNLLSVGYKNVIGARRASWRIMSSIEQKEESKGNESNVKQIKGYRQKVEDELANICQDILTIIDQHLIPHATSGEATVFYYKMKGDYYRYLAEFKTEQERKEAAEQSLKGYEAATQAASTELPSTHPIRLGLALNFSVFYYEIMNSPERACHLAKQAFDEAIAELDTLSEESYKDSTLIMQLLRDNLTLWTSDLPEDGGEDNIKTEESKQEQAKPADATEN</sequence>
+</entry>
+<entry version="12" modified="2014-10-01" created="2008-09-02" dataset="Swiss-Prot">
+  <accession>P85942</accession>
+  <name>14334_PSEMZ</name>
+  <protein>
+    <recommendedName>
+      <fullName evidence="1">14-3-3-like protein 4</fullName>
+    </recommendedName>
+  </protein>
+  <organism>
+    <name type="scientific">Pseudotsuga menziesii</name>
+    <name type="common">Douglas-fir</name>
+    <name type="synonym">Abies menziesii</name>
+    <dbReference id="3357" type="NCBI Taxonomy"/>
+    <lineage>
+      <taxon>Eukaryota</taxon>
+      <taxon>Viridiplantae</taxon>
+      <taxon>Streptophyta</taxon>
+      <taxon>Embryophyta</taxon>
+      <taxon>Tracheophyta</taxon>
+      <taxon>Spermatophyta</taxon>
+      <taxon>Pinidae</taxon>
+      <taxon>Pinales</taxon>
+      <taxon>Pinaceae</taxon>
+      <taxon>Pseudotsuga</taxon>
+    </lineage>
+  </organism>
+  <reference key="1">
+    <citation last="438" first="425" volume="71" name="J. Proteomics" date="2008" type="journal article">
+      <title>A proteomics approach to identify proteins differentially expressed in Douglas-fir seedlings infected by Phellinus sulphurascens.</title>
+      <authorList>
+        <person name="Islam M.A."/>
+        <person name="Sturrock R.N."/>
+        <person name="Ekramoddoullah A.K.M."/>
+      </authorList>
+      <dbReference id="18602030" type="PubMed"/>
+      <dbReference id="10.1016/j.jprot.2008.06.004" type="DOI"/>
+    </citation>
+    <scope>IDENTIFICATION BY MASS SPECTROMETRY</scope>
+  </reference>
+  <comment evidence="2" type="similarity">
+    <text>Belongs to the 14-3-3 family.</text>
+  </comment>
+  <dbReference id="P85942" type="PRIDE"/>
+  <dbReference id="IPR023410" type="InterPro">
+    <property value="14-3-3_domain" type="entry name"/>
+  </dbReference>
+  <dbReference id="SSF48445" type="SUPFAM">
+    <property value="SSF48445" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <proteinExistence type="evidence at protein level"/>
+  <feature description="14-3-3-like protein 4" id="PRO_0000347317" type="chain">
+    <location>
+      <begin status="less than" position="1"/>
+      <end status="greater than" position="28"/>
+    </location>
+  </feature>
+  <feature evidence="3" type="non-consecutive residues">
+    <location>
+      <begin position="18"/>
+      <end position="19"/>
+    </location>
+  </feature>
+  <feature evidence="3" type="non-terminal residue">
+    <location>
+      <position position="1"/>
+    </location>
+  </feature>
+  <feature evidence="3" type="non-terminal residue">
+    <location>
+      <position position="28"/>
+    </location>
+  </feature>
+  <evidence key="1" type="ECO:0000250">
+    <source>
+      <dbReference id="Q96453" type="UniProtKB"/>
+    </source>
+  </evidence>
+  <evidence key="2" type="ECO:0000255">
+    <source/>
+  </evidence>
+  <evidence key="3" type="ECO:0000303">
+    <source>
+      <dbReference id="18602030" type="PubMed"/>
+    </source>
+  </evidence>
+  <sequence fragment="multiple" version="1" modified="2008-09-02" checksum="1251EFE8C670F3E9" mass="3249" length="28">LDVELTVEERNLLSVGYKDSTLIMQLLR</sequence>
+</entry>
+<entry version="60" modified="2014-10-29" created="1998-07-15" dataset="Swiss-Prot">
+  <accession>Q96451</accession>
+  <name>1433B_SOYBN</name>
+  <protein>
+    <recommendedName>
+      <fullName>14-3-3-like protein B</fullName>
+    </recommendedName>
+    <alternativeName>
+      <fullName>SGF14B</fullName>
+    </alternativeName>
+  </protein>
+  <gene>
+    <name type="primary">GF14B</name>
+  </gene>
+  <organism>
+    <name type="scientific">Glycine max</name>
+    <name type="common">Soybean</name>
+    <name type="synonym">Glycine hispida</name>
+    <dbReference id="3847" type="NCBI Taxonomy"/>
+    <lineage>
+      <taxon>Eukaryota</taxon>
+      <taxon>Viridiplantae</taxon>
+      <taxon>Streptophyta</taxon>
+      <taxon>Embryophyta</taxon>
+      <taxon>Tracheophyta</taxon>
+      <taxon>Spermatophyta</taxon>
+      <taxon>Magnoliophyta</taxon>
+      <taxon>eudicotyledons</taxon>
+      <taxon>Gunneridae</taxon>
+      <taxon>Pentapetalae</taxon>
+      <taxon>rosids</taxon>
+      <taxon>fabids</taxon>
+      <taxon>Fabales</taxon>
+      <taxon>Fabaceae</taxon>
+      <taxon>Papilionoideae</taxon>
+      <taxon>Phaseoleae</taxon>
+      <taxon>Glycine</taxon>
+      <taxon>Soja</taxon>
+    </lineage>
+  </organism>
+  <reference key="1">
+    <citation db="EMBL/GenBank/DDBJ databases" date="1996-09" type="submission">
+      <authorList>
+        <person name="Ryu G.R."/>
+        <person name="Yoo C.M."/>
+        <person name="Jeong H.J."/>
+        <person name="Hong J.C."/>
+      </authorList>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [MRNA]</scope>
+    <source>
+      <strain>cv. Williams</strain>
+    </source>
+  </reference>
+  <comment evidence="1" type="similarity">
+    <text>Belongs to the 14-3-3 family.</text>
+  </comment>
+  <dbReference id="U70534" type="EMBL">
+    <property value="AAB09581.1" type="protein sequence ID"/>
+    <property value="mRNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="T08842" type="PIR">
+    <property value="T08842" type="entry name"/>
+  </dbReference>
+  <dbReference id="Gma.1417" type="UniGene"/>
+  <dbReference id="Q96451" type="ProteinModelPortal"/>
+  <dbReference id="Q96451" type="SMR">
+    <property value="6-239" type="residue range"/>
+  </dbReference>
+  <dbReference id="Q96451" type="PRIDE"/>
+  <dbReference id="Q96451" type="InParanoid"/>
+  <dbReference id="Q96451" type="Genevestigator"/>
+  <dbReference id="1.20.190.20" type="Gene3D">
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="IPR000308" type="InterPro">
+    <property value="14-3-3" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR023409" type="InterPro">
+    <property value="14-3-3_CS" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR023410" type="InterPro">
+    <property value="14-3-3_domain" type="entry name"/>
+  </dbReference>
+  <dbReference id="PTHR18860" type="PANTHER">
+    <property value="PTHR18860" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PF00244" type="Pfam">
+    <property value="14-3-3" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PIRSF000868" type="PIRSF">
+    <property value="14-3-3" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PR00305" type="PRINTS">
+    <property value="1433ZETA" type="entry name"/>
+  </dbReference>
+  <dbReference id="SM00101" type="SMART">
+    <property value="14_3_3" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="SSF48445" type="SUPFAM">
+    <property value="SSF48445" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PS00796" type="PROSITE">
+    <property value="1433_1" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PS00797" type="PROSITE">
+    <property value="1433_2" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <proteinExistence type="evidence at transcript level"/>
+  <keyword id="KW-0181">Complete proteome</keyword>
+  <keyword id="KW-1185">Reference proteome</keyword>
+  <feature description="14-3-3-like protein B" id="PRO_0000058702" type="chain">
+    <location>
+      <begin status="less than" position="1"/>
+      <end position="247"/>
+    </location>
+  </feature>
+  <feature type="non-terminal residue">
+    <location>
+      <position position="1"/>
+    </location>
+  </feature>
+  <evidence key="1" type="ECO:0000305">
+    <source/>
+  </evidence>
+  <sequence fragment="single" version="1" modified="1997-02-01" checksum="9EDFBB4B4F61C468" mass="27921" length="247">AEGLNREQYVYLANVSEQAERYEEMVEFMQKVVVGSTPASELTVEERNLLSVAYKNVIGSLRAAWRIVSSIEQKEEGRKNDDHVSLVKHYRSKVENELTQVCATILSLLDSNLVPSASASESKVFYLKMKGDYHRYLAEFKVGDERKTATEDTMLSYKAAQDIASADLPPTHPIRLGLALNFSVFYYEILNQSDKACAMAKQAFEEAIAELDTLGEESYKDSTLIMQLLRDNLTLWTSDVQDQLDEP</sequence>
+</entry>
+<entry version="114" modified="2014-10-29" created="2001-09-26" dataset="Swiss-Prot">
+  <accession>O70456</accession>
+  <accession>Q3TEZ1</accession>
+  <name>1433S_MOUSE</name>
+  <protein>
+    <recommendedName>
+      <fullName>14-3-3 protein sigma</fullName>
+    </recommendedName>
+    <alternativeName>
+      <fullName>Stratifin</fullName>
+    </alternativeName>
+  </protein>
+  <gene>
+    <name type="primary">Sfn</name>
+    <name type="synonym">Mkrn3</name>
+  </gene>
+  <organism>
+    <name type="scientific">Mus musculus</name>
+    <name type="common">Mouse</name>
+    <dbReference id="10090" type="NCBI Taxonomy"/>
+    <lineage>
+      <taxon>Eukaryota</taxon>
+      <taxon>Metazoa</taxon>
+      <taxon>Chordata</taxon>
+      <taxon>Craniata</taxon>
+      <taxon>Vertebrata</taxon>
+      <taxon>Euteleostomi</taxon>
+      <taxon>Mammalia</taxon>
+      <taxon>Eutheria</taxon>
+      <taxon>Euarchontoglires</taxon>
+      <taxon>Glires</taxon>
+      <taxon>Rodentia</taxon>
+      <taxon>Sciurognathi</taxon>
+      <taxon>Muroidea</taxon>
+      <taxon>Muridae</taxon>
+      <taxon>Murinae</taxon>
+      <taxon>Mus</taxon>
+      <taxon>Mus</taxon>
+    </lineage>
+  </organism>
+  <reference key="1">
+    <citation db="EMBL/GenBank/DDBJ databases" date="1998-04" type="submission">
+      <authorList>
+        <person name="Karpitskiy V.V."/>
+        <person name="Shaw A.S."/>
+      </authorList>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [MRNA]</scope>
+    <source>
+      <strain>FVB/N</strain>
+    </source>
+  </reference>
+  <reference key="2">
+    <citation last="1563" first="1559" volume="309" name="Science" date="2005" type="journal article">
+      <title>The transcriptional landscape of the mammalian genome.</title>
+      <authorList>
+        <person name="Carninci P."/>
+        <person name="Kasukawa T."/>
+        <person name="Katayama S."/>
+        <person name="Gough J."/>
+        <person name="Frith M.C."/>
+        <person name="Maeda N."/>
+        <person name="Oyama R."/>
+        <person name="Ravasi T."/>
+        <person name="Lenhard B."/>
+        <person name="Wells C."/>
+        <person name="Kodzius R."/>
+        <person name="Shimokawa K."/>
+        <person name="Bajic V.B."/>
+        <person name="Brenner S.E."/>
+        <person name="Batalov S."/>
+        <person name="Forrest A.R."/>
+        <person name="Zavolan M."/>
+        <person name="Davis M.J."/>
+        <person name="Wilming L.G."/>
+        <person name="Aidinis V."/>
+        <person name="Allen J.E."/>
+        <person name="Ambesi-Impiombato A."/>
+        <person name="Apweiler R."/>
+        <person name="Aturaliya R.N."/>
+        <person name="Bailey T.L."/>
+        <person name="Bansal M."/>
+        <person name="Baxter L."/>
+        <person name="Beisel K.W."/>
+        <person name="Bersano T."/>
+        <person name="Bono H."/>
+        <person name="Chalk A.M."/>
+        <person name="Chiu K.P."/>
+        <person name="Choudhary V."/>
+        <person name="Christoffels A."/>
+        <person name="Clutterbuck D.R."/>
+        <person name="Crowe M.L."/>
+        <person name="Dalla E."/>
+        <person name="Dalrymple B.P."/>
+        <person name="de Bono B."/>
+        <person name="Della Gatta G."/>
+        <person name="di Bernardo D."/>
+        <person name="Down T."/>
+        <person name="Engstrom P."/>
+        <person name="Fagiolini M."/>
+        <person name="Faulkner G."/>
+        <person name="Fletcher C.F."/>
+        <person name="Fukushima T."/>
+        <person name="Furuno M."/>
+        <person name="Futaki S."/>
+        <person name="Gariboldi M."/>
+        <person name="Georgii-Hemming P."/>
+        <person name="Gingeras T.R."/>
+        <person name="Gojobori T."/>
+        <person name="Green R.E."/>
+        <person name="Gustincich S."/>
+        <person name="Harbers M."/>
+        <person name="Hayashi Y."/>
+        <person name="Hensch T.K."/>
+        <person name="Hirokawa N."/>
+        <person name="Hill D."/>
+        <person name="Huminiecki L."/>
+        <person name="Iacono M."/>
+        <person name="Ikeo K."/>
+        <person name="Iwama A."/>
+        <person name="Ishikawa T."/>
+        <person name="Jakt M."/>
+        <person name="Kanapin A."/>
+        <person name="Katoh M."/>
+        <person name="Kawasawa Y."/>
+        <person name="Kelso J."/>
+        <person name="Kitamura H."/>
+        <person name="Kitano H."/>
+        <person name="Kollias G."/>
+        <person name="Krishnan S.P."/>
+        <person name="Kruger A."/>
+        <person name="Kummerfeld S.K."/>
+        <person name="Kurochkin I.V."/>
+        <person name="Lareau L.F."/>
+        <person name="Lazarevic D."/>
+        <person name="Lipovich L."/>
+        <person name="Liu J."/>
+        <person name="Liuni S."/>
+        <person name="McWilliam S."/>
+        <person name="Madan Babu M."/>
+        <person name="Madera M."/>
+        <person name="Marchionni L."/>
+        <person name="Matsuda H."/>
+        <person name="Matsuzawa S."/>
+        <person name="Miki H."/>
+        <person name="Mignone F."/>
+        <person name="Miyake S."/>
+        <person name="Morris K."/>
+        <person name="Mottagui-Tabar S."/>
+        <person name="Mulder N."/>
+        <person name="Nakano N."/>
+        <person name="Nakauchi H."/>
+        <person name="Ng P."/>
+        <person name="Nilsson R."/>
+        <person name="Nishiguchi S."/>
+        <person name="Nishikawa S."/>
+        <person name="Nori F."/>
+        <person name="Ohara O."/>
+        <person name="Okazaki Y."/>
+        <person name="Orlando V."/>
+        <person name="Pang K.C."/>
+        <person name="Pavan W.J."/>
+        <person name="Pavesi G."/>
+        <person name="Pesole G."/>
+        <person name="Petrovsky N."/>
+        <person name="Piazza S."/>
+        <person name="Reed J."/>
+        <person name="Reid J.F."/>
+        <person name="Ring B.Z."/>
+        <person name="Ringwald M."/>
+        <person name="Rost B."/>
+        <person name="Ruan Y."/>
+        <person name="Salzberg S.L."/>
+        <person name="Sandelin A."/>
+        <person name="Schneider C."/>
+        <person name="Schoenbach C."/>
+        <person name="Sekiguchi K."/>
+        <person name="Semple C.A."/>
+        <person name="Seno S."/>
+        <person name="Sessa L."/>
+        <person name="Sheng Y."/>
+        <person name="Shibata Y."/>
+        <person name="Shimada H."/>
+        <person name="Shimada K."/>
+        <person name="Silva D."/>
+        <person name="Sinclair B."/>
+        <person name="Sperling S."/>
+        <person name="Stupka E."/>
+        <person name="Sugiura K."/>
+        <person name="Sultana R."/>
+        <person name="Takenaka Y."/>
+        <person name="Taki K."/>
+        <person name="Tammoja K."/>
+        <person name="Tan S.L."/>
+        <person name="Tang S."/>
+        <person name="Taylor M.S."/>
+        <person name="Tegner J."/>
+        <person name="Teichmann S.A."/>
+        <person name="Ueda H.R."/>
+        <person name="van Nimwegen E."/>
+        <person name="Verardo R."/>
+        <person name="Wei C.L."/>
+        <person name="Yagi K."/>
+        <person name="Yamanishi H."/>
+        <person name="Zabarovsky E."/>
+        <person name="Zhu S."/>
+        <person name="Zimmer A."/>
+        <person name="Hide W."/>
+        <person name="Bult C."/>
+        <person name="Grimmond S.M."/>
+        <person name="Teasdale R.D."/>
+        <person name="Liu E.T."/>
+        <person name="Brusic V."/>
+        <person name="Quackenbush J."/>
+        <person name="Wahlestedt C."/>
+        <person name="Mattick J.S."/>
+        <person name="Hume D.A."/>
+        <person name="Kai C."/>
+        <person name="Sasaki D."/>
+        <person name="Tomaru Y."/>
+        <person name="Fukuda S."/>
+        <person name="Kanamori-Katayama M."/>
+        <person name="Suzuki M."/>
+        <person name="Aoki J."/>
+        <person name="Arakawa T."/>
+        <person name="Iida J."/>
+        <person name="Imamura K."/>
+        <person name="Itoh M."/>
+        <person name="Kato T."/>
+        <person name="Kawaji H."/>
+        <person name="Kawagashira N."/>
+        <person name="Kawashima T."/>
+        <person name="Kojima M."/>
+        <person name="Kondo S."/>
+        <person name="Konno H."/>
+        <person name="Nakano K."/>
+        <person name="Ninomiya N."/>
+        <person name="Nishio T."/>
+        <person name="Okada M."/>
+        <person name="Plessy C."/>
+        <person name="Shibata K."/>
+        <person name="Shiraki T."/>
+        <person name="Suzuki S."/>
+        <person name="Tagami M."/>
+        <person name="Waki K."/>
+        <person name="Watahiki A."/>
+        <person name="Okamura-Oho Y."/>
+        <person name="Suzuki H."/>
+        <person name="Kawai J."/>
+        <person name="Hayashizaki Y."/>
+      </authorList>
+      <dbReference id="16141072" type="PubMed"/>
+      <dbReference id="10.1126/science.1112014" type="DOI"/>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [LARGE SCALE MRNA]</scope>
+    <source>
+      <strain>C57BL/6J</strain>
+      <tissue>Heart</tissue>
+      <tissue>Stomach</tissue>
+    </source>
+  </reference>
+  <reference key="3">
+    <citation last="E1000112" first="E1000112" volume="7" name="PLoS Biol." date="2009" type="journal article">
+      <title>Lineage-specific biology revealed by a finished genome assembly of the mouse.</title>
+      <authorList>
+        <person name="Church D.M."/>
+        <person name="Goodstadt L."/>
+        <person name="Hillier L.W."/>
+        <person name="Zody M.C."/>
+        <person name="Goldstein S."/>
+        <person name="She X."/>
+        <person name="Bult C.J."/>
+        <person name="Agarwala R."/>
+        <person name="Cherry J.L."/>
+        <person name="DiCuccio M."/>
+        <person name="Hlavina W."/>
+        <person name="Kapustin Y."/>
+        <person name="Meric P."/>
+        <person name="Maglott D."/>
+        <person name="Birtle Z."/>
+        <person name="Marques A.C."/>
+        <person name="Graves T."/>
+        <person name="Zhou S."/>
+        <person name="Teague B."/>
+        <person name="Potamousis K."/>
+        <person name="Churas C."/>
+        <person name="Place M."/>
+        <person name="Herschleb J."/>
+        <person name="Runnheim R."/>
+        <person name="Forrest D."/>
+        <person name="Amos-Landgraf J."/>
+        <person name="Schwartz D.C."/>
+        <person name="Cheng Z."/>
+        <person name="Lindblad-Toh K."/>
+        <person name="Eichler E.E."/>
+        <person name="Ponting C.P."/>
+      </authorList>
+      <dbReference id="19468303" type="PubMed"/>
+      <dbReference id="10.1371/journal.pbio.1000112" type="DOI"/>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]</scope>
+    <source>
+      <strain>C57BL/6J</strain>
+    </source>
+  </reference>
+  <reference key="4">
+    <citation db="EMBL/GenBank/DDBJ databases" date="2005-09" type="submission">
+      <authorList>
+        <person name="Mural R.J."/>
+        <person name="Adams M.D."/>
+        <person name="Myers E.W."/>
+        <person name="Smith H.O."/>
+        <person name="Venter J.C."/>
+      </authorList>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]</scope>
+  </reference>
+  <reference key="5">
+    <citation db="UniProtKB" date="2009-01" type="submission">
+      <authorList>
+        <person name="Lubec G."/>
+        <person name="Kang S.U."/>
+        <person name="Sunyer B."/>
+        <person name="Chen W.-Q."/>
+      </authorList>
+    </citation>
+    <scope>PROTEIN SEQUENCE OF 1-12; 42-49; 61-68 AND 215-224</scope>
+    <scope>IDENTIFICATION BY MASS SPECTROMETRY</scope>
+    <source>
+      <strain>C57BL/6</strain>
+      <strain>OF1</strain>
+      <tissue>Brain</tissue>
+      <tissue>Hippocampus</tissue>
+    </source>
+  </reference>
+  <reference key="6">
+    <citation last="365" first="362" volume="441" name="Nature" date="2006" type="journal article">
+      <title>A keratin cytoskeletal protein regulates protein synthesis and epithelial cell growth.</title>
+      <authorList>
+        <person name="Kim S."/>
+        <person name="Wong P."/>
+        <person name="Coulombe P.A."/>
+      </authorList>
+      <dbReference id="16710422" type="PubMed"/>
+      <dbReference id="10.1038/nature04659" type="DOI"/>
+    </citation>
+    <scope>FUNCTION</scope>
+    <scope>INTERACTION WITH KRT17</scope>
+    <scope>SUBCELLULAR LOCATION</scope>
+    <scope>TISSUE SPECIFICITY</scope>
+    <scope>INDUCTION</scope>
+  </reference>
+  <reference key="7">
+    <citation last="1481" first="1472" volume="42" name="Int. J. Biochem. Cell Biol." date="2010" type="journal article">
+      <title>SLy2 targets the nuclear SAP30/HDAC1 complex.</title>
+      <authorList>
+        <person name="Brandt S."/>
+        <person name="Ellwanger K."/>
+        <person name="Beuter-Gunia C."/>
+        <person name="Schuster M."/>
+        <person name="Hausser A."/>
+        <person name="Schmitz I."/>
+        <person name="Beer-Hammer S."/>
+      </authorList>
+      <dbReference id="20478393" type="PubMed"/>
+      <dbReference id="10.1016/j.biocel.2010.05.004" type="DOI"/>
+    </citation>
+    <scope>INTERACTION WITH SAMSN1</scope>
+  </reference>
+  <comment evidence="2" type="function">
+    <text>Adapter protein implicated in the regulation of a large spectrum of both general and specialized signaling pathways. Binds to a large number of partners, usually by recognition of a phosphoserine or phosphothreonine motif. Binding generally results in the modulation of the activity of the binding partner. When bound to KRT17, regulates protein synthesis and epithelial cell growth by stimulating Akt/mTOR pathway. May also regulate MDM2 autoubiquitination and degradation and thereby activate p53/TP53.</text>
+  </comment>
+  <comment evidence="1" type="subunit">
+    <text status="by similarity">Homodimer. Found in a complex with XPO7, EIF4A1, ARHGAP1, VPS26A, VPS29, VPS35 and SFN. Interacts with GAB2 (By similarity). Interacts with KRT17. Interacts with SAMSN1. Interacts with SRPK2 (By similarity). Interacts with COPS6 (By similarity). Interacts with RFWD2; this interaction leads to proteasomal degradation.</text>
+  </comment>
+  <comment type="interaction">
+    <interactant intactId="EBI-1544118"/>
+    <interactant intactId="EBI-309015">
+      <id>Q9QWL7</id>
+      <label>Krt17</label>
+    </interactant>
+    <organismsDiffer>false</organismsDiffer>
+    <experiments>3</experiments>
+  </comment>
+  <comment type="subcellular location">
+    <subcellularLocation>
+      <location evidence="2">Cytoplasm</location>
+    </subcellularLocation>
+    <subcellularLocation>
+      <location evidence="2">Nucleus</location>
+    </subcellularLocation>
+    <subcellularLocation>
+      <location evidence="1">Secreted</location>
+    </subcellularLocation>
+    <text evidence="1">May be secreted by a non-classical secretory pathway.</text>
+  </comment>
+  <comment evidence="2" type="tissue specificity">
+    <text>Expressed in the basal layer of skin epithelium and in outer root sheath of hair follicle.</text>
+  </comment>
+  <comment evidence="2" type="induction">
+    <text>Induced in damaged or stressed epidermis.</text>
+  </comment>
+  <comment evidence="1" type="PTM">
+    <text status="by similarity">Ubiquitinated. Ubiquitination by RFFL induces proteasomal degradation and indirectly regulates p53/TP53 activation.</text>
+  </comment>
+  <comment type="miscellaneous">
+    <text>14-3-3 proteins have been shown to be PKC activators, but this effect could be non-specific and only due to the acidic nature of the protein.</text>
+  </comment>
+  <comment evidence="3" type="similarity">
+    <text>Belongs to the 14-3-3 family.</text>
+  </comment>
+  <dbReference id="AF058798" type="EMBL">
+    <property value="AAC14344.1" type="protein sequence ID"/>
+    <property value="mRNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="AK146490" type="EMBL">
+    <property value="BAE27209.1" type="protein sequence ID"/>
+    <property value="mRNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="AK169358" type="EMBL">
+    <property value="BAE41107.1" type="protein sequence ID"/>
+    <property value="mRNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="AL627228" type="EMBL">
+    <property value="CAM14836.1" type="protein sequence ID"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="CH466552" type="EMBL">
+    <property value="EDL30056.1" type="protein sequence ID"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="CCDS18754.1" type="CCDS"/>
+  <dbReference id="NP_061224.2" type="RefSeq">
+    <property value="NM_018754.2" type="nucleotide sequence ID"/>
+  </dbReference>
+  <dbReference id="Mm.44482" type="UniGene"/>
+  <dbReference id="O70456" type="ProteinModelPortal"/>
+  <dbReference id="O70456" type="SMR">
+    <property value="1-231" type="residue range"/>
+  </dbReference>
+  <dbReference id="207743" type="BioGrid">
+    <property value="5" type="interactions"/>
+  </dbReference>
+  <dbReference id="O70456" type="IntAct">
+    <property value="4" type="interactions"/>
+  </dbReference>
+  <dbReference id="MINT-240814" type="MINT"/>
+  <dbReference id="10090.ENSMUSP00000050374" type="STRING"/>
+  <dbReference id="CHEMBL1909483" type="ChEMBL"/>
+  <dbReference id="O70456" type="MaxQB"/>
+  <dbReference id="O70456" type="PaxDb"/>
+  <dbReference id="O70456" type="PRIDE"/>
+  <dbReference id="55948" type="DNASU"/>
+  <dbReference id="ENSMUST00000057311" type="Ensembl">
+    <property value="ENSMUSP00000050374" type="protein sequence ID"/>
+    <property value="ENSMUSG00000047281" type="gene ID"/>
+  </dbReference>
+  <dbReference id="55948" type="GeneID"/>
+  <dbReference id="mmu:55948" type="KEGG"/>
+  <dbReference id="uc008vdc.1" type="UCSC">
+    <property value="mouse" type="organism name"/>
+  </dbReference>
+  <dbReference id="2810" type="CTD"/>
+  <dbReference id="MGI:1891831" type="MGI">
+    <property value="Sfn" type="gene designation"/>
+  </dbReference>
+  <dbReference id="COG5040" type="eggNOG"/>
+  <dbReference id="ENSGT00760000119116" type="GeneTree"/>
+  <dbReference id="HOG000240379" type="HOGENOM"/>
+  <dbReference id="HBG050423" type="HOVERGEN"/>
+  <dbReference id="O70456" type="InParanoid"/>
+  <dbReference id="K06644" type="KO"/>
+  <dbReference id="EQKGNEE" type="OMA"/>
+  <dbReference id="EOG7HHWT3" type="OrthoDB"/>
+  <dbReference id="TF102003" type="TreeFam"/>
+  <dbReference id="REACT_199054" type="Reactome">
+    <property value="Translocation of GLUT4 to the plasma membrane" type="pathway name"/>
+  </dbReference>
+  <dbReference id="311642" type="NextBio"/>
+  <dbReference id="PR:O70456" type="PRO"/>
+  <dbReference id="O70456" type="Bgee"/>
+  <dbReference id="MM_MKRN3" type="CleanEx"/>
+  <dbReference id="MM_SFN" type="CleanEx"/>
+  <dbReference id="O70456" type="Genevestigator"/>
+  <dbReference id="GO:0005737" type="GO">
+    <property value="C:cytoplasm" type="term"/>
+    <property value="ECO:0000314" type="evidence"/>
+    <property value="UniProtKB" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0030659" type="GO">
+    <property value="C:cytoplasmic vesicle membrane" type="term"/>
+    <property value="ECO:0000304" type="evidence"/>
+    <property value="Reactome" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0005829" type="GO">
+    <property value="C:cytosol" type="term"/>
+    <property value="ECO:0000304" type="evidence"/>
+    <property value="Reactome" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0070062" type="GO">
+    <property value="C:extracellular vesicular exosome" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="Ensembl" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0005634" type="GO">
+    <property value="C:nucleus" type="term"/>
+    <property value="ECO:0000314" type="evidence"/>
+    <property value="UniProtKB" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0051219" type="GO">
+    <property value="F:phosphoprotein binding" type="term"/>
+    <property value="ECO:0000353" type="evidence"/>
+    <property value="UniProtKB" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0019901" type="GO">
+    <property value="F:protein kinase binding" type="term"/>
+    <property value="ECO:0000314" type="evidence"/>
+    <property value="UniProtKB" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0061436" type="GO">
+    <property value="P:establishment of skin barrier" type="term"/>
+    <property value="ECO:0000315" type="evidence"/>
+    <property value="UniProtKB" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0008630" type="GO">
+    <property value="P:intrinsic apoptotic signaling pathway in response to DNA damage" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="Ensembl" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0031424" type="GO">
+    <property value="P:keratinization" type="term"/>
+    <property value="ECO:0000315" type="evidence"/>
+    <property value="MGI" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0003334" type="GO">
+    <property value="P:keratinocyte development" type="term"/>
+    <property value="ECO:0000316" type="evidence"/>
+    <property value="MGI" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0030216" type="GO">
+    <property value="P:keratinocyte differentiation" type="term"/>
+    <property value="ECO:0000315" type="evidence"/>
+    <property value="MGI" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0043154" type="GO">
+    <property value="P:negative regulation of cysteine-type endopeptidase activity involved in apoptotic process" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="Ensembl" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0010839" type="GO">
+    <property value="P:negative regulation of keratinocyte proliferation" type="term"/>
+    <property value="ECO:0000316" type="evidence"/>
+    <property value="MGI" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0030307" type="GO">
+    <property value="P:positive regulation of cell growth" type="term"/>
+    <property value="ECO:0000314" type="evidence"/>
+    <property value="UniProtKB" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0045606" type="GO">
+    <property value="P:positive regulation of epidermal cell differentiation" type="term"/>
+    <property value="ECO:0000315" type="evidence"/>
+    <property value="UniProtKB" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0046827" type="GO">
+    <property value="P:positive regulation of protein export from nucleus" type="term"/>
+    <property value="ECO:0000314" type="evidence"/>
+    <property value="UniProtKB" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0051726" type="GO">
+    <property value="P:regulation of cell cycle" type="term"/>
+    <property value="ECO:0000314" type="evidence"/>
+    <property value="MGI" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0000079" type="GO">
+    <property value="P:regulation of cyclin-dependent protein serine/threonine kinase activity" type="term"/>
+    <property value="ECO:0000314" type="evidence"/>
+    <property value="MGI" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0010482" type="GO">
+    <property value="P:regulation of epidermal cell division" type="term"/>
+    <property value="ECO:0000315" type="evidence"/>
+    <property value="UniProtKB" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0001836" type="GO">
+    <property value="P:release of cytochrome c from mitochondria" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="Ensembl" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0043588" type="GO">
+    <property value="P:skin development" type="term"/>
+    <property value="ECO:0000315" type="evidence"/>
+    <property value="MGI" type="project"/>
+  </dbReference>
+  <dbReference id="1.20.190.20" type="Gene3D">
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="IPR000308" type="InterPro">
+    <property value="14-3-3" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR023409" type="InterPro">
+    <property value="14-3-3_CS" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR023410" type="InterPro">
+    <property value="14-3-3_domain" type="entry name"/>
+  </dbReference>
+  <dbReference id="PTHR18860" type="PANTHER">
+    <property value="PTHR18860" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PF00244" type="Pfam">
+    <property value="14-3-3" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PIRSF000868" type="PIRSF">
+    <property value="14-3-3" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PR00305" type="PRINTS">
+    <property value="1433ZETA" type="entry name"/>
+  </dbReference>
+  <dbReference id="SM00101" type="SMART">
+    <property value="14_3_3" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="SSF48445" type="SUPFAM">
+    <property value="SSF48445" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PS00796" type="PROSITE">
+    <property value="1433_1" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PS00797" type="PROSITE">
+    <property value="1433_2" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <proteinExistence type="evidence at protein level"/>
+  <keyword id="KW-0181">Complete proteome</keyword>
+  <keyword id="KW-0963">Cytoplasm</keyword>
+  <keyword id="KW-0903">Direct protein sequencing</keyword>
+  <keyword id="KW-0539">Nucleus</keyword>
+  <keyword id="KW-0597">Phosphoprotein</keyword>
+  <keyword id="KW-1185">Reference proteome</keyword>
+  <keyword id="KW-0964">Secreted</keyword>
+  <keyword id="KW-0832">Ubl conjugation</keyword>
+  <feature description="14-3-3 protein sigma" id="PRO_0000058644" type="chain">
+    <location>
+      <begin position="1"/>
+      <end position="248"/>
+    </location>
+  </feature>
+  <feature evidence="1" description="Interaction with phosphoserine on interacting protein" type="site">
+    <location>
+      <position position="56"/>
+    </location>
+  </feature>
+  <feature evidence="1" description="Interaction with phosphoserine on interacting protein" type="site">
+    <location>
+      <position position="129"/>
+    </location>
+  </feature>
+  <feature evidence="1" description="Phosphoserine" type="modified residue">
+    <location>
+      <position position="5"/>
+    </location>
+  </feature>
+  <feature evidence="1" description="Phosphoserine" type="modified residue">
+    <location>
+      <position position="248"/>
+    </location>
+  </feature>
+  <feature ref="1" evidence="3" description="(in Ref. 1; AAC14344)" type="sequence conflict">
+    <original>EEPQS</original>
+    <variation>DDPHI</variation>
+    <location>
+      <begin position="244"/>
+      <end position="248"/>
+    </location>
+  </feature>
+  <evidence key="1" type="ECO:0000250">
+    <source/>
+  </evidence>
+  <evidence key="2" type="ECO:0000269">
+    <source>
+      <dbReference id="16710422" type="PubMed"/>
+    </source>
+  </evidence>
+  <evidence key="3" type="ECO:0000305">
+    <source/>
+  </evidence>
+  <sequence version="2" modified="2011-06-28" checksum="C1C40905824B3F48" mass="27706" length="248">MERASLIQKAKLAEQAERYEDMAAFMKSAVEKGEELSCEERNLLSVAYKNVVGGQRAAWRVLSSIEQKSNEEGSEEKGPEVKEYREKVETELRGVCDTVLGLLDSHLIKGAGDAESRVFYLKMKGDYYRYLAEVATGDDKKRIIDSARSAYQEAMDISKKEMPPTNPIRLGLALNFSVFHYEIANSPEEAISLAKTTFDEAMADLHTLSEDSYKDSTLIMQLLRDNLTLWTADSAGEEGGEAPEEPQS</sequence>
+</entry>
+<entry version="41" modified="2014-10-01" created="2000-12-01" dataset="Swiss-Prot">
+  <accession>Q9SP07</accession>
+  <name>1433_LILLO</name>
+  <protein>
+    <recommendedName>
+      <fullName>14-3-3-like protein</fullName>
+    </recommendedName>
+  </protein>
+  <organism>
+    <name type="scientific">Lilium longiflorum</name>
+    <name type="common">Trumpet lily</name>
+    <dbReference id="4690" type="NCBI Taxonomy"/>
+    <lineage>
+      <taxon>Eukaryota</taxon>
+      <taxon>Viridiplantae</taxon>
+      <taxon>Streptophyta</taxon>
+      <taxon>Embryophyta</taxon>
+      <taxon>Tracheophyta</taxon>
+      <taxon>Spermatophyta</taxon>
+      <taxon>Magnoliophyta</taxon>
+      <taxon>Liliopsida</taxon>
+      <taxon>Liliales</taxon>
+      <taxon>Liliaceae</taxon>
+      <taxon>Lilium</taxon>
+    </lineage>
+  </organism>
+  <reference key="1">
+    <citation db="EMBL/GenBank/DDBJ databases" date="1999-10" type="submission">
+      <title>A 14-3-3 protein may be involved in regulation of the plasma membrane H+ ATPase during pollen grain germination and tube growth of lily pollen.</title>
+      <authorList>
+        <person name="Pertl H."/>
+        <person name="Himly M."/>
+        <person name="Gehwolf R."/>
+        <person name="Kriechbaumer R."/>
+        <person name="Strasser D."/>
+        <person name="Michalke W."/>
+        <person name="Richter K."/>
+        <person name="Ferreira F."/>
+        <person name="Obermeyer G."/>
+      </authorList>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [MRNA]</scope>
+    <source>
+      <tissue>Pollen</tissue>
+    </source>
+  </reference>
+  <comment evidence="1" type="similarity">
+    <text>Belongs to the 14-3-3 family.</text>
+  </comment>
+  <dbReference id="AF191746" type="EMBL">
+    <property value="AAF05737.1" type="protein sequence ID"/>
+    <property value="mRNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="Q9SP07" type="ProteinModelPortal"/>
+  <dbReference id="Q9SP07" type="SMR">
+    <property value="4-240" type="residue range"/>
+  </dbReference>
+  <dbReference id="Q9SP07" type="PRIDE"/>
+  <dbReference id="1.20.190.20" type="Gene3D">
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="IPR000308" type="InterPro">
+    <property value="14-3-3" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR023409" type="InterPro">
+    <property value="14-3-3_CS" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR023410" type="InterPro">
+    <property value="14-3-3_domain" type="entry name"/>
+  </dbReference>
+  <dbReference id="PTHR18860" type="PANTHER">
+    <property value="PTHR18860" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PF00244" type="Pfam">
+    <property value="14-3-3" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PIRSF000868" type="PIRSF">
+    <property value="14-3-3" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PR00305" type="PRINTS">
+    <property value="1433ZETA" type="entry name"/>
+  </dbReference>
+  <dbReference id="SM00101" type="SMART">
+    <property value="14_3_3" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="SSF48445" type="SUPFAM">
+    <property value="SSF48445" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PS00796" type="PROSITE">
+    <property value="1433_1" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PS00797" type="PROSITE">
+    <property value="1433_2" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <proteinExistence type="evidence at transcript level"/>
+  <feature description="14-3-3-like protein" id="PRO_0000058680" type="chain">
+    <location>
+      <begin position="1"/>
+      <end position="259"/>
+    </location>
+  </feature>
+  <evidence key="1" type="ECO:0000305">
+    <source/>
+  </evidence>
+  <sequence version="1" modified="2000-05-01" checksum="392E38B1430B446B" mass="29253" length="259">MSPAEPSREENVYMAKLAEQAERYEEMVEFMEKVARTVDTEELTVEERNLLSVAYKNVIGARRASWRIISSIEQKEESRGNEDHVALIKDYRGKIEAELSKICDGILKLLDSHLVPSSTAPESKVFYLKMKGDYHRYLAEFKSGAERKEAAESTLLAYKSAQDIALAELAPTHPIRLGLALNFSVFYYEILNSPDRACNLAKQAFDEAISELDTLGEESYKDSTLIMQLLRDNLTLWTSDINEEAGDEIKEASKAVEGQ</sequence>
+</entry>
+<entry version="38" modified="2014-10-29" created="2009-01-20" dataset="Swiss-Prot">
+  <accession>A9MC22</accession>
+  <name>14KL_BRUC2</name>
+  <protein>
+    <recommendedName>
+      <fullName>Lectin-like protein BA14k</fullName>
+    </recommendedName>
+  </protein>
+  <gene>
+    <name type="ordered locus">BCAN_B0743</name>
+  </gene>
+  <organism>
+    <name type="scientific">Brucella canis (strain ATCC 23365 / NCTC 10854)</name>
+    <dbReference id="483179" type="NCBI Taxonomy"/>
+    <lineage>
+      <taxon>Bacteria</taxon>
+      <taxon>Proteobacteria</taxon>
+      <taxon>Alphaproteobacteria</taxon>
+      <taxon>Rhizobiales</taxon>
+      <taxon>Brucellaceae</taxon>
+      <taxon>Brucella</taxon>
+    </lineage>
+  </organism>
+  <reference key="1">
+    <citation db="EMBL/GenBank/DDBJ databases" date="2007-10" type="submission">
+      <title>Brucella canis ATCC 23365 whole genome shotgun sequencing project.</title>
+      <authorList>
+        <person name="Setubal J.C."/>
+        <person name="Bowns C."/>
+        <person name="Boyle S."/>
+        <person name="Crasta O.R."/>
+        <person name="Czar M.J."/>
+        <person name="Dharmanolla C."/>
+        <person name="Gillespie J.J."/>
+        <person name="Kenyon R.W."/>
+        <person name="Lu J."/>
+        <person name="Mane S."/>
+        <person name="Mohapatra S."/>
+        <person name="Nagrani S."/>
+        <person name="Purkayastha A."/>
+        <person name="Rajasimha H.K."/>
+        <person name="Shallom J.M."/>
+        <person name="Shallom S."/>
+        <person name="Shukla M."/>
+        <person name="Snyder E.E."/>
+        <person name="Sobral B.W."/>
+        <person name="Wattam A.R."/>
+        <person name="Will R."/>
+        <person name="Williams K."/>
+        <person name="Yoo H."/>
+        <person name="Bruce D."/>
+        <person name="Detter C."/>
+        <person name="Munk C."/>
+        <person name="Brettin T.S."/>
+      </authorList>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]</scope>
+    <source>
+      <strain>ATCC 23365 / NCTC 10854</strain>
+    </source>
+  </reference>
+  <comment evidence="1" type="function">
+    <text status="by similarity">Has immunoglobulin-binding and hemagglutination properties, and can bind to mannose. Essential for virulence. May be involved in LPS biosynthesis or polysaccharide transport.</text>
+  </comment>
+  <comment type="subcellular location">
+    <subcellularLocation>
+      <location evidence="3">Cell membrane</location>
+      <topology evidence="3">Single-pass membrane protein</topology>
+    </subcellularLocation>
+  </comment>
+  <comment evidence="3" type="similarity">
+    <text>Belongs to the BA14k family.</text>
+  </comment>
+  <dbReference id="CP000873" type="EMBL">
+    <property value="ABX63909.1" type="protein sequence ID"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="YP_001594680.1" type="RefSeq">
+    <property value="NC_010104.1" type="nucleotide sequence ID"/>
+  </dbReference>
+  <dbReference id="483179.BCAN_B0743" type="STRING"/>
+  <dbReference id="A9MC22" type="PRIDE"/>
+  <dbReference id="ABX63909" type="EnsemblBacteria">
+    <property value="ABX63909" type="protein sequence ID"/>
+    <property value="BCAN_B0743" type="gene ID"/>
+  </dbReference>
+  <dbReference id="5787194" type="GeneID"/>
+  <dbReference id="bcs:BCAN_B0743" type="KEGG"/>
+  <dbReference id="17834658" type="PATRIC">
+    <property value="VBIBruCan25663_2947" type="gene designation"/>
+  </dbReference>
+  <dbReference id="NOG08130" type="eggNOG"/>
+  <dbReference id="HOG000274446" type="HOGENOM"/>
+  <dbReference id="HVAWCAN" type="OMA"/>
+  <dbReference id="EOG6358FW" type="OrthoDB"/>
+  <dbReference id="BCAN483179:GJ7I-2941-MONOMER" type="BioCyc"/>
+  <dbReference id="GO:0016021" type="GO">
+    <property value="C:integral component of membrane" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="UniProtKB-KW" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0005886" type="GO">
+    <property value="C:plasma membrane" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="UniProtKB-KW" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0030246" type="GO">
+    <property value="F:carbohydrate binding" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="UniProtKB-KW" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0009405" type="GO">
+    <property value="P:pathogenesis" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="UniProtKB-KW" type="project"/>
+  </dbReference>
+  <dbReference id="IPR012413" type="InterPro">
+    <property value="BA14K" type="entry name"/>
+  </dbReference>
+  <dbReference id="PF07886" type="Pfam">
+    <property value="BA14K" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <proteinExistence type="inferred from homology"/>
+  <keyword id="KW-1003">Cell membrane</keyword>
+  <keyword id="KW-0181">Complete proteome</keyword>
+  <keyword id="KW-0430">Lectin</keyword>
+  <keyword id="KW-0472">Membrane</keyword>
+  <keyword id="KW-0732">Signal</keyword>
+  <keyword id="KW-0812">Transmembrane</keyword>
+  <keyword id="KW-1133">Transmembrane helix</keyword>
+  <keyword id="KW-0843">Virulence</keyword>
+  <feature evidence="2" type="signal peptide">
+    <location>
+      <begin position="1"/>
+      <end position="26"/>
+    </location>
+  </feature>
+  <feature description="Lectin-like protein BA14k" id="PRO_0000361298" type="chain">
+    <location>
+      <begin position="27"/>
+      <end position="147"/>
+    </location>
+  </feature>
+  <feature evidence="2" description="Helical" type="transmembrane region">
+    <location>
+      <begin position="80"/>
+      <end position="100"/>
+    </location>
+  </feature>
+  <evidence key="1" type="ECO:0000250">
+    <source/>
+  </evidence>
+  <evidence key="2" type="ECO:0000255">
+    <source/>
+  </evidence>
+  <evidence key="3" type="ECO:0000305">
+    <source/>
+  </evidence>
+  <sequence precursor="true" version="1" modified="2008-02-05" checksum="7CEE6F1FB2BB38DB" mass="16823" length="147">MNSFRKTCAGALALIFGATSIVPTVAAPMNMDRPAINQNVIQARAHYRPQNYNRGHRPGYWHGHRGYRHYRHGYRRHNDGWWYPLAAFGAGAIIGGAISQPRPVYRAPAGSPHVQWCYSRYKSYRASDNTFQPYNGPRKQCRSPYSR</sequence>
+</entry>
+<entry version="50" modified="2014-10-29" created="1996-10-01" dataset="Swiss-Prot">
+  <accession>P50931</accession>
+  <name>17KD_RICRH</name>
+  <protein>
+    <recommendedName>
+      <fullName>17 kDa surface antigen</fullName>
+    </recommendedName>
+  </protein>
+  <gene>
+    <name type="primary">omp</name>
+  </gene>
+  <organism>
+    <name type="scientific">Rickettsia rhipicephali</name>
+    <dbReference id="33992" type="NCBI Taxonomy"/>
+    <lineage>
+      <taxon>Bacteria</taxon>
+      <taxon>Proteobacteria</taxon>
+      <taxon>Alphaproteobacteria</taxon>
+      <taxon>Rickettsiales</taxon>
+      <taxon>Rickettsiaceae</taxon>
+      <taxon>Rickettsieae</taxon>
+      <taxon>Rickettsia</taxon>
+      <taxon>spotted fever group</taxon>
+    </lineage>
+  </organism>
+  <reference key="1">
+    <citation db="EMBL/GenBank/DDBJ databases" date="1994-08" type="submission">
+      <title>Rickettsia amblyommii, sp. nov., isolated from the Lone Star tick, Amblyomma americanum (Ixodidae).</title>
+      <authorList>
+        <person name="Stothard D.R."/>
+        <person name="Ralph D.A."/>
+        <person name="Clark J.B."/>
+        <person name="Fuerst P.A."/>
+        <person name="Pretzman C."/>
+      </authorList>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA]</scope>
+  </reference>
+  <comment type="subcellular location">
+    <subcellularLocation>
+      <location evidence="2">Cell outer membrane</location>
+      <topology evidence="2">Lipid-anchor</topology>
+    </subcellularLocation>
+  </comment>
+  <comment evidence="2" type="similarity">
+    <text>Belongs to the rickettsiale 17 kDa surface antigen family.</text>
+  </comment>
+  <dbReference id="U11020" type="EMBL">
+    <property value="AAB07706.1" type="protein sequence ID"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="GO:0009279" type="GO">
+    <property value="C:cell outer membrane" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="UniProtKB-KW" type="project"/>
+  </dbReference>
+  <dbReference id="IPR008816" type="InterPro">
+    <property value="Gly_zipper_2TM_dom" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR016364" type="InterPro">
+    <property value="Surface_antigen_Rickettsia" type="entry name"/>
+  </dbReference>
+  <dbReference id="PF05433" type="Pfam">
+    <property value="Rick_17kDa_Anti" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PIRSF002721" type="PIRSF">
+    <property value="Surface_antigen_Rickettsia" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PS51257" type="PROSITE">
+    <property value="PROKAR_LIPOPROTEIN" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <proteinExistence type="inferred from homology"/>
+  <keyword id="KW-0998">Cell outer membrane</keyword>
+  <keyword id="KW-0449">Lipoprotein</keyword>
+  <keyword id="KW-0472">Membrane</keyword>
+  <keyword id="KW-0564">Palmitate</keyword>
+  <keyword id="KW-0732">Signal</keyword>
+  <feature evidence="1" type="signal peptide">
+    <location>
+      <begin position="1"/>
+      <end position="19"/>
+    </location>
+  </feature>
+  <feature description="17 kDa surface antigen" id="PRO_0000018020" type="chain">
+    <location>
+      <begin position="20"/>
+      <end status="greater than" position="154"/>
+    </location>
+  </feature>
+  <feature evidence="2" description="N-palmitoyl cysteine" type="lipid moiety-binding region">
+    <location>
+      <position position="20"/>
+    </location>
+  </feature>
+  <feature evidence="2" description="S-diacylglycerol cysteine" type="lipid moiety-binding region">
+    <location>
+      <position position="20"/>
+    </location>
+  </feature>
+  <feature type="non-terminal residue">
+    <location>
+      <position position="154"/>
+    </location>
+  </feature>
+  <evidence key="1" type="ECO:0000255">
+    <source>
+      <dbReference id="PRU00303" type="PROSITE-ProRule"/>
+    </source>
+  </evidence>
+  <evidence key="2" type="ECO:0000305">
+    <source/>
+  </evidence>
+  <sequence fragment="single" precursor="true" version="1" modified="1996-10-01" checksum="0CF85AD5D96DFEFB" mass="15895" length="154">MKLLSKIMIIALAASMLQACNGPGGMNKQGTGTLLGGAGGALLGSQFGKGKGQLVGVGVGALLGAVLGGQIGAGMDEQDRRLAELTSQRALETAPSGSNVEWRNPDNGNYGYITPNKTYRNSTGQYCREYTQTVVIGGKQQKAYGNACLQPDGQ</sequence>
+</entry>
+<entry version="78" modified="2014-11-26" created="1991-11-01" dataset="Swiss-Prot">
+  <accession>P23599</accession>
+  <name>1A11_CUCMA</name>
+  <protein>
+    <recommendedName>
+      <fullName>1-aminocyclopropane-1-carboxylate synthase CMW33</fullName>
+      <shortName>ACC synthase</shortName>
+      <ecNumber>4.4.1.14</ecNumber>
+    </recommendedName>
+    <alternativeName>
+      <fullName>S-adenosyl-L-methionine methylthioadenosine-lyase</fullName>
+    </alternativeName>
+  </protein>
+  <gene>
+    <name type="primary">ACS1</name>
+    <name type="synonym">ACCW</name>
+  </gene>
+  <organism>
+    <name type="scientific">Cucurbita maxima</name>
+    <name type="common">Pumpkin</name>
+    <name type="synonym">Winter squash</name>
+    <dbReference id="3661" type="NCBI Taxonomy"/>
+    <lineage>
+      <taxon>Eukaryota</taxon>
+      <taxon>Viridiplantae</taxon>
+      <taxon>Streptophyta</taxon>
+      <taxon>Embryophyta</taxon>
+      <taxon>Tracheophyta</taxon>
+      <taxon>Spermatophyta</taxon>
+      <taxon>Magnoliophyta</taxon>
+      <taxon>eudicotyledons</taxon>
+      <taxon>Gunneridae</taxon>
+      <taxon>Pentapetalae</taxon>
+      <taxon>rosids</taxon>
+      <taxon>fabids</taxon>
+      <taxon>Cucurbitales</taxon>
+      <taxon>Cucurbitaceae</taxon>
+      <taxon>Cucurbiteae</taxon>
+      <taxon>Cucurbita</taxon>
+    </lineage>
+  </organism>
+  <reference key="1">
+    <citation last="1029" first="1021" volume="31" name="Plant Cell Physiol." date="1990" type="journal article">
+      <title>Molecular cloning and sequence of a complementary DNA encoding 1-aminocyclopropane-1-carboxylate synthase induced by tissue wounding.</title>
+      <authorList>
+        <person name="Nakajima N."/>
+        <person name="Mori H."/>
+        <person name="Yamazaki K."/>
+        <person name="Imaseki H."/>
+      </authorList>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [MRNA]</scope>
+  </reference>
+  <comment type="function">
+    <text>Catalyzes the formation of 1-aminocyclopropane-1-carboxylate, a direct precursor of ethylene in higher plants.</text>
+  </comment>
+  <comment type="catalytic activity">
+    <text>S-adenosyl-L-methionine = 1-aminocyclopropane-1-carboxylate + methylthioadenosine.</text>
+  </comment>
+  <comment type="cofactor">
+    <cofactor>
+      <name>pyridoxal 5'-phosphate</name>
+      <dbReference id="CHEBI:597326" type="ChEBI"/>
+    </cofactor>
+  </comment>
+  <comment type="pathway">
+    <text>Alkene biosynthesis; ethylene biosynthesis via S-adenosyl-L-methionine; ethylene from S-adenosyl-L-methionine: step 1/2.</text>
+  </comment>
+  <comment type="subunit">
+    <text>Homodimer.</text>
+  </comment>
+  <comment type="induction">
+    <text>By tissue wounding.</text>
+  </comment>
+  <comment evidence="2" type="similarity">
+    <text>Belongs to the class-I pyridoxal-phosphate-dependent aminotransferase family.</text>
+  </comment>
+  <dbReference id="4.4.1.14" type="EC"/>
+  <dbReference id="D01032" type="EMBL">
+    <property value="BAA00838.1" type="protein sequence ID"/>
+    <property value="mRNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="JQ0926" type="PIR">
+    <property value="JQ0926" type="entry name"/>
+  </dbReference>
+  <dbReference id="P23599" type="ProteinModelPortal"/>
+  <dbReference id="P23599" type="SMR">
+    <property value="13-435" type="residue range"/>
+  </dbReference>
+  <dbReference id="UPA00384" type="UniPathway">
+    <property value="UER00562" type="reaction ID"/>
+  </dbReference>
+  <dbReference id="GO:0016847" type="GO">
+    <property value="F:1-aminocyclopropane-1-carboxylate synthase activity" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="UniProtKB-EC" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0030170" type="GO">
+    <property value="F:pyridoxal phosphate binding" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="InterPro" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0009693" type="GO">
+    <property value="P:ethylene biosynthetic process" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="UniProtKB-UniPathway" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0009835" type="GO">
+    <property value="P:fruit ripening" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="UniProtKB-KW" type="project"/>
+  </dbReference>
+  <dbReference id="3.40.640.10" type="Gene3D">
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="3.90.1150.10" type="Gene3D">
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="IPR004839" type="InterPro">
+    <property value="Aminotransferase_I/II" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR004838" type="InterPro">
+    <property value="NHTrfase_class1_PyrdxlP-BS" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR015424" type="InterPro">
+    <property value="PyrdxlP-dep_Trfase" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR015421" type="InterPro">
+    <property value="PyrdxlP-dep_Trfase_major_sub1" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR015422" type="InterPro">
+    <property value="PyrdxlP-dep_Trfase_major_sub2" type="entry name"/>
+  </dbReference>
+  <dbReference id="PF00155" type="Pfam">
+    <property value="Aminotran_1_2" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="SSF53383" type="SUPFAM">
+    <property value="SSF53383" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PS00105" type="PROSITE">
+    <property value="AA_TRANSFER_CLASS_1" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <proteinExistence type="evidence at transcript level"/>
+  <keyword id="KW-0266">Ethylene biosynthesis</keyword>
+  <keyword id="KW-0292">Fruit ripening</keyword>
+  <keyword id="KW-0456">Lyase</keyword>
+  <keyword id="KW-0663">Pyridoxal phosphate</keyword>
+  <keyword id="KW-0949">S-adenosyl-L-methionine</keyword>
+  <feature description="1-aminocyclopropane-1-carboxylate synthase CMW33" id="PRO_0000123907" type="chain">
+    <location>
+      <begin position="1"/>
+      <end position="493"/>
+    </location>
+  </feature>
+  <feature evidence="1" description="N6-(pyridoxal phosphate)lysine" type="modified residue">
+    <location>
+      <position position="279"/>
+    </location>
+  </feature>
+  <evidence key="1" type="ECO:0000250">
+    <source/>
+  </evidence>
+  <evidence key="2" type="ECO:0000305">
+    <source/>
+  </evidence>
+  <sequence version="1" modified="1991-11-01" checksum="F39234AC99CBEF6B" mass="55896" length="493">MEFHQIDERNQALLSKIAVDDGHGENSPYFDGWKAYDNDPFHPEDNPLGVIQMGLAENQLSFDMIVDWIRKHPEASICTPKGLERFKSIANFQDYHGLPEFRNGIASFMGKVRGGRVQFDPSRIVMGGGATGASETVIFCLADPGDAFLVPSPYYAAFDRDLKWRTRAQIIRVHCNSSNNFQVTKAALEIAYKKAQEANIKVKGVIITNPSNPLGTTYDRDTLKTLVTFVNQHDIHLICDEIYSATVFKAPTFISIAQIVEEMEHCKKELIHILYSLSKDMGLPGFRVGIIYSYNDVVVRRARQMSSFGLVSSQTQHLLAAMLSDEDFVDKFLAENSKRLAERHARFTKELDKMGITCLNSNAGVFVWMDLRRLLKDQTFKAEMELWRVIINEVKLNVSPGSSFHVTEPGWFRVCFANMDDNTVDVALNRIHSFVENIDKKEDNTVAMPSKTRRRENKLRLSFSFSGRRYDEGNVLNSPHTMSPHSPLVIAKN</sequence>
+</entry>
+<entry version="42" modified="2014-11-26" created="2009-04-14" dataset="Swiss-Prot">
+  <accession>B1YYR8</accession>
+  <name>1A1D_BURA4</name>
+  <protein>
+    <recommendedName>
+      <fullName evidence="1">1-aminocyclopropane-1-carboxylate deaminase</fullName>
+      <shortName evidence="1">ACC deaminase</shortName>
+      <shortName evidence="1">ACCD</shortName>
+      <ecNumber evidence="1">3.5.99.7</ecNumber>
+    </recommendedName>
+  </protein>
+  <gene>
+    <name type="primary" evidence="1">acdS</name>
+    <name type="ordered locus">BamMC406_3308</name>
+  </gene>
+  <organism>
+    <name type="scientific">Burkholderia ambifaria (strain MC40-6)</name>
+    <dbReference id="398577" type="NCBI Taxonomy"/>
+    <lineage>
+      <taxon>Bacteria</taxon>
+      <taxon>Proteobacteria</taxon>
+      <taxon>Betaproteobacteria</taxon>
+      <taxon>Burkholderiales</taxon>
+      <taxon>Burkholderiaceae</taxon>
+      <taxon>Burkholderia</taxon>
+      <taxon>Burkholderia cepacia complex</taxon>
+    </lineage>
+  </organism>
+  <reference key="1">
+    <citation db="EMBL/GenBank/DDBJ databases" date="2008-04" type="submission">
+      <title>Complete sequence of chromosome 2 of Burkholderia ambifaria MC40-6.</title>
+      <authorList>
+        <person name="Copeland A."/>
+        <person name="Lucas S."/>
+        <person name="Lapidus A."/>
+        <person name="Glavina del Rio T."/>
+        <person name="Dalin E."/>
+        <person name="Tice H."/>
+        <person name="Pitluck S."/>
+        <person name="Chain P."/>
+        <person name="Malfatti S."/>
+        <person name="Shin M."/>
+        <person name="Vergez L."/>
+        <person name="Lang D."/>
+        <person name="Schmutz J."/>
+        <person name="Larimer F."/>
+        <person name="Land M."/>
+        <person name="Hauser L."/>
+        <person name="Kyrpides N."/>
+        <person name="Lykidis A."/>
+        <person name="Ramette A."/>
+        <person name="Konstantinidis K."/>
+        <person name="Tiedje J."/>
+        <person name="Richardson P."/>
+      </authorList>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]</scope>
+    <source>
+      <strain>MC40-6</strain>
+    </source>
+  </reference>
+  <comment evidence="1" type="function">
+    <text>Catalyzes a cyclopropane ring-opening reaction, the irreversible conversion of 1-aminocyclopropane-1-carboxylate (ACC) to ammonia and alpha-ketobutyrate. Allows growth on ACC as a nitrogen source.</text>
+  </comment>
+  <comment evidence="1" type="catalytic activity">
+    <text>1-aminocyclopropane-1-carboxylate + H(2)O = 2-oxobutanoate + NH(3).</text>
+  </comment>
+  <comment type="cofactor">
+    <cofactor evidence="1">
+      <name>pyridoxal 5'-phosphate</name>
+      <dbReference id="CHEBI:597326" type="ChEBI"/>
+    </cofactor>
+  </comment>
+  <comment evidence="1" type="subunit">
+    <text>Homotrimer.</text>
+  </comment>
+  <comment evidence="1" type="similarity">
+    <text>Belongs to the ACC deaminase/D-cysteine desulfhydrase family.</text>
+  </comment>
+  <dbReference evidence="1" id="3.5.99.7" type="EC"/>
+  <dbReference id="CP001026" type="EMBL">
+    <property value="ACB65778.1" type="protein sequence ID"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="YP_001809994.1" type="RefSeq">
+    <property value="NC_010552.1" type="nucleotide sequence ID"/>
+  </dbReference>
+  <dbReference id="B1YYR8" type="ProteinModelPortal"/>
+  <dbReference id="B1YYR8" type="SMR">
+    <property value="1-338" type="residue range"/>
+  </dbReference>
+  <dbReference id="398577.BamMC406_3308" type="STRING"/>
+  <dbReference id="ACB65778" type="EnsemblBacteria">
+    <property value="ACB65778" type="protein sequence ID"/>
+    <property value="BamMC406_3308" type="gene ID"/>
+  </dbReference>
+  <dbReference id="6179854" type="GeneID"/>
+  <dbReference id="bac:BamMC406_3308" type="KEGG"/>
+  <dbReference id="19036228" type="PATRIC">
+    <property value="VBIBurAmb82852_3407" type="gene designation"/>
+  </dbReference>
+  <dbReference id="COG2515" type="eggNOG"/>
+  <dbReference id="HOG000022460" type="HOGENOM"/>
+  <dbReference id="K01505" type="KO"/>
+  <dbReference id="PEQTRAQ" type="OMA"/>
+  <dbReference id="EOG6FBX0P" type="OrthoDB"/>
+  <dbReference id="BAMB398577:GH38-3382-MONOMER" type="BioCyc"/>
+  <dbReference id="GO:0008660" type="GO">
+    <property value="F:1-aminocyclopropane-1-carboxylate deaminase activity" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="UniProtKB-HAMAP" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0030170" type="GO">
+    <property value="F:pyridoxal phosphate binding" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="InterPro" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0018871" type="GO">
+    <property value="P:1-aminocyclopropane-1-carboxylate metabolic process" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="UniProtKB-HAMAP" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0009310" type="GO">
+    <property value="P:amine catabolic process" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="InterPro" type="project"/>
+  </dbReference>
+  <dbReference id="MF_00807" type="HAMAP">
+    <property value="ACC_deaminase" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="IPR027278" type="InterPro">
+    <property value="ACCD_DCysDesulf" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR005965" type="InterPro">
+    <property value="ACP_carboxylate_deaminase" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR020601" type="InterPro">
+    <property value="ACP_carboxylate_deaminase_bac" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR001926" type="InterPro">
+    <property value="TrpB-like_PLP-dep" type="entry name"/>
+  </dbReference>
+  <dbReference id="PF00291" type="Pfam">
+    <property value="PALP" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PIRSF006278" type="PIRSF">
+    <property value="ACCD_DCysDesulf" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="SSF53686" type="SUPFAM">
+    <property value="SSF53686" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="TIGR01274" type="TIGRFAMs">
+    <property value="ACC_deam" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <proteinExistence type="inferred from homology"/>
+  <keyword id="KW-0181">Complete proteome</keyword>
+  <keyword id="KW-0378">Hydrolase</keyword>
+  <keyword id="KW-0663">Pyridoxal phosphate</keyword>
+  <feature description="1-aminocyclopropane-1-carboxylate deaminase" id="PRO_1000134007" type="chain">
+    <location>
+      <begin position="1"/>
+      <end position="338"/>
+    </location>
+  </feature>
+  <feature evidence="1" description="Nucleophile" type="active site">
+    <location>
+      <position position="78"/>
+    </location>
+  </feature>
+  <feature evidence="1" description="N6-(pyridoxal phosphate)lysine" type="modified residue">
+    <location>
+      <position position="51"/>
+    </location>
+  </feature>
+  <evidence key="1" type="ECO:0000255">
+    <source>
+      <dbReference id="MF_00807" type="HAMAP-Rule"/>
+    </source>
+  </evidence>
+  <sequence version="1" modified="2008-05-20" checksum="27944143818C7D2B" mass="36658" length="338">MNLQRFPRYPLTFGPTPIQPLKRLSAHLGGKVKLYAKREDCNSGLAFGGNKTRKLEYLIPDALAQGADTLVSIGGVQSNQTRQVAAVAAHLGMKCVLVQEHWVNYDDPVYDRVGNIQLSRMMGADVRLVADGFDIGIRRSWEEAMESVRQAGGKPYPIPAGCSEHPLGGLGFVGFAEEVRAQEAELGFKFDYIVVCSVTGSTQAGMVVGFAADGRADRVIGIDASATPEKTHAQITRIARHTAEIVELGRRIDEQDVVLDTRYAGPEYGLPNDGTLEAIRLCARLEGVLTDPVYEGKSMHGMIDKVRLGEFEPGSKVLYAHLGGVPALSAYAEIFRNG</sequence>
+</entry>
+<entry version="63" modified="2014-11-26" created="1993-04-01" dataset="Swiss-Prot">
+  <accession>P30297</accession>
+  <name>1A1D_PSES0</name>
+  <protein>
+    <recommendedName>
+      <fullName evidence="1">1-aminocyclopropane-1-carboxylate deaminase</fullName>
+      <shortName evidence="1">ACC deaminase</shortName>
+      <shortName evidence="1">ACCD</shortName>
+      <ecNumber evidence="1">3.5.99.7</ecNumber>
+    </recommendedName>
+  </protein>
+  <gene>
+    <name type="primary" evidence="1">acdS</name>
+  </gene>
+  <organism>
+    <name type="scientific">Pseudomonas sp. (strain 6G5)</name>
+    <dbReference id="29439" type="NCBI Taxonomy"/>
+    <lineage>
+      <taxon>Bacteria</taxon>
+      <taxon>Proteobacteria</taxon>
+    </lineage>
+  </organism>
+  <reference key="1">
+    <citation last="1193" first="1187" volume="3" name="Plant Cell" date="1991" type="journal article">
+      <title>Control of ethylene synthesis by expression of a bacterial enzyme in transgenic tomato plants.</title>
+      <authorList>
+        <person name="Klee H.J."/>
+        <person name="Hayford M.B."/>
+        <person name="Kretzmer K.A."/>
+        <person name="Barry G.F."/>
+        <person name="Kishore G.M."/>
+      </authorList>
+      <dbReference id="1821764" type="PubMed"/>
+      <dbReference id="10.1105/tpc.3.11.1187" type="DOI"/>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA]</scope>
+  </reference>
+  <comment type="function">
+    <text>Catalyzes a cyclopropane ring-opening reaction, the irreversible conversion of 1-aminocyclopropane-1-carboxylate (ACC) to ammonia and alpha-ketobutyrate. Allows growth on ACC as a nitrogen source.</text>
+  </comment>
+  <comment evidence="1" type="catalytic activity">
+    <text>1-aminocyclopropane-1-carboxylate + H(2)O = 2-oxobutanoate + NH(3).</text>
+  </comment>
+  <comment type="cofactor">
+    <cofactor>
+      <name>pyridoxal 5'-phosphate</name>
+      <dbReference id="CHEBI:597326" type="ChEBI"/>
+    </cofactor>
+  </comment>
+  <comment type="subunit">
+    <text>Homotrimer.</text>
+  </comment>
+  <comment type="biotechnology">
+    <text>Introduced by genetic manipulation and expressed in improved ripening tomato by Monsanto. ACC is the immediate precursor of the phytohormone ethylene which is involved in the control of ripening. ACC deaminase reduces ethylene biosynthesis and thus extends the shelf life of fruits and vegetables.</text>
+  </comment>
+  <comment evidence="1" type="similarity">
+    <text>Belongs to the ACC deaminase/D-cysteine desulfhydrase family.</text>
+  </comment>
+  <dbReference evidence="1" id="3.5.99.7" type="EC"/>
+  <dbReference id="M80882" type="EMBL">
+    <property value="AAA73153.1" type="protein sequence ID"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="JQ1330" type="PIR">
+    <property value="JQ1330" type="entry name"/>
+  </dbReference>
+  <dbReference id="P30297" type="ProteinModelPortal"/>
+  <dbReference id="P30297" type="SMR">
+    <property value="1-338" type="residue range"/>
+  </dbReference>
+  <dbReference id="GO:0008660" type="GO">
+    <property value="F:1-aminocyclopropane-1-carboxylate deaminase activity" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="UniProtKB-HAMAP" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0030170" type="GO">
+    <property value="F:pyridoxal phosphate binding" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="InterPro" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0018871" type="GO">
+    <property value="P:1-aminocyclopropane-1-carboxylate metabolic process" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="UniProtKB-HAMAP" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0009310" type="GO">
+    <property value="P:amine catabolic process" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="InterPro" type="project"/>
+  </dbReference>
+  <dbReference id="MF_00807" type="HAMAP">
+    <property value="ACC_deaminase" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="IPR027278" type="InterPro">
+    <property value="ACCD_DCysDesulf" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR005965" type="InterPro">
+    <property value="ACP_carboxylate_deaminase" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR020601" type="InterPro">
+    <property value="ACP_carboxylate_deaminase_bac" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR001926" type="InterPro">
+    <property value="TrpB-like_PLP-dep" type="entry name"/>
+  </dbReference>
+  <dbReference id="PF00291" type="Pfam">
+    <property value="PALP" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PIRSF006278" type="PIRSF">
+    <property value="ACCD_DCysDesulf" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="SSF53686" type="SUPFAM">
+    <property value="SSF53686" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="TIGR01274" type="TIGRFAMs">
+    <property value="ACC_deam" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <proteinExistence type="evidence at protein level"/>
+  <keyword id="KW-0308">Genetically modified food</keyword>
+  <keyword id="KW-0378">Hydrolase</keyword>
+  <keyword id="KW-0663">Pyridoxal phosphate</keyword>
+  <feature description="1-aminocyclopropane-1-carboxylate deaminase" id="PRO_0000184503" type="chain">
+    <location>
+      <begin position="1"/>
+      <end position="338"/>
+    </location>
+  </feature>
+  <feature evidence="1" description="Nucleophile" type="active site">
+    <location>
+      <position position="78"/>
+    </location>
+  </feature>
+  <feature evidence="1" description="N6-(pyridoxal phosphate)lysine" type="modified residue">
+    <location>
+      <position position="51"/>
+    </location>
+  </feature>
+  <evidence key="1" type="ECO:0000255">
+    <source>
+      <dbReference id="MF_00807" type="HAMAP-Rule"/>
+    </source>
+  </evidence>
+  <sequence version="1" modified="1993-04-01" checksum="F496374E7C12B6AD" mass="36873" length="338">MNLNRFERYPLTFGPSPITPLKRLSQHLGGKVELYAKREDCNSGLAFGGNKTRKLEYLIPEAIEQGCDTLVSIGGIQSNQTRQVAAVAAHLGMKCVLVQENWVNYSDAVYDRVGNIEMSRIMGADVRLDAAGFDIGIRPSWEKAMSDVVEQGGKPFPIPAGCSEHPYGGLGFVGFAEEVRQQEKELGFKFDYIVVCSVTGSTQAGMVVGFAADGRSKNVIGIDASAKPEQTKAQILRIARHTAELVELGREITEEDVVLDTRFAYPEYGLPNEGTLEAIRLCGSLEGVLTDPVYEGKSMHGMIEMVRRGEFPEGSKVLYAHLGGAPALNAYSFLFRNG</sequence>
+</entry>
+<entry version="125" modified="2014-10-29" created="1990-04-01" dataset="Swiss-Prot">
+  <accession>P16190</accession>
+  <accession>O02939</accession>
+  <accession>O02954</accession>
+  <name>1A33_HUMAN</name>
+  <protein>
+    <recommendedName>
+      <fullName>HLA class I histocompatibility antigen, A-33 alpha chain</fullName>
+    </recommendedName>
+    <alternativeName>
+      <fullName>Aw-19</fullName>
+    </alternativeName>
+    <alternativeName>
+      <fullName>Aw-33</fullName>
+    </alternativeName>
+    <alternativeName>
+      <fullName>MHC class I antigen A*33</fullName>
+    </alternativeName>
+  </protein>
+  <gene>
+    <name type="primary">HLA-A</name>
+    <name type="synonym">HLAA</name>
+  </gene>
+  <organism>
+    <name type="scientific">Homo sapiens</name>
+    <name type="common">Human</name>
+    <dbReference id="9606" type="NCBI Taxonomy"/>
+    <lineage>
+      <taxon>Eukaryota</taxon>
+      <taxon>Metazoa</taxon>
+      <taxon>Chordata</taxon>
+      <taxon>Craniata</taxon>
+      <taxon>Vertebrata</taxon>
+      <taxon>Euteleostomi</taxon>
+      <taxon>Mammalia</taxon>
+      <taxon>Eutheria</taxon>
+      <taxon>Euarchontoglires</taxon>
+      <taxon>Primates</taxon>
+      <taxon>Haplorrhini</taxon>
+      <taxon>Catarrhini</taxon>
+      <taxon>Hominidae</taxon>
+      <taxon>Homo</taxon>
+    </lineage>
+  </organism>
+  <reference key="1">
+    <citation last="3378" first="3371" volume="143" name="J. Immunol." date="1989" type="journal article">
+      <title>Molecular analysis of the serologically defined HLA-Aw19 antigens. A genetically distinct family of HLA-A antigens comprising A29, A31, A32, and Aw33, but probably not A30.</title>
+      <authorList>
+        <person name="Kato K."/>
+        <person name="Trapani J.A."/>
+        <person name="Allopenna J."/>
+        <person name="Dupont B."/>
+        <person name="Yang S.Y."/>
+      </authorList>
+      <dbReference id="2478623" type="PubMed"/>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE (ALLELE A*33:01)</scope>
+  </reference>
+  <reference key="2">
+    <citation db="EMBL/GenBank/DDBJ databases" date="1997-01" type="submission">
+      <authorList>
+        <person name="Yang S.Y."/>
+      </authorList>
+    </citation>
+    <scope>SEQUENCE REVISION TO 178-179; 210 AND 345</scope>
+  </reference>
+  <reference key="3">
+    <citation db="EMBL/GenBank/DDBJ databases" date="1997-06" type="submission">
+      <authorList>
+        <person name="Szmania S."/>
+        <person name="Baxter-Lowe L.A."/>
+      </authorList>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE (ALLELE A*33:01)</scope>
+  </reference>
+  <reference key="4">
+    <citation last="213" first="211" volume="41" name="Tissue Antigens" date="1993" type="journal article">
+      <title>Molecular analysis of a novel HLA-A33 subtype associated with HLA-B44.</title>
+      <authorList>
+        <person name="Kato N."/>
+        <person name="Kikuchi A."/>
+        <person name="Kano K."/>
+        <person name="Egawa K."/>
+        <person name="Takiguchi M."/>
+      </authorList>
+      <dbReference id="8362415" type="PubMed"/>
+      <dbReference id="10.1111/j.1399-0039.1993.tb02006.x" type="DOI"/>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [MRNA] (ALLELE A*3302)</scope>
+  </reference>
+  <reference key="5">
+    <citation last="76" first="73" volume="45" name="Tissue Antigens" date="1995" type="journal article">
+      <title>Molecular characterization of a novel HLA-A33 allele (A*3303).</title>
+      <authorList>
+        <person name="Balas A."/>
+        <person name="Garcia-Sanchez F."/>
+        <person name="Vicario J.L."/>
+      </authorList>
+      <dbReference id="7725315" type="PubMed"/>
+      <dbReference id="10.1111/j.1399-0039.1995.tb02418.x" type="DOI"/>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [MRNA] (ALLELE A*33:03)</scope>
+  </reference>
+  <reference key="6">
+    <citation last="352" first="348" volume="45" name="Tissue Antigens" date="1995" type="journal article">
+      <title>Identification of a novel HLA-A33 subtype (A*3303) and correction of the A*3301 sequence.</title>
+      <authorList>
+        <person name="Blasczyk R."/>
+        <person name="Wehling J."/>
+        <person name="Hahn U."/>
+        <person name="Schwella N."/>
+        <person name="Huhn D."/>
+        <person name="Salama A."/>
+      </authorList>
+      <dbReference id="7652743" type="PubMed"/>
+      <dbReference id="10.1111/j.1399-0039.1995.tb02465.x" type="DOI"/>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA] OF 35-99 AND 122-205 (ALLELES A*33:01 AND A*33:03)</scope>
+  </reference>
+  <reference key="7">
+    <citation db="EMBL/GenBank/DDBJ databases" date="1995-01" type="submission">
+      <authorList>
+        <person name="Gao X."/>
+        <person name="Jakobsen I."/>
+        <person name="Serjeantson S.W."/>
+      </authorList>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE OF 26-206 (ALLELES A*33:01 AND A*33:03)</scope>
+  </reference>
+  <reference key="8">
+    <citation last="534" first="526" volume="7" name="J. Proteome Res." date="2008" type="journal article">
+      <title>Phosphoproteome of resting human platelets.</title>
+      <authorList>
+        <person name="Zahedi R.P."/>
+        <person name="Lewandrowski U."/>
+        <person name="Wiesner J."/>
+        <person name="Wortelkamp S."/>
+        <person name="Moebius J."/>
+        <person name="Schuetz C."/>
+        <person name="Walter U."/>
+        <person name="Gambaryan S."/>
+        <person name="Sickmann A."/>
+      </authorList>
+      <dbReference id="18088087" type="PubMed"/>
+      <dbReference id="10.1021/pr0704130" type="DOI"/>
+    </citation>
+    <scope>PHOSPHORYLATION [LARGE SCALE ANALYSIS] AT SER-356</scope>
+    <scope>VARIANT [LARGE SCALE ANALYSIS] VAL-358</scope>
+    <scope>IDENTIFICATION BY MASS SPECTROMETRY [LARGE SCALE ANALYSIS]</scope>
+    <source>
+      <tissue>Platelet</tissue>
+    </source>
+  </reference>
+  <reference key="9">
+    <citation last="17" first="17" volume="5" name="BMC Syst. Biol." date="2011" type="journal article">
+      <title>Initial characterization of the human central proteome.</title>
+      <authorList>
+        <person name="Burkard T.R."/>
+        <person name="Planyavsky M."/>
+        <person name="Kaupe I."/>
+        <person name="Breitwieser F.P."/>
+        <person name="Buerckstuemmer T."/>
+        <person name="Bennett K.L."/>
+        <person name="Superti-Furga G."/>
+        <person name="Colinge J."/>
+      </authorList>
+      <dbReference id="21269460" type="PubMed"/>
+      <dbReference id="10.1186/1752-0509-5-17" type="DOI"/>
+    </citation>
+    <scope>IDENTIFICATION BY MASS SPECTROMETRY [LARGE SCALE ANALYSIS]</scope>
+  </reference>
+  <reference key="10">
+    <citation last="4501" first="4493" volume="81" name="Anal. Chem." date="2009" type="journal article">
+      <title>Lys-N and trypsin cover complementary parts of the phosphoproteome in a refined SCX-based approach.</title>
+      <authorList>
+        <person name="Gauci S."/>
+        <person name="Helbig A.O."/>
+        <person name="Slijper M."/>
+        <person name="Krijgsveld J."/>
+        <person name="Heck A.J."/>
+        <person name="Mohammed S."/>
+      </authorList>
+      <dbReference id="19413330" type="PubMed"/>
+      <dbReference id="10.1021/ac9004309" type="DOI"/>
+    </citation>
+    <scope>VARIANT [LARGE SCALE ANALYSIS] VAL-358</scope>
+    <scope>IDENTIFICATION BY MASS SPECTROMETRY [LARGE SCALE ANALYSIS]</scope>
+  </reference>
+  <comment type="function">
+    <text>Involved in the presentation of foreign antigens to the immune system.</text>
+  </comment>
+  <comment evidence="1" type="subunit">
+    <text status="by similarity">Heterodimer of an alpha chain and a beta chain (beta-2-microglobulin). Interacts with human herpesvirus 8 MIR1 protein.</text>
+  </comment>
+  <comment type="subcellular location">
+    <subcellularLocation>
+      <location>Membrane</location>
+      <topology>Single-pass type I membrane protein</topology>
+    </subcellularLocation>
+  </comment>
+  <comment evidence="1" type="PTM">
+    <text status="by similarity">Polyubiquitinated in a post ER compartment by interaction with human herpesvirus 8 MIR1 protein. This targets the protein for rapid degradation via the ubiquitin system.</text>
+  </comment>
+  <comment type="polymorphism">
+    <text>The following alleles of A-33 are known: A*33:01 (Aw-33.1), A*3302 and A*33:03. The sequence shown is that of A*33:01.</text>
+  </comment>
+  <comment evidence="6" type="similarity">
+    <text>Belongs to the MHC class I family.</text>
+  </comment>
+  <comment evidence="6" type="similarity">
+    <text>Contains 1 Ig-like C1-type (immunoglobulin-like) domain.</text>
+  </comment>
+  <dbReference id="M30580" type="EMBL">
+    <property value="AAB47870.1" type="protein sequence ID"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="U83416" type="EMBL">
+    <property value="AAB53374.1" type="protein sequence ID"/>
+    <property value="mRNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="L06440" type="EMBL">
+    <property value="AAA71914.1" type="protein sequence ID"/>
+    <property value="mRNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="U09740" type="EMBL">
+    <property value="AAA79865.1" type="protein sequence ID"/>
+    <property value="mRNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="X83004" type="EMBL">
+    <property value="CAA58125.1" type="protein sequence ID"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="X83005" type="EMBL">
+    <property value="CAA58126.1" type="protein sequence ID"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="X83002" type="EMBL">
+    <property value="CAA58123.1" type="protein sequence ID"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="X83003" type="EMBL">
+    <property value="CAA58124.1" type="protein sequence ID"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="AH005379" type="EMBL">
+    <property value="AAB60652.1" type="protein sequence ID"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="AH005380" type="EMBL">
+    <property value="AAB60653.1" type="protein sequence ID"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="I38610" type="PIR">
+    <property value="I38610" type="entry name"/>
+  </dbReference>
+  <dbReference id="S51099" type="PIR">
+    <property value="S51099" type="entry name"/>
+  </dbReference>
+  <dbReference id="S51100" type="PIR">
+    <property value="S51100" type="entry name"/>
+  </dbReference>
+  <dbReference id="P16190" type="ProteinModelPortal"/>
+  <dbReference id="P16190" type="SMR">
+    <property value="25-294" type="residue range"/>
+  </dbReference>
+  <dbReference id="2851527" type="DMDM"/>
+  <dbReference id="P16190" type="PRIDE"/>
+  <dbReference id="ENST00000456012" type="Ensembl">
+    <property value="ENSP00000408986" type="protein sequence ID"/>
+    <property value="ENSG00000231834" type="gene ID"/>
+  </dbReference>
+  <dbReference id="GC06P030186" type="GeneCards"/>
+  <dbReference id="GC06Pl29898" type="GeneCards"/>
+  <dbReference id="HGNC:4931" type="HGNC">
+    <property value="HLA-A" type="gene designation"/>
+  </dbReference>
+  <dbReference id="142800" type="MIM">
+    <property value="gene" type="type"/>
+  </dbReference>
+  <dbReference id="NX_P16190" type="neXtProt"/>
+  <dbReference id="HBG016709" type="HOVERGEN"/>
+  <dbReference id="REACT_111168" type="Reactome">
+    <property value="Endosomal/Vacuolar pathway" type="pathway name"/>
+  </dbReference>
+  <dbReference id="REACT_111178" type="Reactome">
+    <property value="ER-Phagosome pathway" type="pathway name"/>
+  </dbReference>
+  <dbReference id="REACT_11152" type="Reactome">
+    <property value="Immunoregulatory interactions between a Lymphoid and a non-Lymphoid cell" type="pathway name"/>
+  </dbReference>
+  <dbReference id="REACT_25078" type="Reactome">
+    <property value="Interferon gamma signaling" type="pathway name"/>
+  </dbReference>
+  <dbReference id="REACT_25162" type="Reactome">
+    <property value="Interferon alpha/beta signaling" type="pathway name"/>
+  </dbReference>
+  <dbReference id="REACT_75795" type="Reactome">
+    <property value="Antigen Presentation: Folding, assembly and peptide loading of class I MHC" type="pathway name"/>
+  </dbReference>
+  <dbReference id="HLA-A" type="ChiTaRS">
+    <property value="human" type="organism name"/>
+  </dbReference>
+  <dbReference id="35537753" type="NextBio"/>
+  <dbReference id="HS_HLA-A" type="CleanEx"/>
+  <dbReference id="P16190" type="Genevestigator"/>
+  <dbReference id="GO:0009986" type="GO">
+    <property value="C:cell surface" type="term"/>
+    <property value="ECO:0000250" type="evidence"/>
+    <property value="UniProt" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0031901" type="GO">
+    <property value="C:early endosome membrane" type="term"/>
+    <property value="ECO:0000304" type="evidence"/>
+    <property value="Reactome" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0005783" type="GO">
+    <property value="C:endoplasmic reticulum" type="term"/>
+    <property value="ECO:0000250" type="evidence"/>
+    <property value="UniProt" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0012507" type="GO">
+    <property value="C:ER to Golgi transport vesicle membrane" type="term"/>
+    <property value="ECO:0000304" type="evidence"/>
+    <property value="Reactome" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0005794" type="GO">
+    <property value="C:Golgi apparatus" type="term"/>
+    <property value="ECO:0000250" type="evidence"/>
+    <property value="UniProt" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0000139" type="GO">
+    <property value="C:Golgi membrane" type="term"/>
+    <property value="ECO:0000304" type="evidence"/>
+    <property value="Reactome" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0071556" type="GO">
+    <property value="C:integral component of lumenal side of endoplasmic reticulum membrane" type="term"/>
+    <property value="ECO:0000304" type="evidence"/>
+    <property value="Reactome" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0042612" type="GO">
+    <property value="C:MHC class I protein complex" type="term"/>
+    <property value="ECO:0000250" type="evidence"/>
+    <property value="UniProt" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0030670" type="GO">
+    <property value="C:phagocytic vesicle membrane" type="term"/>
+    <property value="ECO:0000304" type="evidence"/>
+    <property value="Reactome" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0005886" type="GO">
+    <property value="C:plasma membrane" type="term"/>
+    <property value="ECO:0000304" type="evidence"/>
+    <property value="Reactome" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0030881" type="GO">
+    <property value="F:beta-2-microglobulin binding" type="term"/>
+    <property value="ECO:0000250" type="evidence"/>
+    <property value="UniProt" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0042605" type="GO">
+    <property value="F:peptide antigen binding" type="term"/>
+    <property value="ECO:0000250" type="evidence"/>
+    <property value="UniProt" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0042590" type="GO">
+    <property value="P:antigen processing and presentation of exogenous peptide antigen via MHC class I" type="term"/>
+    <property value="ECO:0000304" type="evidence"/>
+    <property value="Reactome" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0002479" type="GO">
+    <property value="P:antigen processing and presentation of exogenous peptide antigen via MHC class I, TAP-dependent" type="term"/>
+    <property value="ECO:0000304" type="evidence"/>
+    <property value="Reactome" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0002480" type="GO">
+    <property value="P:antigen processing and presentation of exogenous peptide antigen via MHC class I, TAP-independent" type="term"/>
+    <property value="ECO:0000304" type="evidence"/>
+    <property value="Reactome" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0002474" type="GO">
+    <property value="P:antigen processing and presentation of peptide antigen via MHC class I" type="term"/>
+    <property value="ECO:0000304" type="evidence"/>
+    <property value="Reactome" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0019221" type="GO">
+    <property value="P:cytokine-mediated signaling pathway" type="term"/>
+    <property value="ECO:0000304" type="evidence"/>
+    <property value="Reactome" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0060333" type="GO">
+    <property value="P:interferon-gamma-mediated signaling pathway" type="term"/>
+    <property value="ECO:0000304" type="evidence"/>
+    <property value="Reactome" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0001916" type="GO">
+    <property value="P:positive regulation of T cell mediated cytotoxicity" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="InterPro" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0050776" type="GO">
+    <property value="P:regulation of immune response" type="term"/>
+    <property value="ECO:0000304" type="evidence"/>
+    <property value="Reactome" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0060337" type="GO">
+    <property value="P:type I interferon signaling pathway" type="term"/>
+    <property value="ECO:0000304" type="evidence"/>
+    <property value="Reactome" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0016032" type="GO">
+    <property value="P:viral process" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="UniProtKB-KW" type="project"/>
+  </dbReference>
+  <dbReference id="2.60.40.10" type="Gene3D">
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="3.30.500.10" type="Gene3D">
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="IPR007110" type="InterPro">
+    <property value="Ig-like_dom" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR013783" type="InterPro">
+    <property value="Ig-like_fold" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR003006" type="InterPro">
+    <property value="Ig/MHC_CS" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR003597" type="InterPro">
+    <property value="Ig_C1-set" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR011161" type="InterPro">
+    <property value="MHC_I-like_Ag-recog" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR011162" type="InterPro">
+    <property value="MHC_I/II-like_Ag-recog" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR027648" type="InterPro">
+    <property value="MHC_I_a" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR001039" type="InterPro">
+    <property value="MHC_I_a_a1/a2" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR010579" type="InterPro">
+    <property value="MHC_I_a_C" type="entry name"/>
+  </dbReference>
+  <dbReference id="PF07654" type="Pfam">
+    <property value="C1-set" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PF00129" type="Pfam">
+    <property value="MHC_I" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PF06623" type="Pfam">
+    <property value="MHC_I_C" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PR01638" type="PRINTS">
+    <property value="MHCCLASSI" type="entry name"/>
+  </dbReference>
+  <dbReference id="SM00407" type="SMART">
+    <property value="IGc1" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="SSF54452" type="SUPFAM">
+    <property value="SSF54452" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PS50835" type="PROSITE">
+    <property value="IG_LIKE" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PS00290" type="PROSITE">
+    <property value="IG_MHC" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <proteinExistence type="evidence at protein level"/>
+  <keyword id="KW-0181">Complete proteome</keyword>
+  <keyword id="KW-1015">Disulfide bond</keyword>
+  <keyword id="KW-0325">Glycoprotein</keyword>
+  <keyword id="KW-0945">Host-virus interaction</keyword>
+  <keyword id="KW-0391">Immunity</keyword>
+  <keyword id="KW-0472">Membrane</keyword>
+  <keyword id="KW-0490">MHC I</keyword>
+  <keyword id="KW-0597">Phosphoprotein</keyword>
+  <keyword id="KW-0621">Polymorphism</keyword>
+  <keyword id="KW-1185">Reference proteome</keyword>
+  <keyword id="KW-0732">Signal</keyword>
+  <keyword id="KW-0812">Transmembrane</keyword>
+  <keyword id="KW-1133">Transmembrane helix</keyword>
+  <keyword id="KW-0832">Ubl conjugation</keyword>
+  <feature type="signal peptide">
+    <location>
+      <begin position="1"/>
+      <end position="24"/>
+    </location>
+  </feature>
+  <feature description="HLA class I histocompatibility antigen, A-33 alpha chain" id="PRO_0000018825" type="chain">
+    <location>
+      <begin position="25"/>
+      <end position="365"/>
+    </location>
+  </feature>
+  <feature evidence="2" description="Extracellular" type="topological domain">
+    <location>
+      <begin position="25"/>
+      <end position="308"/>
+    </location>
+  </feature>
+  <feature evidence="2" description="Helical" type="transmembrane region">
+    <location>
+      <begin position="309"/>
+      <end position="332"/>
+    </location>
+  </feature>
+  <feature evidence="2" description="Cytoplasmic" type="topological domain">
+    <location>
+      <begin position="333"/>
+      <end position="365"/>
+    </location>
+  </feature>
+  <feature description="Ig-like C1-type" type="domain">
+    <location>
+      <begin position="209"/>
+      <end position="295"/>
+    </location>
+  </feature>
+  <feature description="Alpha-1" type="region of interest">
+    <location>
+      <begin position="25"/>
+      <end position="114"/>
+    </location>
+  </feature>
+  <feature description="Alpha-2" type="region of interest">
+    <location>
+      <begin position="115"/>
+      <end position="206"/>
+    </location>
+  </feature>
+  <feature description="Alpha-3" type="region of interest">
+    <location>
+      <begin position="207"/>
+      <end position="298"/>
+    </location>
+  </feature>
+  <feature description="Connecting peptide" type="region of interest">
+    <location>
+      <begin position="299"/>
+      <end position="308"/>
+    </location>
+  </feature>
+  <feature evidence="4" description="Phosphoserine" type="modified residue">
+    <location>
+      <position position="356"/>
+    </location>
+  </feature>
+  <feature evidence="1" description="N-linked (GlcNAc...)" type="glycosylation site">
+    <location>
+      <position position="110"/>
+    </location>
+  </feature>
+  <feature evidence="3" type="disulfide bond">
+    <location>
+      <begin position="125"/>
+      <end position="188"/>
+    </location>
+  </feature>
+  <feature evidence="3" type="disulfide bond">
+    <location>
+      <begin position="227"/>
+      <end position="283"/>
+    </location>
+  </feature>
+  <feature description="In allele A*3302." id="VAR_004375" type="sequence variant">
+    <original>R</original>
+    <variation>S</variation>
+    <location>
+      <position position="41"/>
+    </location>
+  </feature>
+  <feature description="In dbSNP:rs1059509." id="VAR_056286" type="sequence variant">
+    <original>N</original>
+    <variation>K</variation>
+    <location>
+      <position position="151"/>
+    </location>
+  </feature>
+  <feature description="In dbSNP:rs1059516." id="VAR_056287" type="sequence variant">
+    <original>I</original>
+    <variation>T</variation>
+    <location>
+      <position position="166"/>
+    </location>
+  </feature>
+  <feature description="In allele A*3302 and allele A*33:03." id="VAR_004376" type="sequence variant">
+    <original>H</original>
+    <variation>Y</variation>
+    <location>
+      <position position="195"/>
+    </location>
+  </feature>
+  <feature description="In allele A*3302." id="VAR_004377" type="sequence variant">
+    <original>AV</original>
+    <variation>PI</variation>
+    <location>
+      <begin position="217"/>
+      <end position="218"/>
+    </location>
+  </feature>
+  <feature evidence="4 5" description="In allele A*3302." id="VAR_004378" type="sequence variant">
+    <original>M</original>
+    <variation>V</variation>
+    <location>
+      <position position="358"/>
+    </location>
+  </feature>
+  <feature ref="3" evidence="6" description="(in Ref. 3; AAB53374)" type="sequence conflict">
+    <original>K</original>
+    <variation>R</variation>
+    <location>
+      <position position="210"/>
+    </location>
+  </feature>
+  <evidence key="1" type="ECO:0000250">
+    <source/>
+  </evidence>
+  <evidence key="2" type="ECO:0000255">
+    <source/>
+  </evidence>
+  <evidence key="3" type="ECO:0000255">
+    <source>
+      <dbReference id="PRU00114" type="PROSITE-ProRule"/>
+    </source>
+  </evidence>
+  <evidence key="4" type="ECO:0000269">
+    <source>
+      <dbReference id="18088087" type="PubMed"/>
+    </source>
+  </evidence>
+  <evidence key="5" type="ECO:0000269">
+    <source>
+      <dbReference id="19413330" type="PubMed"/>
+    </source>
+  </evidence>
+  <evidence key="6" type="ECO:0000305">
+    <source/>
+  </evidence>
+  <sequence precursor="true" version="3" modified="1998-07-15" checksum="060AE508EADEB328" mass="40892" length="365">MAVMAPRTLLLLLLGALALTQTWAGSHSMRYFTTSVSRPGRGEPRFIAVGYVDDTQFVRFDSDAASQRMEPRAPWIEQEGPEYWDRNTRNVKAHSQIDRVDLGTLRGYYNQSEAGSHTIQMMYGCDVGSDGRFLRGYQQDAYDGKDYIALNEDLRSWTAADMAAQITQRKWEAARVAEQLRAYLEGTCVEWLRRHLENGKETLQRTDPPKTHMTHHAVSDHEATLRCWALSFYPAEITLTWQRDGEDQTQDTELVETRPAGDGTFQKWASVVVPSGQEQRYTCHVQHEGLPKPLTLRWEPSSQPTIPIVGIIAGLVLFGAVFAGAVVAAVRWRRKSSDRKGGSYSQAASSDSAQGSDMSLTACKV</sequence>
+</entry>
+<entry version="74" modified="2014-10-01" created="1993-04-01" dataset="Swiss-Prot">
+  <accession>P30380</accession>
+  <name>1B02_GORGO</name>
+  <protein>
+    <recommendedName>
+      <fullName>Class I histocompatibility antigen, Gogo-B*0102 alpha chain</fullName>
+    </recommendedName>
+  </protein>
+  <organism>
+    <name type="scientific">Gorilla gorilla gorilla</name>
+    <name type="common">Lowland gorilla</name>
+    <dbReference id="9595" type="NCBI Taxonomy"/>
+    <lineage>
+      <taxon>Eukaryota</taxon>
+      <taxon>Metazoa</taxon>
+      <taxon>Chordata</taxon>
+      <taxon>Craniata</taxon>
+      <taxon>Vertebrata</taxon>
+      <taxon>Euteleostomi</taxon>
+      <taxon>Mammalia</taxon>
+      <taxon>Eutheria</taxon>
+      <taxon>Euarchontoglires</taxon>
+      <taxon>Primates</taxon>
+      <taxon>Haplorrhini</taxon>
+      <taxon>Catarrhini</taxon>
+      <taxon>Hominidae</taxon>
+      <taxon>Gorilla</taxon>
+    </lineage>
+  </organism>
+  <reference key="1">
+    <citation last="1509" first="1491" volume="174" name="J. Exp. Med." date="1991" type="journal article">
+      <title>Gorilla class I major histocompatibility complex alleles: comparison to human and chimpanzee class I.</title>
+      <authorList>
+        <person name="Lawlor D.A."/>
+        <person name="Warren E."/>
+        <person name="Taylor P."/>
+        <person name="Parham P."/>
+      </authorList>
+      <dbReference id="1744581" type="PubMed"/>
+      <dbReference id="10.1084/jem.174.6.1491" type="DOI"/>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [MRNA]</scope>
+  </reference>
+  <comment type="function">
+    <text>Involved in the presentation of foreign antigens to the immune system.</text>
+  </comment>
+  <comment type="subunit">
+    <text>Heterodimer of an alpha chain and a beta chain (beta-2-microglobulin).</text>
+  </comment>
+  <comment type="subcellular location">
+    <subcellularLocation>
+      <location>Membrane</location>
+      <topology>Single-pass type I membrane protein</topology>
+    </subcellularLocation>
+  </comment>
+  <comment evidence="4" type="similarity">
+    <text>Belongs to the MHC class I family.</text>
+  </comment>
+  <comment evidence="4" type="similarity">
+    <text>Contains 1 Ig-like C1-type (immunoglobulin-like) domain.</text>
+  </comment>
+  <dbReference id="X60693" type="EMBL">
+    <property value="CAA43101.1" type="protein sequence ID"/>
+    <property value="mRNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="JH0540" type="PIR">
+    <property value="JH0540" type="entry name"/>
+  </dbReference>
+  <dbReference id="P30380" type="ProteinModelPortal"/>
+  <dbReference id="P30380" type="SMR">
+    <property value="25-300" type="residue range"/>
+  </dbReference>
+  <dbReference id="HBG016709" type="HOVERGEN"/>
+  <dbReference id="GO:0016021" type="GO">
+    <property value="C:integral component of membrane" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="UniProtKB-KW" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0042612" type="GO">
+    <property value="C:MHC class I protein complex" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="UniProtKB-KW" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0042605" type="GO">
+    <property value="F:peptide antigen binding" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="InterPro" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0002474" type="GO">
+    <property value="P:antigen processing and presentation of peptide antigen via MHC class I" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="UniProtKB-KW" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0006955" type="GO">
+    <property value="P:immune response" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="InterPro" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0001916" type="GO">
+    <property value="P:positive regulation of T cell mediated cytotoxicity" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="InterPro" type="project"/>
+  </dbReference>
+  <dbReference id="2.60.40.10" type="Gene3D">
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="3.30.500.10" type="Gene3D">
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="IPR007110" type="InterPro">
+    <property value="Ig-like_dom" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR013783" type="InterPro">
+    <property value="Ig-like_fold" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR003006" type="InterPro">
+    <property value="Ig/MHC_CS" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR003597" type="InterPro">
+    <property value="Ig_C1-set" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR011161" type="InterPro">
+    <property value="MHC_I-like_Ag-recog" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR011162" type="InterPro">
+    <property value="MHC_I/II-like_Ag-recog" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR027648" type="InterPro">
+    <property value="MHC_I_a" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR001039" type="InterPro">
+    <property value="MHC_I_a_a1/a2" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR010579" type="InterPro">
+    <property value="MHC_I_a_C" type="entry name"/>
+  </dbReference>
+  <dbReference id="PF07654" type="Pfam">
+    <property value="C1-set" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PF00129" type="Pfam">
+    <property value="MHC_I" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PF06623" type="Pfam">
+    <property value="MHC_I_C" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PR01638" type="PRINTS">
+    <property value="MHCCLASSI" type="entry name"/>
+  </dbReference>
+  <dbReference id="SM00407" type="SMART">
+    <property value="IGc1" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="SSF54452" type="SUPFAM">
+    <property value="SSF54452" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PS50835" type="PROSITE">
+    <property value="IG_LIKE" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PS00290" type="PROSITE">
+    <property value="IG_MHC" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <proteinExistence type="evidence at transcript level"/>
+  <keyword id="KW-0181">Complete proteome</keyword>
+  <keyword id="KW-1015">Disulfide bond</keyword>
+  <keyword id="KW-0325">Glycoprotein</keyword>
+  <keyword id="KW-0391">Immunity</keyword>
+  <keyword id="KW-0472">Membrane</keyword>
+  <keyword id="KW-0490">MHC I</keyword>
+  <keyword id="KW-1185">Reference proteome</keyword>
+  <keyword id="KW-0732">Signal</keyword>
+  <keyword id="KW-0812">Transmembrane</keyword>
+  <keyword id="KW-1133">Transmembrane helix</keyword>
+  <feature evidence="1" type="signal peptide">
+    <location>
+      <begin position="1"/>
+      <end position="24"/>
+    </location>
+  </feature>
+  <feature description="Class I histocompatibility antigen, Gogo-B*0102 alpha chain" id="PRO_0000018902" type="chain">
+    <location>
+      <begin position="25"/>
+      <end position="362"/>
+    </location>
+  </feature>
+  <feature evidence="2" description="Extracellular" type="topological domain">
+    <location>
+      <begin position="25"/>
+      <end position="308"/>
+    </location>
+  </feature>
+  <feature evidence="2" description="Helical" type="transmembrane region">
+    <location>
+      <begin position="309"/>
+      <end position="332"/>
+    </location>
+  </feature>
+  <feature evidence="2" description="Cytoplasmic" type="topological domain">
+    <location>
+      <begin position="333"/>
+      <end position="362"/>
+    </location>
+  </feature>
+  <feature description="Ig-like C1-type" type="domain">
+    <location>
+      <begin position="209"/>
+      <end position="295"/>
+    </location>
+  </feature>
+  <feature description="Alpha-1" type="region of interest">
+    <location>
+      <begin position="25"/>
+      <end position="114"/>
+    </location>
+  </feature>
+  <feature description="Alpha-2" type="region of interest">
+    <location>
+      <begin position="115"/>
+      <end position="206"/>
+    </location>
+  </feature>
+  <feature description="Alpha-3" type="region of interest">
+    <location>
+      <begin position="207"/>
+      <end position="298"/>
+    </location>
+  </feature>
+  <feature description="Connecting peptide" type="region of interest">
+    <location>
+      <begin position="299"/>
+      <end position="308"/>
+    </location>
+  </feature>
+  <feature evidence="1" description="N-linked (GlcNAc...)" type="glycosylation site">
+    <location>
+      <position position="110"/>
+    </location>
+  </feature>
+  <feature evidence="3" type="disulfide bond">
+    <location>
+      <begin position="125"/>
+      <end position="188"/>
+    </location>
+  </feature>
+  <feature evidence="3" type="disulfide bond">
+    <location>
+      <begin position="227"/>
+      <end position="283"/>
+    </location>
+  </feature>
+  <evidence key="1" type="ECO:0000250">
+    <source/>
+  </evidence>
+  <evidence key="2" type="ECO:0000255">
+    <source/>
+  </evidence>
+  <evidence key="3" type="ECO:0000255">
+    <source>
+      <dbReference id="PRU00114" type="PROSITE-ProRule"/>
+    </source>
+  </evidence>
+  <evidence key="4" type="ECO:0000305">
+    <source/>
+  </evidence>
+  <sequence precursor="true" version="1" modified="1993-04-01" checksum="E19EEE2B7CC7BECD" mass="40205" length="362">MRVTAPRTLLLLLSAALALTETWAGSHSMRYFDTAVSRPGRGEPRFITVGYVDDTQFVRFDSDAASPRMEPRAPWIEQEGPEYWDRETQTSKAQAQTDRENLRIALRYYNQSEAGSHTFQRMFGCDVGPDGRLLRGYSQSAYDGKDYIALNEDLSSWTAADTAAQITQRKWEAAREAEQLRAYLEGTCVEWLRRYLENGRETLQRADTPKTHVTHHPISDHEATLRCWALGFYPAEITLTWQRDGEDQTQDTELVETRPAGDGTFQKWAAVVVPSGEEERYTCHVQHEGLPKPLTLRWEPSSQSTIPIVGIVAGLAVLAVVVIGAVVTAVICRRKSSGGKGGSYSQAASSDSAQGSDVSLTA</sequence>
+</entry>
+<entry version="117" modified="2014-10-29" created="1993-04-01" dataset="Swiss-Prot">
+  <accession>P30495</accession>
+  <accession>O19758</accession>
+  <accession>P30496</accession>
+  <accession>P79490</accession>
+  <accession>Q9GIM3</accession>
+  <accession>Q9GJ17</accession>
+  <accession>Q9TPR4</accession>
+  <name>1B56_HUMAN</name>
+  <protein>
+    <recommendedName>
+      <fullName>HLA class I histocompatibility antigen, B-56 alpha chain</fullName>
+    </recommendedName>
+    <alternativeName>
+      <fullName>Bw-22</fullName>
+    </alternativeName>
+    <alternativeName>
+      <fullName>Bw-56</fullName>
+    </alternativeName>
+    <alternativeName>
+      <fullName>MHC class I antigen B*56</fullName>
+    </alternativeName>
+  </protein>
+  <gene>
+    <name type="primary">HLA-B</name>
+    <name type="synonym">HLAB</name>
+  </gene>
+  <organism>
+    <name type="scientific">Homo sapiens</name>
+    <name type="common">Human</name>
+    <dbReference id="9606" type="NCBI Taxonomy"/>
+    <lineage>
+      <taxon>Eukaryota</taxon>
+      <taxon>Metazoa</taxon>
+      <taxon>Chordata</taxon>
+      <taxon>Craniata</taxon>
+      <taxon>Vertebrata</taxon>
+      <taxon>Euteleostomi</taxon>
+      <taxon>Mammalia</taxon>
+      <taxon>Eutheria</taxon>
+      <taxon>Euarchontoglires</taxon>
+      <taxon>Primates</taxon>
+      <taxon>Haplorrhini</taxon>
+      <taxon>Catarrhini</taxon>
+      <taxon>Hominidae</taxon>
+      <taxon>Homo</taxon>
+    </lineage>
+  </organism>
+  <reference key="1">
+    <citation last="1162" first="1155" volume="148" name="J. Immunol." date="1992" type="journal article">
+      <title>HLA-Bw22: a family of molecules with identity to HLA-B7 in the alpha 1-helix.</title>
+      <authorList>
+        <person name="Hildebrand W.H."/>
+        <person name="Madrigal J.A."/>
+        <person name="Little A.-M."/>
+        <person name="Parham P."/>
+      </authorList>
+      <dbReference id="1737933" type="PubMed"/>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [MRNA] (ALLELES B*56:01 AND B*56:02)</scope>
+  </reference>
+  <reference key="2">
+    <citation last="382" first="376" volume="49" name="Tissue Antigens" date="1997" type="journal article">
+      <title>Five HLA-B22 group alleles in Japanese.</title>
+      <authorList>
+        <person name="Bannai M."/>
+        <person name="Tokunaga K."/>
+        <person name="Tanaka H."/>
+        <person name="Lin L."/>
+        <person name="Kashiwase K."/>
+        <person name="Tokunaga K."/>
+        <person name="Juji T."/>
+      </authorList>
+      <dbReference id="9151389" type="PubMed"/>
+      <dbReference id="10.1111/j.1399-0039.1997.tb02765.x" type="DOI"/>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [MRNA] (ALLELE B*56:03)</scope>
+    <source>
+      <tissue>Blood</tissue>
+    </source>
+  </reference>
+  <reference key="3">
+    <citation db="EMBL/GenBank/DDBJ databases" date="1997-04" type="submission">
+      <title>Novel HLA-B alleles.</title>
+      <authorList>
+        <person name="Steiner N.K."/>
+        <person name="Lee K.W."/>
+        <person name="Hurley C.K."/>
+      </authorList>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE OF 26-206 (ALLELE B*56:04)</scope>
+  </reference>
+  <reference key="4">
+    <citation db="EMBL/GenBank/DDBJ databases" date="1999-07" type="submission">
+      <title>HLA-B56V1(B*5605).</title>
+      <authorList>
+        <person name="Juji T."/>
+        <person name="Akesaka T."/>
+        <person name="Kashiwase K."/>
+      </authorList>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE OF 26-206 (ALLELE B*56:05)</scope>
+  </reference>
+  <reference key="5">
+    <citation last="46" first="42" volume="58" name="Tissue Antigens" date="2001" type="journal article">
+      <title>Identification of two new HLA-B22 variants, HLA-B*5509 and B*5606.</title>
+      <authorList>
+        <person name="Voorter C.E."/>
+        <person name="Hepkema B.G."/>
+        <person name="Mulkers E.M.T."/>
+        <person name="Lems S.P.M."/>
+        <person name="van den Berg-Loonen E.M."/>
+      </authorList>
+      <dbReference id="11580856" type="PubMed"/>
+      <dbReference id="10.1034/j.1399-0039.2001.580108.x" type="DOI"/>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [GENOMIC DNA] OF 26-206 (ALLELE B*56:06)</scope>
+  </reference>
+  <reference key="6">
+    <citation last="370" first="363" volume="56" name="Tissue Antigens" date="2000" type="journal article">
+      <title>Unexpected Bw4 and Bw6 reactivity patterns in new alleles.</title>
+      <authorList>
+        <person name="Voorter C.E."/>
+        <person name="van der Vlies S."/>
+        <person name="Kik M."/>
+        <person name="van den Berg-Loonen E.M."/>
+      </authorList>
+      <dbReference id="11098937" type="PubMed"/>
+      <dbReference id="10.1034/j.1399-0039.2000.560409.x" type="DOI"/>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE OF 26-206 (ALLELE B*56:07)</scope>
+  </reference>
+  <reference key="7">
+    <citation last="17" first="17" volume="5" name="BMC Syst. Biol." date="2011" type="journal article">
+      <title>Initial characterization of the human central proteome.</title>
+      <authorList>
+        <person name="Burkard T.R."/>
+        <person name="Planyavsky M."/>
+        <person name="Kaupe I."/>
+        <person name="Breitwieser F.P."/>
+        <person name="Buerckstuemmer T."/>
+        <person name="Bennett K.L."/>
+        <person name="Superti-Furga G."/>
+        <person name="Colinge J."/>
+      </authorList>
+      <dbReference id="21269460" type="PubMed"/>
+      <dbReference id="10.1186/1752-0509-5-17" type="DOI"/>
+    </citation>
+    <scope>VARIANT [LARGE SCALE ANALYSIS] THR-65</scope>
+    <scope>IDENTIFICATION BY MASS SPECTROMETRY [LARGE SCALE ANALYSIS]</scope>
+  </reference>
+  <comment type="function">
+    <text>Involved in the presentation of foreign antigens to the immune system.</text>
+  </comment>
+  <comment evidence="1" type="subunit">
+    <text status="by similarity">Heterodimer of an alpha chain and a beta chain (beta-2-microglobulin). Interacts with human herpesvirus 8 MIR1 protein.</text>
+  </comment>
+  <comment type="subcellular location">
+    <subcellularLocation>
+      <location>Membrane</location>
+      <topology>Single-pass type I membrane protein</topology>
+    </subcellularLocation>
+  </comment>
+  <comment evidence="1" type="PTM">
+    <text status="by similarity">Polyubiquitinated in a post ER compartment by interaction with human herpesvirus 8 MIR1 protein. This targets the protein for rapid degradation via the ubiquitin system.</text>
+  </comment>
+  <comment type="polymorphism">
+    <text>The following alleles of B-56 are known: B*56:01, B*56:02, B*56:03 (B22N), B*56:04, B*56:05 (B56V1), B*56:06 and B*56:07. The sequence shown is that of B*56:01.</text>
+  </comment>
+  <comment evidence="5" type="similarity">
+    <text>Belongs to the MHC class I family.</text>
+  </comment>
+  <comment evidence="5" type="similarity">
+    <text>Contains 1 Ig-like C1-type (immunoglobulin-like) domain.</text>
+  </comment>
+  <dbReference id="M77775" type="EMBL">
+    <property value="AAA03690.1" type="protein sequence ID"/>
+    <property value="mRNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="M77776" type="EMBL">
+    <property value="AAA03689.1" type="protein sequence ID"/>
+    <property value="mRNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="D85762" type="EMBL">
+    <property value="BAA12869.1" type="protein sequence ID"/>
+    <property value="mRNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="AH005456" type="EMBL">
+    <property value="AAB62223.1" type="protein sequence ID"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="AB030574" type="EMBL">
+    <property value="BAA82677.1" type="protein sequence ID"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="Y18542" type="EMBL">
+    <property value="CAC12884.1" type="protein sequence ID"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="Y18543" type="EMBL">
+    <property value="CAC12884.1" type="protein sequence ID"/>
+    <property value="JOINED" type="status"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="Y18544" type="EMBL">
+    <property value="CAC12896.1" type="protein sequence ID"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="Y18545" type="EMBL">
+    <property value="CAC12896.1" type="protein sequence ID"/>
+    <property value="JOINED" type="status"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="I72754" type="PIR">
+    <property value="I72754" type="entry name"/>
+  </dbReference>
+  <dbReference id="I72755" type="PIR">
+    <property value="I72755" type="entry name"/>
+  </dbReference>
+  <dbReference id="Hs.654404" type="UniGene"/>
+  <dbReference id="Hs.77961" type="UniGene"/>
+  <dbReference id="P30495" type="ProteinModelPortal"/>
+  <dbReference id="P30495" type="SMR">
+    <property value="25-300" type="residue range"/>
+  </dbReference>
+  <dbReference id="P30495" type="IntAct">
+    <property value="1" type="interactions"/>
+  </dbReference>
+  <dbReference id="231418" type="DMDM"/>
+  <dbReference id="P30495" type="PRIDE"/>
+  <dbReference id="ENST00000359635" type="Ensembl">
+    <property value="ENSP00000352656" type="protein sequence ID"/>
+    <property value="ENSG00000206450" type="gene ID"/>
+  </dbReference>
+  <dbReference id="GC06M031321" type="GeneCards"/>
+  <dbReference id="GC06Mn31311" type="GeneCards"/>
+  <dbReference id="HGNC:4932" type="HGNC">
+    <property value="HLA-B" type="gene designation"/>
+  </dbReference>
+  <dbReference id="142830" type="MIM">
+    <property value="gene" type="type"/>
+  </dbReference>
+  <dbReference id="NX_P30495" type="neXtProt"/>
+  <dbReference id="HBG016709" type="HOVERGEN"/>
+  <dbReference id="REACT_111168" type="Reactome">
+    <property value="Endosomal/Vacuolar pathway" type="pathway name"/>
+  </dbReference>
+  <dbReference id="REACT_111178" type="Reactome">
+    <property value="ER-Phagosome pathway" type="pathway name"/>
+  </dbReference>
+  <dbReference id="REACT_11152" type="Reactome">
+    <property value="Immunoregulatory interactions between a Lymphoid and a non-Lymphoid cell" type="pathway name"/>
+  </dbReference>
+  <dbReference id="REACT_25078" type="Reactome">
+    <property value="Interferon gamma signaling" type="pathway name"/>
+  </dbReference>
+  <dbReference id="REACT_25162" type="Reactome">
+    <property value="Interferon alpha/beta signaling" type="pathway name"/>
+  </dbReference>
+  <dbReference id="REACT_75795" type="Reactome">
+    <property value="Antigen Presentation: Folding, assembly and peptide loading of class I MHC" type="pathway name"/>
+  </dbReference>
+  <dbReference id="HLA-B" type="ChiTaRS">
+    <property value="human" type="organism name"/>
+  </dbReference>
+  <dbReference id="HS_HLA-B" type="CleanEx"/>
+  <dbReference id="P30495" type="Genevestigator"/>
+  <dbReference id="GO:0009986" type="GO">
+    <property value="C:cell surface" type="term"/>
+    <property value="ECO:0000250" type="evidence"/>
+    <property value="UniProt" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0031901" type="GO">
+    <property value="C:early endosome membrane" type="term"/>
+    <property value="ECO:0000304" type="evidence"/>
+    <property value="Reactome" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0005783" type="GO">
+    <property value="C:endoplasmic reticulum" type="term"/>
+    <property value="ECO:0000250" type="evidence"/>
+    <property value="UniProt" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0012507" type="GO">
+    <property value="C:ER to Golgi transport vesicle membrane" type="term"/>
+    <property value="ECO:0000304" type="evidence"/>
+    <property value="Reactome" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0005794" type="GO">
+    <property value="C:Golgi apparatus" type="term"/>
+    <property value="ECO:0000250" type="evidence"/>
+    <property value="UniProt" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0000139" type="GO">
+    <property value="C:Golgi membrane" type="term"/>
+    <property value="ECO:0000304" type="evidence"/>
+    <property value="Reactome" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0071556" type="GO">
+    <property value="C:integral component of lumenal side of endoplasmic reticulum membrane" type="term"/>
+    <property value="ECO:0000304" type="evidence"/>
+    <property value="Reactome" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0042612" type="GO">
+    <property value="C:MHC class I protein complex" type="term"/>
+    <property value="ECO:0000250" type="evidence"/>
+    <property value="UniProt" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0030670" type="GO">
+    <property value="C:phagocytic vesicle membrane" type="term"/>
+    <property value="ECO:0000304" type="evidence"/>
+    <property value="Reactome" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0005886" type="GO">
+    <property value="C:plasma membrane" type="term"/>
+    <property value="ECO:0000304" type="evidence"/>
+    <property value="Reactome" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0042605" type="GO">
+    <property value="F:peptide antigen binding" type="term"/>
+    <property value="ECO:0000250" type="evidence"/>
+    <property value="UniProt" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0042590" type="GO">
+    <property value="P:antigen processing and presentation of exogenous peptide antigen via MHC class I" type="term"/>
+    <property value="ECO:0000304" type="evidence"/>
+    <property value="Reactome" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0002479" type="GO">
+    <property value="P:antigen processing and presentation of exogenous peptide antigen via MHC class I, TAP-dependent" type="term"/>
+    <property value="ECO:0000304" type="evidence"/>
+    <property value="Reactome" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0002480" type="GO">
+    <property value="P:antigen processing and presentation of exogenous peptide antigen via MHC class I, TAP-independent" type="term"/>
+    <property value="ECO:0000304" type="evidence"/>
+    <property value="Reactome" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0002474" type="GO">
+    <property value="P:antigen processing and presentation of peptide antigen via MHC class I" type="term"/>
+    <property value="ECO:0000304" type="evidence"/>
+    <property value="Reactome" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0019221" type="GO">
+    <property value="P:cytokine-mediated signaling pathway" type="term"/>
+    <property value="ECO:0000304" type="evidence"/>
+    <property value="Reactome" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0060333" type="GO">
+    <property value="P:interferon-gamma-mediated signaling pathway" type="term"/>
+    <property value="ECO:0000304" type="evidence"/>
+    <property value="Reactome" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0001916" type="GO">
+    <property value="P:positive regulation of T cell mediated cytotoxicity" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="InterPro" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0050776" type="GO">
+    <property value="P:regulation of immune response" type="term"/>
+    <property value="ECO:0000304" type="evidence"/>
+    <property value="Reactome" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0060337" type="GO">
+    <property value="P:type I interferon signaling pathway" type="term"/>
+    <property value="ECO:0000304" type="evidence"/>
+    <property value="Reactome" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0016032" type="GO">
+    <property value="P:viral process" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="UniProtKB-KW" type="project"/>
+  </dbReference>
+  <dbReference id="2.60.40.10" type="Gene3D">
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="3.30.500.10" type="Gene3D">
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="IPR007110" type="InterPro">
+    <property value="Ig-like_dom" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR013783" type="InterPro">
+    <property value="Ig-like_fold" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR003006" type="InterPro">
+    <property value="Ig/MHC_CS" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR003597" type="InterPro">
+    <property value="Ig_C1-set" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR011161" type="InterPro">
+    <property value="MHC_I-like_Ag-recog" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR011162" type="InterPro">
+    <property value="MHC_I/II-like_Ag-recog" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR027648" type="InterPro">
+    <property value="MHC_I_a" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR001039" type="InterPro">
+    <property value="MHC_I_a_a1/a2" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR010579" type="InterPro">
+    <property value="MHC_I_a_C" type="entry name"/>
+  </dbReference>
+  <dbReference id="PF07654" type="Pfam">
+    <property value="C1-set" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PF00129" type="Pfam">
+    <property value="MHC_I" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PF06623" type="Pfam">
+    <property value="MHC_I_C" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PR01638" type="PRINTS">
+    <property value="MHCCLASSI" type="entry name"/>
+  </dbReference>
+  <dbReference id="SM00407" type="SMART">
+    <property value="IGc1" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="SSF54452" type="SUPFAM">
+    <property value="SSF54452" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PS50835" type="PROSITE">
+    <property value="IG_LIKE" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PS00290" type="PROSITE">
+    <property value="IG_MHC" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <proteinExistence type="evidence at protein level"/>
+  <keyword id="KW-0181">Complete proteome</keyword>
+  <keyword id="KW-1015">Disulfide bond</keyword>
+  <keyword id="KW-0325">Glycoprotein</keyword>
+  <keyword id="KW-0945">Host-virus interaction</keyword>
+  <keyword id="KW-0391">Immunity</keyword>
+  <keyword id="KW-0472">Membrane</keyword>
+  <keyword id="KW-0490">MHC I</keyword>
+  <keyword id="KW-0621">Polymorphism</keyword>
+  <keyword id="KW-1185">Reference proteome</keyword>
+  <keyword id="KW-0732">Signal</keyword>
+  <keyword id="KW-0812">Transmembrane</keyword>
+  <keyword id="KW-1133">Transmembrane helix</keyword>
+  <keyword id="KW-0832">Ubl conjugation</keyword>
+  <feature type="signal peptide">
+    <location>
+      <begin position="1"/>
+      <end position="24"/>
+    </location>
+  </feature>
+  <feature description="HLA class I histocompatibility antigen, B-56 alpha chain" id="PRO_0000018859" type="chain">
+    <location>
+      <begin position="25"/>
+      <end position="362"/>
+    </location>
+  </feature>
+  <feature evidence="2" description="Extracellular" type="topological domain">
+    <location>
+      <begin position="25"/>
+      <end position="308"/>
+    </location>
+  </feature>
+  <feature evidence="2" description="Helical" type="transmembrane region">
+    <location>
+      <begin position="309"/>
+      <end position="332"/>
+    </location>
+  </feature>
+  <feature evidence="2" description="Cytoplasmic" type="topological domain">
+    <location>
+      <begin position="333"/>
+      <end position="362"/>
+    </location>
+  </feature>
+  <feature description="Ig-like C1-type" type="domain">
+    <location>
+      <begin position="209"/>
+      <end position="295"/>
+    </location>
+  </feature>
+  <feature description="Alpha-1" type="region of interest">
+    <location>
+      <begin position="25"/>
+      <end position="114"/>
+    </location>
+  </feature>
+  <feature description="Alpha-2" type="region of interest">
+    <location>
+      <begin position="115"/>
+      <end position="206"/>
+    </location>
+  </feature>
+  <feature description="Alpha-3" type="region of interest">
+    <location>
+      <begin position="207"/>
+      <end position="298"/>
+    </location>
+  </feature>
+  <feature description="Connecting peptide" type="region of interest">
+    <location>
+      <begin position="299"/>
+      <end position="308"/>
+    </location>
+  </feature>
+  <feature evidence="1" description="N-linked (GlcNAc...)" type="glycosylation site">
+    <location>
+      <position position="110"/>
+    </location>
+  </feature>
+  <feature evidence="3" type="disulfide bond">
+    <location>
+      <begin position="125"/>
+      <end position="188"/>
+    </location>
+  </feature>
+  <feature evidence="3" type="disulfide bond">
+    <location>
+      <begin position="227"/>
+      <end position="283"/>
+    </location>
+  </feature>
+  <feature evidence="4" description="In dbSNP:rs1050529." id="VAR_056413" type="sequence variant">
+    <original>A</original>
+    <variation>T</variation>
+    <location>
+      <position position="65"/>
+    </location>
+  </feature>
+  <feature description="In allele B*56:06; requires 2 nucleotide substitutions." id="VAR_016486" type="sequence variant">
+    <original>E</original>
+    <variation>T</variation>
+    <location>
+      <position position="69"/>
+    </location>
+  </feature>
+  <feature description="In dbSNP:rs1050570." id="VAR_056414" type="sequence variant">
+    <original>N</original>
+    <variation>D</variation>
+    <location>
+      <position position="87"/>
+    </location>
+  </feature>
+  <feature description="In dbSNP:rs1065386." id="VAR_059491" type="sequence variant">
+    <original>N</original>
+    <variation>K</variation>
+    <location>
+      <position position="87"/>
+    </location>
+  </feature>
+  <feature description="In dbSNP:rs1050393." id="VAR_056415" type="sequence variant">
+    <original>T</original>
+    <variation>A</variation>
+    <location>
+      <position position="97"/>
+    </location>
+  </feature>
+  <feature description="In dbSNP:rs1131215." id="VAR_059492" type="sequence variant">
+    <original>D</original>
+    <variation>Y</variation>
+    <location>
+      <position position="98"/>
+    </location>
+  </feature>
+  <feature description="In allele B*56:07; dbSNP:rs1050388." id="VAR_016487" type="sequence variant">
+    <original>S</original>
+    <variation>N</variation>
+    <location>
+      <position position="101"/>
+    </location>
+  </feature>
+  <feature description="In allele B*56:07." id="VAR_016488" type="sequence variant">
+    <original>NLRG</original>
+    <variation>TALR</variation>
+    <location>
+      <begin position="104"/>
+      <end position="107"/>
+    </location>
+  </feature>
+  <feature description="In allele B*56:02, allele B*56:03 and allele B*56:04." id="VAR_016489" type="sequence variant">
+    <original>W</original>
+    <variation>L</variation>
+    <location>
+      <position position="119"/>
+    </location>
+  </feature>
+  <feature description="In allele B*56:02, allele B*56:03 and allele B*56:04." id="VAR_016490" type="sequence variant">
+    <original>T</original>
+    <variation>R</variation>
+    <location>
+      <position position="121"/>
+    </location>
+  </feature>
+  <feature description="In allele B*56:03, allele B*56:04, allele B*56:05 and allele B*56:06." id="VAR_016491" type="sequence variant">
+    <original>L</original>
+    <variation>V</variation>
+    <location>
+      <position position="127"/>
+    </location>
+  </feature>
+  <feature description="In allele B*56:03." id="VAR_016707" type="sequence variant">
+    <original>N</original>
+    <variation>D</variation>
+    <location>
+      <position position="138"/>
+    </location>
+  </feature>
+  <feature description="In allele B*56:03." id="VAR_016708" type="sequence variant">
+    <original>L</original>
+    <variation>S</variation>
+    <location>
+      <position position="140"/>
+    </location>
+  </feature>
+  <feature description="In allele B*56:05 and allele B*56:06; requires 2 nucleotide substitutions." id="VAR_016492" type="sequence variant">
+    <original>L</original>
+    <variation>Y</variation>
+    <location>
+      <position position="140"/>
+    </location>
+  </feature>
+  <feature description="In allele B*56:03, allele B*56:05 and allele B*56:06." id="VAR_016493" type="sequence variant">
+    <original>V</original>
+    <variation>E</variation>
+    <location>
+      <position position="176"/>
+    </location>
+  </feature>
+  <feature description="In allele B*56:03." id="VAR_016709" type="sequence variant">
+    <original>L</original>
+    <variation>W</variation>
+    <location>
+      <position position="180"/>
+    </location>
+  </feature>
+  <feature description="In allele B*56:05 and allele B*56:06." id="VAR_016494" type="sequence variant">
+    <original>Y</original>
+    <variation>H</variation>
+    <location>
+      <position position="195"/>
+    </location>
+  </feature>
+  <evidence key="1" type="ECO:0000250">
+    <source/>
+  </evidence>
+  <evidence key="2" type="ECO:0000255">
+    <source/>
+  </evidence>
+  <evidence key="3" type="ECO:0000255">
+    <source>
+      <dbReference id="PRU00114" type="PROSITE-ProRule"/>
+    </source>
+  </evidence>
+  <evidence key="4" type="ECO:0000269">
+    <source>
+      <dbReference id="21269460" type="PubMed"/>
+    </source>
+  </evidence>
+  <evidence key="5" type="ECO:0000305">
+    <source/>
+  </evidence>
+  <sequence precursor="true" version="1" modified="1993-04-01" checksum="D442225B8A09D667" mass="40478" length="362">MRVTAPRTLLLLLWGALALTETWAGSHSMRYFYTAMSRPGRGEPRFIAVGYVDDTQFVRFDSDAASPREEPRAPWIEQEGPEYWDRNTQIYKAQAQTDRESLRNLRGYYNQSEAGSHTWQTMYGCDLGPDGRLLRGHNQLAYDGKDYIALNEDLSSWTAADTAAQITQRKWEAARVAEQLRAYLEGLCVEWLRRYLENGKETLQRADPPKTHVTHHPISDHEATLRCWALGFYPAEITLTWQRDGEDQTQDTELVETRPAGDRTFQKWAAVVVPSGEEQRYTCHVQHEGLPKPLTLRWEPSSQSTIPIVGIVAGLAVLAVVVIGAVVATVMCRRKSSGGKGGSYSQAASSDSAQGSDVSLTA</sequence>
+</entry>
+<entry version="66" modified="2014-10-29" created="2000-12-01" dataset="Swiss-Prot">
+  <accession>O17433</accession>
+  <name>1CPX_DIRIM</name>
+  <protein>
+    <recommendedName>
+      <fullName>1-Cys peroxiredoxin</fullName>
+      <ecNumber>1.11.1.15</ecNumber>
+    </recommendedName>
+    <alternativeName>
+      <fullName>1-CysPxn</fullName>
+    </alternativeName>
+    <alternativeName>
+      <fullName>Thioredoxin peroxidase</fullName>
+    </alternativeName>
+  </protein>
+  <organism>
+    <name type="scientific">Dirofilaria immitis</name>
+    <name type="common">Canine heartworm</name>
+    <dbReference id="6287" type="NCBI Taxonomy"/>
+    <lineage>
+      <taxon>Eukaryota</taxon>
+      <taxon>Metazoa</taxon>
+      <taxon>Ecdysozoa</taxon>
+      <taxon>Nematoda</taxon>
+      <taxon>Chromadorea</taxon>
+      <taxon>Spirurida</taxon>
+      <taxon>Filarioidea</taxon>
+      <taxon>Onchocercidae</taxon>
+      <taxon>Dirofilaria</taxon>
+    </lineage>
+  </organism>
+  <reference key="1">
+    <citation db="EMBL/GenBank/DDBJ databases" date="1997-09" type="submission">
+      <title>1-Cys peroxidoxin from Dirofilaria immitis.</title>
+      <authorList>
+        <person name="McGonigle S."/>
+        <person name="James E.R."/>
+      </authorList>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [MRNA]</scope>
+  </reference>
+  <comment type="function">
+    <text>Thiol specific antioxidant.</text>
+  </comment>
+  <comment type="catalytic activity">
+    <text>2 R'-SH + ROOH = R'-S-S-R' + H(2)O + ROH.</text>
+  </comment>
+  <comment type="subcellular location">
+    <subcellularLocation>
+      <location evidence="1">Cytoplasm</location>
+    </subcellularLocation>
+  </comment>
+  <comment evidence="1" type="PTM">
+    <text status="by similarity">Cys-49 is the site of oxidation by H(2)O(2). The oxidized intermediate might be Cys-SOH.</text>
+  </comment>
+  <comment evidence="3" type="similarity">
+    <text>Belongs to the AhpC/TSA family. Rehydrin subfamily.</text>
+  </comment>
+  <comment evidence="2" type="similarity">
+    <text>Contains 1 thioredoxin domain.</text>
+  </comment>
+  <dbReference id="1.11.1.15" type="EC"/>
+  <dbReference id="AF027387" type="EMBL">
+    <property value="AAB83998.1" type="protein sequence ID"/>
+    <property value="mRNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="O17433" type="ProteinModelPortal"/>
+  <dbReference id="O17433" type="SMR">
+    <property value="5-234" type="residue range"/>
+  </dbReference>
+  <dbReference id="4935" type="PeroxiBase">
+    <property value="Di1CysPrx" type="entry name"/>
+  </dbReference>
+  <dbReference id="O17433" type="PRIDE"/>
+  <dbReference id="GO:0005737" type="GO">
+    <property value="C:cytoplasm" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="UniProtKB-KW" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0004601" type="GO">
+    <property value="F:peroxidase activity" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="UniProtKB-KW" type="project"/>
+  </dbReference>
+  <dbReference id="GO:0051920" type="GO">
+    <property value="F:peroxiredoxin activity" type="term"/>
+    <property value="ECO:0000501" type="evidence"/>
+    <property value="UniProtKB-EC" type="project"/>
+  </dbReference>
+  <dbReference id="3.40.30.10" type="Gene3D">
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="IPR000866" type="InterPro">
+    <property value="AhpC/TSA" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR024706" type="InterPro">
+    <property value="Peroxiredoxin_AhpC-typ" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR019479" type="InterPro">
+    <property value="Peroxiredoxin_C" type="entry name"/>
+  </dbReference>
+  <dbReference id="IPR012336" type="InterPro">
+    <property value="Thioredoxin-like_fold" type="entry name"/>
+  </dbReference>
+  <dbReference id="PF10417" type="Pfam">
+    <property value="1-cysPrx_C" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PF00578" type="Pfam">
+    <property value="AhpC-TSA" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PIRSF000239" type="PIRSF">
+    <property value="AHPC" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="SSF52833" type="SUPFAM">
+    <property value="SSF52833" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <dbReference id="PS51352" type="PROSITE">
+    <property value="THIOREDOXIN_2" type="entry name"/>
+    <property value="1" type="match status"/>
+  </dbReference>
+  <proteinExistence type="evidence at transcript level"/>
+  <keyword id="KW-0049">Antioxidant</keyword>
+  <keyword id="KW-0963">Cytoplasm</keyword>
+  <keyword id="KW-0560">Oxidoreductase</keyword>
+  <keyword id="KW-0575">Peroxidase</keyword>
+  <keyword id="KW-0676">Redox-active center</keyword>
+  <feature description="1-Cys peroxiredoxin" id="PRO_0000135106" type="chain">
+    <location>
+      <begin position="1"/>
+      <end position="235"/>
+    </location>
+  </feature>
+  <feature evidence="2" description="Thioredoxin" type="domain">
+    <location>
+      <begin position="5"/>
+      <end position="179"/>
+    </location>
+  </feature>
+  <feature evidence="1" type="active site">
+    <location>
+      <position position="49"/>
+    </location>
+  </feature>
+  <evidence key="1" type="ECO:0000250">
+    <source/>
+  </evidence>
+  <evidence key="2" type="ECO:0000255">
+    <source>
+      <dbReference id="PRU00691" type="PROSITE-ProRule"/>
+    </source>
+  </evidence>
+  <evidence key="3" type="ECO:0000305">
+    <source/>
+  </evidence>
+  <sequence version="1" modified="1998-01-01" checksum="BCC198C87D88FD97" mass="26342" length="235">MTKGILLGDKFPDFRAETNEGFIPSFYDWIGKDSWAILFSHPRDFTPVCTTELARLVQLAPEFNKRNVKLIGLSCDSAESHRKWVDDIMAVCKMKCNDGDTCCSGNKLPFPIIADENRFLATELGMMDPDERDENGNALTARCVFIIGPEKTLKLSILYPATTGRNFDEILRVVDSLQLTAVKLVATPVDWKDGDDCVVLPTIDDTEAKKLFGEKINTIELPSGKHYLRMVAHPK</sequence>
+</entry>
+<entry version="24" modified="2013-04-03" created="2009-06-16" dataset="Swiss-Prot">
+  <accession>Q91FT6</accession>
+  <name>236L_IIV6</name>
+  <protein>
+    <recommendedName>
+      <fullName>Uncharacterized protein 236L</fullName>
+    </recommendedName>
+  </protein>
+  <gene>
+    <name type="ORF">IIV6-236L</name>
+  </gene>
+  <organism>
+    <name type="scientific">Invertebrate iridescent virus 6</name>
+    <name type="common">IIV-6</name>
+    <name type="synonym">Chilo iridescent virus</name>
+    <dbReference id="176652" type="NCBI Taxonomy"/>
+    <lineage>
+      <taxon>Viruses</taxon>
+      <taxon>dsDNA viruses, no RNA stage</taxon>
+      <taxon>Iridoviridae</taxon>
+      <taxon>Iridovirus</taxon>
+    </lineage>
+  </organism>
+  <organismHost>
+    <name type="scientific">Acheta domesticus</name>
+    <name type="common">House cricket</name>
+    <dbReference id="6997" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Chilo suppressalis</name>
+    <name type="common">striped riceborer</name>
+    <dbReference id="168631" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Gryllus bimaculatus</name>
+    <name type="common">Two-spotted cricket</name>
+    <dbReference id="6999" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Gryllus campestris</name>
+    <dbReference id="58607" type="NCBI Taxonomy"/>
+  </organismHost>
+  <organismHost>
+    <name type="scientific">Spodoptera frugiperda</name>
+    <name type="common">Fall armyworm</name>
+    <dbReference id="7108" type="NCBI Taxonomy"/>
+  </organismHost>
+  <reference key="1">
+    <citation last="196" first="182" volume="286" name="Virology" date="2001" type="journal article">
+      <title>Analysis of the first complete DNA sequence of an invertebrate iridovirus: coding strategy of the genome of Chilo iridescent virus.</title>
+      <authorList>
+        <person name="Jakob N.J."/>
+        <person name="Mueller K."/>
+        <person name="Bahr U."/>
+        <person name="Darai G."/>
+      </authorList>
+      <dbReference id="11448171" type="PubMed"/>
+      <dbReference id="10.1006/viro.2001.0963" type="DOI"/>
+    </citation>
+    <scope>NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]</scope>
+  </reference>
+  <reference key="2">
+    <citation last="11" first="11" volume="4" name="Virol. J." date="2007" type="journal article">
+      <title>Comparative genomic analysis of the family Iridoviridae: re-annotating and defining the core set of iridovirus genes.</title>
+      <authorList>
+        <person name="Eaton H.E."/>
+        <person name="Metcalf J."/>
+        <person name="Penny E."/>
+        <person name="Tcherepanov V."/>
+        <person name="Upton C."/>
+        <person name="Brunetti C.R."/>
+      </authorList>
+      <dbReference id="17239238" type="PubMed"/>
+      <dbReference id="10.1186/1743-422X-4-11" type="DOI"/>
+    </citation>
+    <scope>GENOME REANNOTATION</scope>
+  </reference>
+  <dbReference id="AF303741" type="EMBL">
+    <property value="AAK82097.1" type="protein sequence ID"/>
+    <property value="Genomic_DNA" type="molecule type"/>
+  </dbReference>
+  <dbReference id="NP_149699.1" type="RefSeq">
+    <property value="NC_003038.1" type="nucleotide sequence ID"/>
+  </dbReference>
+  <dbReference id="1732991" type="GeneID"/>
+  <proteinExistence type="predicted"/>
+  <keyword id="KW-0181">Complete proteome</keyword>
+  <keyword id="KW-1185">Reference proteome</keyword>
+  <feature description="Uncharacterized protein 236L" id="PRO_0000377825" type="chain">
+    <location>
+      <begin position="1"/>
+      <end position="73"/>
+    </location>
+  </feature>
+  <sequence version="1" modified="2001-12-01" checksum="32799F832BCE4567" mass="8678" length="73">MKKTRRSSFSGVLMFCKSLFRRFSGVTDVNIVIKIIFYGIYVLLERRSVVEGRPNKRRCPFGTDTFLRCNFRY</sequence>
+</entry>
+</uniprot>
