@@ -6,8 +6,11 @@ import com.thinkaurelius.titan.core.TransactionBuilder;
 import com.thinkaurelius.titan.core.util.TitanCleanup;
 import org.junit.Test;
 import org.ms2ms.graph.Graphs;
+import org.ms2ms.graph.PropertyNode;
 import org.ms2ms.nosql.Titans;
 import org.ms2ms.test.TestAbstract;
+
+import java.util.Map;
 
 /**
  * ** Copyright 2014-2015 ms2ms.org
@@ -37,8 +40,14 @@ public class UniprotTest01 extends TestAbstract
   }
 
   @Test
-  public void readMiTAB() throws Exception
+  public void readVertices() throws Exception
   {
+    TitanGraph g = Titans.openHBaseGraph();
+
+    Map<String, PropertyNode> tag_node = Graphs.getVertices(
+        g.buildTransaction().start(), "gene");
+
+    g.shutdown();
 
   }
 
