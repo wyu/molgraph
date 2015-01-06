@@ -33,13 +33,29 @@ import java.util.*;
 public class UniprotHandler extends DefaultHandler
 {
   public static final String ORGANISM = "organism";
+  public static final String ACC      = "accession";
+  public static final String LABEL    = "_label_";
+  public static final String DB       = "db";
+  public static final String TERM     = "term";
+  public static final String PATHWAY  = "pathway name";
+  public static final String MOLTYPE  = "molecule type";
+  public static final String EVIDENCE = "evidence";
+  public static final String ENTRY    = "entry name";
+  public static final String PROTID   = "protein sequence ID";
+  public static final String NAME     = "name";
+  public static final String TYPE     = "type";
+  public static final String SUBCELOC = "subcellularLocation";
+  public static final String PROTEIN  = "protein";
+  public static final String GENE     = "gene";
 
   TitanGraph G;
   TitanTransaction titan;
+//  TitanManagement mgmt;
+
   Table<String, String, TitanVertex> label_val_node = HashBasedTable.create();
   PropertyNode protein, gene, primary_gene, dataset, loc, dbref, organism, interact;
   Multimap<String, PropertyNode> name_acc = HashMultimap.create();
-  TitanVertex PROTEIN, GENE;
+  TitanVertex _PROTEIN_, _GENE_;
   // the stack of opening tags
   LinkedList<String> stack = new LinkedList<>();
   StringBuilder content = new StringBuilder();
@@ -52,26 +68,17 @@ public class UniprotHandler extends DefaultHandler
 
   long entries=0, nodes=0, edges=0;
 
-  public UniprotHandler()
-  {
-    super();
-  }
-  public UniprotHandler(TitanGraph graph)
-  {
-    super(); G = graph;
-  }
+  public UniprotHandler()                 { super(); }
+  public UniprotHandler(TitanGraph graph) { super(); G = graph; }
   public UniprotHandler(TitanGraph graph, String... s)
   {
     super(); G = graph;
     species = s;
   }
-//  public UniprotHandler(TitanGraph graph, String xmlFileName)
-//  {
-//    super(); G = graph;
-//    parseDocument(xmlFileName);
-//  }
   public void parseDocument(String fname)
   {
+    prepareIndices(ACC,NAME,ORGANISM,SUBCELOC,LABEL,DB,TYPE,PROTEIN,GENE,TERM,PATHWAY,MOLTYPE,EVIDENCE,ENTRY,PROTID);
+
     TransactionBuilder tx = G.buildTransaction();
 //    tx.enableBatchLoading();
     titan = tx.start();
@@ -98,17 +105,35 @@ public class UniprotHandler extends DefaultHandler
   private void clearEntry()
   {
     protein=null; organism=null; gene=null; primary_gene=null; dataset=null; loc=null; dbref=null; organism=null; interact=null;
-    PROTEIN=null; GENE=null; attrs=null; isParsing=false;
+    _PROTEIN_ =null; _GENE_ =null; attrs=null; isParsing=false;
     name_acc.clear();
   }
-  private void prepareIndices()
+  private void prepareIndices(String... keys)
   {
-    makeStrKeys("accession","name","organism","subcellularLocation");
-    TitanManagement m = G.getManagementSystem();
-    m.buildIndex("byAcc", Vertex.class).addKey(getStrKey("accession")).buildCompositeIndex();
-    m.buildIndex("byName", Vertex.class).addKey(getStrKey("name")   ).buildCompositeIndex();
-//    m.buildIndex("byProt", Vertex.class).addKey(getStrKey("protein")).buildCompositeIndex();
-//    m.buildIndex("by", Vertex.class).addKey(getStrKey("protein")).buildCompositeIndex();
+    // https://groups.google.com/forum/#!topic/aureliusgraphs/lGA3Ye4RI5E
+    // transactional scope difference between management and graph
+    if (Tools.isSet(keys))
+    {
+      TitanManagement m = G.getManagementSystem();
+
+      for (String key : keys)
+        prepareCompositeIndex(m, key);
+//      makeStrKeys(m, ACC,NAME,ORGANISM,SUBCELOC,LABEL,DB,TYPE,PROTEIN,GENE,TERM,PATHWAY,MOLTYPE,EVIDENCE,ENTRY,PROTID);
+//      m.buildIndex("byAcc",  Vertex.class).addKey(getStrKey(ACC) ).buildCompositeIndex();
+//      m.buildIndex("byName", Vertex.class).addKey(getStrKey(NAME)).buildCompositeIndex();
+      m.commit();
+    }
+  }
+  private void prepareCompositeIndex(TitanManagement m, String key)
+  {
+    makeStrKeys(m, key);
+    m.buildIndex("by_" + key, Vertex.class).addKey(getStrKey(key) ).buildCompositeIndex();
+  }
+  private void makeStrKeys(TitanManagement m, String...  keys)
+  {
+    if (Tools.isSet(keys))
+      for (String key : keys)
+        prop_key.put(key, m.makePropertyKey(key).dataType(String.class).make());
   }
   private void makeStrKeys(String...  keys)
   {
@@ -193,25 +218,28 @@ public class UniprotHandler extends DefaultHandler
 //  }
   private TitanVertex getVertex(PropertyNode node, String... tags)
   {
-    String label=node.getProperty("_label_"), val=node.getProperty(label);
-    if (Strs.equals(label, "gene") && Strs.equals(node.getProperty("name"), "HLA-B"))
-    {
-      System.out.println();
-    }
+    String label=node.getProperty("_label_"), val=(label!=null?node.getProperty(label):null);
+    if (label==null || val==null) return null;
+
+    return getVertex(label, val, node, tags);
+  }
+  private TitanVertex getVertex(String label, String val, PropertyNode node, String... tags)
+  {
     if (titan!=null && label_val_node.get(label, val)==null)
     {
       TitanVertex v = titan.addVertexWithLabel(getVertexLabel(label));
       if (val!=null)
       {
 //        v.setProperty(getStrKey(label), val);
+        v.setProperty(label, val);
         label_val_node.put(label, val, v);
       }
       // copy the properties
       Collection<String> props = Tools.isSet(tags) ? Arrays.asList(tags) : node.getProperties().keySet();
       for (String tag : props)
-        if (!Strs.equals(tag, "_label_"))
-        v.setProperty(getStrKey(tag), node.getProperty(tag));
-//      v.setProperty(tag, node.getProperty(tag));
+//        if (!Strs.equals(tag, "_label_"))
+//        v.setProperty(getStrKey(tag), node.getProperty(tag));
+        v.setProperty(tag, node.getProperty(tag));
 
       nodes++;
     }
@@ -283,21 +311,20 @@ public class UniprotHandler extends DefaultHandler
     if      (elementName.equalsIgnoreCase("entry"))
     {
       // add to the graph. it's a new node by definition, assuming we're not re-import the same uniprot
-      protein = newNode("protein", null, null);
+      protein = newNode(PROTEIN, null, null);
       set(protein, "db", attributes.getValue("dataset"));
       dataset = newNode("db", attributes.getValue("dataset"));
-      if (++entries%200==0) System.out.print(entries+".");
 //      if (entries%10000==0) System.out.println(entries+"$");
 //      if (label_val_node.get("dataset", attributes.getValue("dataset"))!=null) dataset=titan.getVertexLabel("dataset");
     }
     else if (elementName.equalsIgnoreCase("dbReference"))
     {
-      if (organism!=null && Strs.equals(stack.getLast(), "organism") &&
+      if (organism!=null && Strs.equals(Tools.fromLast(stack, 2), "organism") &&
           Strs.equals(attributes.getValue("type"), "NCBI Taxonomy"))
       {
-        set(organism, attributes, "id");
+        set(organism, attributes, "id"); organism.rename("id", "taxon");
       }
-      if (Strs.equals(stack.getLast(), "entry"))
+      if (Strs.equals(Tools.fromLast(stack, 2), "entry"))
       {
         dbref = newNode("dbref", attributes.getValue("id"));
         dbref.setProperty("db",  attributes.getValue("type"));
@@ -305,7 +332,7 @@ public class UniprotHandler extends DefaultHandler
     }
     else if (elementName.equalsIgnoreCase("property"))
     {
-      if (Strs.equals(stack.getLast(), "dbReference"))
+      if (Strs.equals(Tools.fromLast(stack, 2), "dbReference"))
       {
         dbref.setProperty(attributes.getValue("type"), attributes.getValue("value"));
       }
@@ -314,7 +341,7 @@ public class UniprotHandler extends DefaultHandler
     {
       interact = newNode("interact", attributes.getValue("intactId"));
     }
-    else if (Strs.isA(elementName, "fullName","accession","location","proteinExistence","name"))
+    else if (Strs.isA(elementName, "fullName",ACC,"location","proteinExistence","name"))
     {
       isParsing=true; content=new StringBuilder();
     }
@@ -328,29 +355,41 @@ public class UniprotHandler extends DefaultHandler
     if (element.equals("entry"))
     {
       // TODO deposit the protein and
-      if (protein!=null && Strs.isA(protein.getProperty("organism"), species))
+      if (protein!=null && Strs.isA(protein.getProperty(ORGANISM), species))
       {
-        // map the properties
-        protein.rename("name","protein").rename("fullName","name");
-        TitanVertex PROTEIN = getVertex(protein), GENE=getVertex(primary_gene);
-        if (primary_gene!=null)
-        {
-          addEdge(PROTEIN, GENE, "protein-gene");
-          for (PropertyNode n : name_acc.get("geneid"))
-            addEdge(getVertex(n), GENE, "id-gene");
-        }
-        // hookup the other accessions
-        if (name_acc.get("accession")!=null)
-          for (PropertyNode n : name_acc.get("accession"))
-            addEdge(getVertex(n), PROTEIN, "id-protein");
-        // setup the dbrefs
-        if (name_acc.get("dbref")!=null)
-          for (PropertyNode n : name_acc.get("dbref"))
-          {
-            TitanVertex v = getVertex(n);
-            addEdge(v, PROTEIN, "dbref-protein");
-          }
+        if (++entries%1000==0) System.out.print(entries+".");
 
+        // map the properties
+        protein.rename(NAME,PROTEIN).rename("fullName", NAME);
+        TitanVertex PROTEIN = getVertex(protein);
+        if (PROTEIN!=null)
+        {
+          if (primary_gene!=null)
+          {
+            TitanVertex GENE=getVertex(primary_gene.getProperty("_label_"), primary_gene.getProperty("name"), primary_gene);
+            addEdge(PROTEIN, GENE, "protein-gene");
+            for (PropertyNode n : name_acc.get("geneid"))
+              addEdge(getVertex(n), GENE, "id-gene");
+          }
+          // hookup the other accessions
+          if (name_acc.get(ACC)!=null)
+            for (PropertyNode n : name_acc.get(ACC))
+              addEdge(getVertex(n), PROTEIN, "id-protein");
+          // setup the dbrefs
+          if (name_acc.get("dbref")!=null)
+            for (PropertyNode n : name_acc.get("dbref"))
+            {
+              n.rename(DB, DB).rename("dbref", ACC);
+              if (n.hasProperty(PROTID))
+              {
+                PropertyNode n1 = newNode("dbref", null,null);
+                n1.setProperty(DB, n.getProperty("db"));
+                n1.setProperty(ACC,n.getProperty(PROTID));
+                addEdge(getVertex(n1.getProperty(LABEL), n1.getProperty(ACC), n1), PROTEIN, "dbref-protein");
+              }
+              addEdge(getVertex(n.getProperty(LABEL), n.getProperty(ACC), n), PROTEIN, "dbref-protein");
+            }
+        }
       }
 
       // clear out the record
@@ -375,18 +414,18 @@ public class UniprotHandler extends DefaultHandler
       set(protein, "existence", content);
     }
     else if (Strs.equals(element,"location") &&
-             Strs.equals(stack.getLast(), "subcellularLocation"))
+             Strs.equals(stack.getLast(), SUBCELOC))
     {
-      set(protein, "subcellularLocation", content);
+      set(protein, SUBCELOC, content);
 //      addEdge(loc, protein, "loc-protein");
     }
-    else if (Strs.equals(element,"accession"))
+    else if (Strs.equals(element,ACC))
     {
       // setup the accession nodes that point up to the protein node
-      PropertyNode n = newNode("accession", content.toString());
-      n.setProperty("db", dataset.getProperty("db"));
+      PropertyNode n = newNode(ACC, content.toString());
+      n.setProperty(DB, dataset.getProperty(DB));
 //      n.rename("accession", "id");
-      name_acc.put("accession", n);
+      name_acc.put(ACC, n);
     }
     else if (Strs.equals(element, "fullName") &&
              Strs.equals(stack.getLast(), "recommendedName") && protein!=null)
@@ -395,37 +434,37 @@ public class UniprotHandler extends DefaultHandler
     }
     else if (element.equals("dbReference"))
     {
-      name_acc.put("dbref", dbref); dbref=null;
+      if (dbref!=null) { name_acc.put("dbref", dbref); dbref=null; }
     }
-    else if (element.equals("organism") && organism!=null && organism.getProperty("scientific")!=null)
+    else if (element.equals(ORGANISM) && organism!=null && organism.getProperty("scientific")!=null)
     {
-        protein.setProperty("organism", organism.getProperty("scientific"));
+        protein.setProperty(ORGANISM, organism.getProperty("scientific"));
     }
-    else if (Strs.equals(element, "name"))
+    else if (Strs.equals(element, NAME))
     {
-      if (Strs.equals(stack.getLast(), "gene"))
+      if (Strs.equals(stack.getLast(), GENE))
       {
-        gene = newNode("geneid", content.toString(), attrs, "type");
-        gene.rename("geneid", "accession");
-        name_acc.put("geneid", gene);
+        gene = newNode("geneid", content.toString(), attrs, TYPE);
+        gene.rename(   "geneid", ACC);
+        name_acc.put(  "geneid", gene);
         // the primary gene which is usually defined by organization such as HUGO or MGD
         // primary, synonym, ORF
-        if (primary_gene==null && Strs.equals(attrs.getValue("type"), "primary"))
+        if (primary_gene==null && Strs.equals(attrs.getValue(TYPE), "primary"))
         {
           primary_gene = gene.clone();
-          primary_gene.setProperty("_label_", "gene");
-          primary_gene.getProperties().remove("type");
-          primary_gene.rename("accession","name");
+          primary_gene.setProperty(LABEL, GENE);
+          primary_gene.getProperties().remove(TYPE);
+          primary_gene.rename(ACC,NAME);
         }
       }
       else if (Strs.equals(stack.getLast(), "entry"))
       {
-        set(protein, "name", content);
+        set(protein, NAME, content);
       }
-      else if (Strs.equals(stack.getLast(), "organism"))
+      else if (Strs.equals(stack.getLast(), ORGANISM))
       {
         if (organism==null) organism = new PropertyNode();
-        set(organism, attrs.getValue("type"), content);
+        set(organism, attrs.getValue(TYPE), content);
       }
     }
     isParsing=false;
