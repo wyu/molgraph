@@ -34,8 +34,8 @@ public class UniprotTest01 extends TestAbstract
 
     g = Titans.openHBaseGraph();
     UniprotHandler uniprot = new UniprotHandler(g, "Homo sapiens");
-    uniprot.parseDocument("/home/wyu/Projects/molgraph/data/up1k.xml");
-//    uniprot.parseDocument("/media/data/import/bio4j/uniprot_sprot.xml");
+//    uniprot.parseDocument("/home/wyu/Projects/molgraph/data/up1k.xml");
+    uniprot.parseDocument("/media/data/import/bio4j/uniprot_sprot.xml");
     g.shutdown();
   }
 
