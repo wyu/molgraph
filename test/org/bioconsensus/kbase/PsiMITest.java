@@ -1,16 +1,28 @@
 package org.bioconsensus.kbase;
 
+import com.thinkaurelius.titan.core.TitanGraph;
+import com.thinkaurelius.titan.core.util.TitanCleanup;
+import org.jgrapht.DirectedGraph;
+import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 import org.junit.Assert;
 import org.junit.Test;
+import org.ms2ms.graph.Graphs;
+import org.ms2ms.graph.PropertyEdge;
+import org.ms2ms.graph.PropertyNode;
+import org.ms2ms.nosql.Titans;
 import org.ms2ms.test.TestAbstract;
 import psidev.psi.mi.xml.PsimiXmlLightweightReader;
+import psidev.psi.mi.xml.io.impl.PsimiXmlReader254;
 import psidev.psi.mi.xml.model.Entry;
+import psidev.psi.mi.xml.model.EntrySet;
 import psidev.psi.mi.xml.xmlindex.IndexedEntry;
 import psidev.psi.mi.xml.xmlindex.impl.PsimiXmlPullParser253;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * ** Copyright 2014-2015 ms2ms.org
@@ -22,7 +34,56 @@ import java.util.List;
  */
 public class PsiMITest extends TestAbstract
 {
+  @Test
+  public void readBioGRIDGraph() throws Exception
+  {
+    PsiMI25Reader biogrid = GraphHandler.read("/media/data/import/BioGRID/BIOGRID-ALL-3.2.120.psi25.xml");
+//    uniprot.parseDocument("/media/data/import/bio4j/uniprot_sprot.xml");
+    System.out.println();
+  }
+  @Test
+  public void readIntActGraph() throws Exception
+  {
+    PsiMI25Reader interact = new PsiMI25Reader();
+    interact.parseDocument("/home/wyu/Projects/molgraph/data/IBD25407307.xml");
+    System.out.println();
+  }
 
+  /** prepare the databases before running the test  **/
+  // /usr/local/hbase/4titan$ bin/start-hbase.sh
+  // sudo /etc/init.d/elasticsearch start
+
+  @Test
+  public void readBioGRID() throws Exception
+  {
+    TitanGraph g = Titans.openHBaseGraph();
+    g.shutdown(); TitanCleanup.clear(g);
+
+    g = Titans.openHBaseGraph();
+    Psi25Handler biogrid = new Psi25Handler(g);
+    biogrid.parseDocument("/media/data/import/BioGRID/BIOGRID-ALL-3.2.120.psi25.xml");
+//    uniprot.parseDocument("/media/data/import/bio4j/uniprot_sprot.xml");
+    g.shutdown();
+  }
+
+
+  @Test
+  public void readPSI25() throws Exception
+  {
+    File file = new File("/home/wyu/Projects/molgraph/data/10373512.xml");
+    PsimiXmlReader254 reader = new PsimiXmlReader254();
+    EntrySet es = reader.read( file );
+
+    DirectedGraph<PropertyNode, PropertyEdge> graph = new SimpleDirectedWeightedGraph<>(PropertyEdge.class);
+    Map<String, PropertyNode> tag_node = new HashMap<>();
+    graph = Graphs.readPsiMI(graph, tag_node, es);
+    Assert.assertNotNull(es);
+  }
+  @Test
+  public void getInteractionGraph() throws Exception
+  {
+
+  }
   @Test
   public void StreamParser_253_file() throws Exception
   {

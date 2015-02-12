@@ -4,7 +4,6 @@ import com.thinkaurelius.titan.core.TitanGraph;
 import com.thinkaurelius.titan.core.TitanVertex;
 import com.tinkerpop.blueprints.Edge;
 import org.ms2ms.graph.PropertyEdge;
-import org.ms2ms.graph.PropertyNode;
 import org.ms2ms.utils.Strs;
 import org.ms2ms.utils.Tools;
 import org.xml.sax.Attributes;
@@ -25,7 +24,7 @@ public class Psi25Handler extends TitanHandler
   private Map<Long, TitanVertex>   actors;
   private PropertyEdge              interaction;
   private Collection<Long> participants = new HashSet<>();;
-  private Long                      lastID;
+  private Long                      lastID, interaction_counts=0L;
 
   public Psi25Handler()                               { super(); }
   public Psi25Handler(TitanGraph graph)               { super(graph); }
@@ -59,11 +58,20 @@ public class Psi25Handler extends TitanHandler
     {
       actors = new HashMap<>();
     }
+    else if (elementName.equalsIgnoreCase("interactorList"))
+    {
+      System.out.println("Gathering the interactors");
+    }
+    else if (elementName.equalsIgnoreCase("interactionList"))
+    {
+      System.out.println("Gathering the interactions");
+    }
     else if (elementName.equalsIgnoreCase("interactor"))
     {
       // add to the graph. it's a new node by definition, assuming we're not re-import the same uniprot
       lastID = new Long(attributes.getValue("id"));
       actors.put(lastID, titan.addVertexWithLabel("interactor"));
+      if (actors.size()%1000==0) System.out.print(".");
     }
     else if (Strs.isA(elementName, "shortLabel", "interactorRef"))
     {
@@ -80,6 +88,14 @@ public class Psi25Handler extends TitanHandler
     {
       // clear out the record
       clearEntry();
+    }
+    else if (Strs.equals(element,"interactorList"))
+    {
+      System.out.println("Total interactors: " + actors.size());
+    }
+    else if (Strs.equals(element,"interactionList"))
+    {
+      System.out.println("Total interactions: " + interaction_counts);
     }
     else if (Strs.equals(element, "shortLabel"))
     {
@@ -117,11 +133,12 @@ public class Psi25Handler extends TitanHandler
         for (Long A : participants)
           for (Long B : participants)
           {
-            if (!Tools.isSet(hashes) || !hashes.contains(A.hashCode()+B.hashCode()))
+            if (A!=B && !Tools.isSet(hashes) || !hashes.contains(A.hashCode()+B.hashCode()))
             {
               Edge E = titan.addEdge(actors.get(A), actors.get(B), interaction.getDescription());
               E.setProperty("Type", interaction.getProperty("Type"));
               hashes.add(A.hashCode()+B.hashCode());
+              if (++interaction_counts%5000==0) System.out.print(".");
             }
           }
         participants.clear();
