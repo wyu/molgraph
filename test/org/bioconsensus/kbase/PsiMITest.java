@@ -44,11 +44,20 @@ public class PsiMITest extends TestAbstract
   @Test
   public void readIntActGraph() throws Exception
   {
-    PsiMI25Reader interact = new PsiMI25Reader();
-    interact.parseDocument("/home/wyu/Projects/molgraph/data/IBD25407307.xml");
+    PsiMI25Reader interact = GraphHandler.read("/home/wyu/Projects/molgraph/data/IBD25407307.xml");
     System.out.println();
   }
+  @Test
+  public void getInteractionGraph() throws Exception
+  {
+    String ibd = "/media/data/import/IntAct/psi25/datasets/IBD",
+       dataset = "/media/data/import/IntAct/psi25/datasets",
+         psi25 = "/media/data/import/IntAct/psi25";
 
+    PsiMI25Reader interact = GraphHandler.readRecursive(ibd);
+    System.out.println("Nodes/Edges: " + interact.nodes + "/" + interact.edges);
+
+  }
   /** prepare the databases before running the test  **/
   // /usr/local/hbase/4titan$ bin/start-hbase.sh
   // sudo /etc/init.d/elasticsearch start
@@ -66,7 +75,6 @@ public class PsiMITest extends TestAbstract
     g.shutdown();
   }
 
-
   @Test
   public void readPSI25() throws Exception
   {
@@ -78,11 +86,6 @@ public class PsiMITest extends TestAbstract
     Map<String, PropertyNode> tag_node = new HashMap<>();
     graph = Graphs.readPsiMI(graph, tag_node, es);
     Assert.assertNotNull(es);
-  }
-  @Test
-  public void getInteractionGraph() throws Exception
-  {
-
   }
   @Test
   public void StreamParser_253_file() throws Exception

@@ -36,9 +36,6 @@ public class PsiMI25Reader extends GraphHandler
    */
   private void clearEntry()
   {
-//    protein=null; organism=null; gene=null; primary_gene=null; dataset=null; loc=null; dbref=null; organism=null; interact=null;
-//    _PROTEIN_ =null; _GENE_ =null; attrs=null; isParsing=false;
-//    name_acc.clear();
   }
 
   @Override
@@ -53,16 +50,16 @@ public class PsiMI25Reader extends GraphHandler
     }
     else if (elementName.equalsIgnoreCase("entrySet"))
     {
-      nodes=0; edges=0;
+//      nodes=0; edges=0;
 //      actors = new HashMap<>();
     }
     else if (elementName.equalsIgnoreCase("interactorList"))
     {
-      System.out.println("Gathering the interactors");
+//      System.out.println("Gathering the interactors");
     }
     else if (elementName.equalsIgnoreCase("interactionList"))
     {
-      System.out.println("Gathering the interactions");
+//      System.out.println("Gathering the interactions");
     }
     else if (elementName.equalsIgnoreCase("interactor"))
     {
@@ -75,7 +72,7 @@ public class PsiMI25Reader extends GraphHandler
     {
       expt = new PropertyNode().setID(new Long(attributes.getValue("id")));
     }
-    else if (Strs.isA(elementName, "shortLabel", "interactorRef"))
+    else if (Strs.isA(elementName, "shortLabel","interactorRef","experimentRef","attribute","fullName"))
     {
       isParsing=true; content=new StringBuilder();
     }
@@ -105,7 +102,7 @@ public class PsiMI25Reader extends GraphHandler
     }
     else if (Strs.equals(element,"interactorList"))
     {
-      System.out.println("Total interactors: " + nodes);
+//      System.out.println("Total interactors: " + nodes);
     }
     else if (Strs.equals(element,"fullName"))
     {
@@ -116,7 +113,7 @@ public class PsiMI25Reader extends GraphHandler
     }
     else if (Strs.equals(element,"interactionList"))
     {
-      System.out.println("Total interactions: " + nodes);
+//      System.out.println("Total interactions: " + nodes);
     }
     else if (Strs.equals(element, "shortLabel"))
     {
@@ -132,7 +129,7 @@ public class PsiMI25Reader extends GraphHandler
         }
         else if (matchStack(2, "interactorType"))
         {
-          G.setNodeLabelProperty(lastID, "Type", content.toString());
+          G.setNodeLabelProperty(lastID, "intType", content.toString());
         }
         else if (matchStack(2, ORGANISM))
         {
@@ -144,11 +141,11 @@ public class PsiMI25Reader extends GraphHandler
         }
         else if (matchStack(2, "experimentDescription") && expt!=null)
         {
-          expt.setProperty("label", content.toString());
+          expt.setProperty("exptLabel", content.toString());
         }
         else if (matchStack(2, "hostOrganism") && expt!=null)
         {
-          expt.setProperty(ORGANISM, content.toString());
+          expt.setProperty("exptOrganism", content.toString());
         }
       }
     }
@@ -160,10 +157,10 @@ public class PsiMI25Reader extends GraphHandler
     else if (Strs.equals(element, "experimentRef"))
     {
       PropertyNode expt = expts.get(new Integer(content.toString()));
-      if (interaction!=null)
+      if (interaction!=null && expt!=null)
       {
         interaction.setProperty("exptName", expt.getName());
-        interaction.setProperty("exptName", expt.getName());
+        interaction.mergeProperty(expt);
       }
     }
     else if (Strs.equals(element, "interaction"))

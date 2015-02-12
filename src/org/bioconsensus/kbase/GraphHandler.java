@@ -1,7 +1,9 @@
 package org.bioconsensus.kbase;
 
+import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.ms2ms.graph.Property;
 import org.ms2ms.graph.PropertyNode;
+import org.ms2ms.utils.IOs;
 import org.ms2ms.utils.Strs;
 import org.ms2ms.utils.Tools;
 import org.xml.sax.Attributes;
@@ -30,7 +32,7 @@ abstract public class GraphHandler extends DefaultHandler
 
 //  GraphCache<PropertyNode, PropertyEdge> G;
 //  SimpleDirectedWeightedGraph<PropertyNode, PropertyEdge> G;
-  GraphCache G;
+  GraphCache G=null;
 
   // the stack of opening tags
   LinkedList<String> stack = new LinkedList<>();
@@ -41,7 +43,7 @@ abstract public class GraphHandler extends DefaultHandler
 
   String[] species;
 
-  long entries=0, nodes=0, edges=0;
+  long nodes=0, edges=0;
 
   public GraphHandler()                 { super(); }
   public GraphHandler(String... s)
@@ -51,9 +53,7 @@ abstract public class GraphHandler extends DefaultHandler
 
   public void parseDocument(String fname)
   {
-    G = new GraphCache();
-//    G = new GraphCache(PropertyEdge.class);
-//    G = new SimpleDirectedWeightedGraph<>(PropertyEdge.class);
+    if (G==null) G=new GraphCache();
 
     // parse
     SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -67,7 +67,7 @@ abstract public class GraphHandler extends DefaultHandler
     } catch (IOException e) {
       System.out.println("IO error");
     }
-    System.out.println(fname + " imported (node/edge): " + nodes + "/" + edges);
+    System.out.println(" (node/edge): " + nodes + "/" + edges);
   }
 
   protected PropertyNode set(PropertyNode p, String tag, StringBuilder s)
@@ -120,13 +120,30 @@ abstract public class GraphHandler extends DefaultHandler
   {
     return Strs.equals(Tools.fromLast(stack, fromLast), s);
   }
+  public static PsiMI25Reader readRecursive(String... folders)
+  {
+    if (Tools.isSet(folders))
+    {
+      List<String> files = new ArrayList<>();
+      for (String flder : folders)
+      {
+        files.addAll(IOs.listFiles(flder, new WildcardFileFilter("*.xml")));
+      }
+      if (Tools.isSet(files)) return read(files.toArray(new String[]{}));
+    }
+
+    return null;
+  }
   public static PsiMI25Reader read(String... fnames)
   {
     PsiMI25Reader interact = new PsiMI25Reader();
 
     if (Tools.isSet(fnames))
       for (String fname : fnames)
+      {
+        System.out.print("Reading PSI-MI contents from " + fname);
         interact.parseDocument(fname);
+      }
 
     return interact;
   }
