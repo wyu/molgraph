@@ -23,7 +23,7 @@ public class PsiMI25Reader extends GraphHandler
 {
 //  private Map<Long, PropertyNode> actors;
   private PropertyEdge        interaction;
-  private PropertyNode        expt;
+  private PropertyNode        expt, actor;
   private Collection<Integer> participants = new HashSet<>();
   private int                 lastID;
   private Map<Integer, PropertyNode> expts = new HashMap<>();
@@ -63,9 +63,7 @@ public class PsiMI25Reader extends GraphHandler
     }
     else if (elementName.equalsIgnoreCase("interactor"))
     {
-      // add to the graph. it's a new node by definition, assuming we're not re-import the same uniprot
-      lastID = G.addVertex();
-      G.setNodeLabelProperty(lastID, "id", attributes.getValue("id")).setVerticesLabel(new StringProperty("interactor"));
+      actor = new PropertyNode("interactor").setID(new Long(attributes.getValue("id")));
       if (++nodes%5000==0) System.out.print(".");
     }
     else if (Strs.equals(elementName, "experimentDescription"))
@@ -115,6 +113,15 @@ public class PsiMI25Reader extends GraphHandler
     {
 //      System.out.println("Total interactions: " + nodes);
     }
+    else if (Strs.equals(element,"interactor") && actor!=null)
+    {
+      if (G.getNodeByLabelProperty("intactID", attrs.getValue("id"))==null)
+      {
+        lastID = G.addVertex();
+        G.setNodeLabelProperty(lastID, "intactID", attrs.getValue("id")).setVerticesLabel(new StringProperty("interactor"));
+      }
+      if (++nodes%5000==0) System.out.print(".");
+    }
     else if (Strs.equals(element, "shortLabel"))
     {
       if (matchStack(1, "names"))
@@ -125,15 +132,15 @@ public class PsiMI25Reader extends GraphHandler
         }
         else if (matchStack(2, "interactor"))
         {
-          G.setNodeLabelProperty(lastID, NAME, content.toString());
+          actor.setProperty(NAME, content.toString());
         }
         else if (matchStack(2, "interactorType"))
         {
-          G.setNodeLabelProperty(lastID, "intType", content.toString());
+          actor.setProperty("intType", content.toString());
         }
         else if (matchStack(2, ORGANISM))
         {
-          G.setNodeLabelProperty(lastID, ORGANISM, content.toString());
+          actor.setProperty(ORGANISM, content.toString());
         }
         else if (matchStack(2, "interactionType"))
         {
@@ -151,7 +158,7 @@ public class PsiMI25Reader extends GraphHandler
     }
     else if (Strs.equals(element, "interactorRef"))
     {
-      IntSet ids = G.getNodeByLabelProperty("id", content.toString());
+      IntSet ids = G.getNodeByLabelProperty("intactID", content.toString());
       if (ids!=null) participants.addAll(ids.toIntegerArrayList());
     }
     else if (Strs.equals(element, "experimentRef"))
