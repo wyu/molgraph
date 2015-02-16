@@ -31,13 +31,6 @@ public class PsiMI25Reader extends GraphHandler
   public PsiMI25Reader()             { super(); }
   public PsiMI25Reader(String... s)  { super(s); }
 
-  /** Clear the cache vars between the entries
-   *
-   */
-  private void clearEntry()
-  {
-  }
-
   @Override
   public void startElement(String uri, String localName, String elementName, Attributes attributes) throws SAXException
   {
@@ -84,7 +77,7 @@ public class PsiMI25Reader extends GraphHandler
     if (Strs.equals(element, "entry"))
     {
       // clear out the record
-      clearEntry();
+//      clearEntry();
     }
     else if (Strs.equals(element,"attribute"))
     {
@@ -115,7 +108,7 @@ public class PsiMI25Reader extends GraphHandler
     }
     else if (Strs.equals(element,"interactor") && actor!=null)
     {
-      if (G.getNodeByLabelProperty("intactID", attrs.getValue("id"))==null)
+      if (!G.hasNodeLabel("intactID", attrs.getValue("id")))
       {
         lastID = G.addVertex();
         G.setNodeLabelProperty(lastID, "intactID", attrs.getValue("id")).setVerticesLabel(new StringProperty("interactor"));

@@ -1,5 +1,6 @@
 package org.bioconsensus.kbase;
 
+import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.ms2ms.graph.Property;
 import org.ms2ms.graph.PropertyNode;
@@ -28,24 +29,26 @@ abstract public class GraphHandler extends DefaultHandler
 {
   public static final String LABEL    = "_label_";
   public static final String NAME     = "name";
+  public static final String DESC     = "description";
   public static final String ORGANISM = "organism";
+  public static final String GENE     = "gene";
+  public static final String DRUGID   = "drugBankID";
+  public static final String RSID     = "rsid";
 
-//  GraphCache<PropertyNode, PropertyEdge> G;
-//  SimpleDirectedWeightedGraph<PropertyNode, PropertyEdge> G;
   GraphCache G=null;
 
   // the stack of opening tags
   LinkedList<String> stack = new LinkedList<>();
   StringBuilder content = new StringBuilder();
   boolean isParsing = false, canConnect;
-  Attributes attrs;
-  PropertyNode _PROTEIN_, _GENE_;
+  Attributes attrs; String ele;
 
-  String[] species;
+  String[] species, contentList;
 
   long nodes=0, edges=0;
 
   public GraphHandler()                 { super(); }
+  public GraphHandler(GraphCache g)     { super(); G=g; }
   public GraphHandler(String... s)
   {
     super(); species = s;
@@ -105,6 +108,13 @@ abstract public class GraphHandler extends DefaultHandler
   {
     if (isParsing && content!=null) content.append(new String(ac, i, j));
   }
+  protected void setContentList(String... s) { contentList=s; }
+  public boolean matchElementStack(String... tags)
+  {
+    return Tools.isSet(tags) && tags.length>0 ?
+          (Strs.equals(ele, tags[0]) && matchStack(Arrays.copyOfRange(tags, 1, tags.length))) : false;
+  }
+
   public boolean matchStack(String... tags)
   {
     if (Tools.isSet(tags) && Tools.isSet(stack))
@@ -146,5 +156,29 @@ abstract public class GraphHandler extends DefaultHandler
       }
 
     return interact;
+  }
+  // update the property if the element was in the pre-defined list
+  public Property set(String label, Property p, StringBuilder content)
+  {
+    if (p==null) return p;
+    if (!Tools.isA(ele, contentList)) throw new RuntimeException("element " + ele + " not specified in the pre-defined content list");
+
+    p.setProperty(label, content);
+    return p;
+  }
+  @Override
+  public void startElement(String uri, String localName, String elementName, Attributes attributes) throws SAXException
+  {
+    stack.add(elementName); attrs=attributes; ele=elementName;
+    if (Strs.isA(elementName, contentList))
+    {
+      isParsing=true; content=new StringBuilder();
+    }
+  }
+  @Override
+  public void endElement(String uri, String localName, String element) throws SAXException
+  {
+    ele=element;
+    if (!stack.removeLast().equals(ele)) throw new RuntimeException("Unmatched element!");
   }
 }

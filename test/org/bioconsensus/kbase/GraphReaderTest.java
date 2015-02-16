@@ -32,8 +32,16 @@ import java.util.Map;
  * Author: wyu
  * Date:   1/30/15
  */
-public class PsiMITest extends TestAbstract
+public class GraphReaderTest extends TestAbstract
 {
+  @Test
+  public void readDraugBankGraph() throws Exception
+  {
+    DrugBankReader dbank = new DrugBankReader();
+    dbank.parseDocument("/media/data/import/drugbank/drugbank.xml");
+    System.out.println(dbank.G.inventory());
+  }
+
   @Test
   public void readBioGRIDGraph() throws Exception
   {
@@ -56,6 +64,16 @@ public class PsiMITest extends TestAbstract
 
     PsiMI25Reader interact = GraphHandler.readRecursive(ibd);
     System.out.println("Nodes/Edges: " + interact.nodes + "/" + interact.edges);
+
+  }
+  @Test
+  public void getGeneNetworkNL() throws Exception
+  {
+    String trans = "/home/wyu/Projects/molgraph/data/2012-12-21-TransEQTLsFDR0.5.txt";
+
+    GeneNetworkNLReader g = new GeneNetworkNLReader(new GraphCache());
+    g.parseDocument(trans);
+    System.out.println("Nodes/Edges: " + g.nodes + "/" + g.edges);
 
   }
   /** prepare the databases before running the test  **/
