@@ -21,6 +21,8 @@ import java.util.*;
  */
 public class PsiMI25Reader extends GraphHandler
 {
+  public static String INTACT_ID = "intactID";
+
 //  private Map<Long, PropertyNode> actors;
   private PropertyEdge        interaction;
   private PropertyNode        expt, actor;
@@ -28,32 +30,34 @@ public class PsiMI25Reader extends GraphHandler
   private int                 lastID;
   private Map<Integer, PropertyNode> expts = new HashMap<>();
 
-  public PsiMI25Reader()             { super(); }
-  public PsiMI25Reader(String... s)  { super(s); }
+  public PsiMI25Reader()             { super(); init(); }
+  public PsiMI25Reader(String... s)  { super(s); init(); }
 
+  public void init()
+  {
+    setContentList("shortLabel","interactorRef","experimentRef","attribute","fullName");
+  }
   @Override
   public void startElement(String uri, String localName, String elementName, Attributes attributes) throws SAXException
   {
-    stack.add(elementName); attrs = attributes;
+    super.startElement(uri, localName, elementName, attributes);
 
     if      (elementName.equalsIgnoreCase("interaction"))
     {
       // add to the graph. it's a new node by definition, assuming we're not re-import the same uniprot
       interaction = new PropertyEdge().setID(new Long(attributes.getValue("id")));
     }
-    else if (elementName.equalsIgnoreCase("entrySet"))
-    {
-//      nodes=0; edges=0;
-//      actors = new HashMap<>();
-    }
-    else if (elementName.equalsIgnoreCase("interactorList"))
-    {
-//      System.out.println("Gathering the interactors");
-    }
-    else if (elementName.equalsIgnoreCase("interactionList"))
-    {
-//      System.out.println("Gathering the interactions");
-    }
+//    else if (elementName.equalsIgnoreCase("entrySet"))
+//    {
+//    }
+//    else if (elementName.equalsIgnoreCase("interactorList"))
+//    {
+////      System.out.println("Gathering the interactors");
+//    }
+//    else if (elementName.equalsIgnoreCase("interactionList"))
+//    {
+////      System.out.println("Gathering the interactions");
+//    }
     else if (elementName.equalsIgnoreCase("interactor"))
     {
       actor = new PropertyNode("interactor").setID(new Long(attributes.getValue("id")));
@@ -63,16 +67,12 @@ public class PsiMI25Reader extends GraphHandler
     {
       expt = new PropertyNode().setID(new Long(attributes.getValue("id")));
     }
-    else if (Strs.isA(elementName, "shortLabel","interactorRef","experimentRef","attribute","fullName"))
-    {
-      isParsing=true; content=new StringBuilder();
-    }
   }
   @Override
   public void endElement(String uri, String localName, String element) throws SAXException
   {
-    if (!stack.removeLast().equals(element)) throw new RuntimeException("Unmatched element!");
-
+    super.endElement(uri, localName, element);
+//
     // if end of book element add to list
     if (Strs.equals(element, "entry"))
     {
@@ -123,36 +123,18 @@ public class PsiMI25Reader extends GraphHandler
         {
           interaction.setDescription(content.toString());
         }
-        else if (matchStack(2, "interactor"))
-        {
-          actor.setProperty(NAME, content.toString());
-        }
-        else if (matchStack(2, "interactorType"))
-        {
-          actor.setProperty("intType", content.toString());
-        }
-        else if (matchStack(2, ORGANISM))
-        {
-          actor.setProperty(ORGANISM, content.toString());
-        }
-        else if (matchStack(2, "interactionType"))
-        {
-          interaction.setProperty("Type", content.toString());
-        }
-        else if (matchStack(2, "experimentDescription") && expt!=null)
-        {
-          expt.setProperty("exptLabel", content.toString());
-        }
-        else if (matchStack(2, "hostOrganism") && expt!=null)
-        {
-          expt.setProperty("exptOrganism", content.toString());
-        }
+        else if (matchStack(2, "interactor"))             set(NAME, actor, content);
+        else if (matchStack(2, "interactorType"))         set("intType", actor, content);
+        else if (matchStack(2, ORGANISM))                 set(ORGANISM, actor, content);
+        else if (matchStack(2, "interactionType"))        set("Type", interaction, content);
+        else if (matchStack(2, "experimentDescription"))  set("exptLabel", expt, content);
+        else if (matchStack(2, "hostOrganism"))           set("exptOrganism", expt, content);
       }
     }
-    else if (Strs.equals(element, "interactorRef"))
+    else if (matchElementStack("interactorRef","participant","participantList","interaction"))
     {
-      IntSet ids = G.getNodeByLabelProperty("intactID", content.toString());
-      if (ids!=null) participants.addAll(ids.toIntegerArrayList());
+      IntSet N = G.putNode("intactID", content.toString());
+      if (Tools.isSet(N)) participants.addAll(N.toIntegerArrayList());
     }
     else if (Strs.equals(element, "experimentRef"))
     {

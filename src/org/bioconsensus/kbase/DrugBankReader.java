@@ -41,7 +41,7 @@ public class DrugBankReader extends GraphHandler
   {
     super(); init();
   }
-  public DrugBankReader(GraphCache g)
+  public DrugBankReader(PropertyGraph g)
   {
     super(g); init();
   }
@@ -64,7 +64,7 @@ public class DrugBankReader extends GraphHandler
     {
       edge = new PropertyEdge();
     }
-    else if (matchStack("drug-interaction","drug-interactions","drug"))
+    else if (matchStack("drug-interaction", "drug-interactions", "drug"))
     {
       edge = new PropertyEdge();
     }
@@ -77,10 +77,8 @@ public class DrugBankReader extends GraphHandler
     // if end of book element add to list
     if (matchElementStack("drug", "drugbank"))
     {
-//      if (++nodes%100==0) System.out.print(".");
-//      System.out.print(++nodes + ".");
-      System.out.print(G.nodes + "/" + G.edges + ".");
-      if (nodes%25==0) System.out.println();
+      if (G.nodes%100 ==0) System.out.print(".");
+      if (G.nodes%5000==0) System.out.println(G.nodes + "/" + G.edges + ".");
       // save the drug node
       drugIdx = G.putNode(DRUGID, drug.getProperty(DRUGID));
       G.setNodeLabelProperty(drugIdx, drug);

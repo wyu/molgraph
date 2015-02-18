@@ -10,7 +10,7 @@ package org.bioconsensus.kbase;
  */
 abstract public class TabReader
 {
-  protected GraphCache G=null;
+  protected PropertyGraph G=null;
 
-  public TabReader(GraphCache g) { super(); G=g; };
+  public TabReader(PropertyGraph g) { super(); G=g; };
 }

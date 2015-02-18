@@ -1,6 +1,5 @@
 package org.bioconsensus.kbase;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.ms2ms.graph.Property;
 import org.ms2ms.graph.PropertyNode;
@@ -35,7 +34,7 @@ abstract public class GraphHandler extends DefaultHandler
   public static final String DRUGID   = "drugBankID";
   public static final String RSID     = "rsid";
 
-  GraphCache G=null;
+  PropertyGraph G=null;
 
   // the stack of opening tags
   LinkedList<String> stack = new LinkedList<>();
@@ -48,7 +47,7 @@ abstract public class GraphHandler extends DefaultHandler
   long nodes=0, edges=0;
 
   public GraphHandler()                 { super(); }
-  public GraphHandler(GraphCache g)     { super(); G=g; }
+  public GraphHandler(PropertyGraph g)     { super(); G=g; }
   public GraphHandler(String... s)
   {
     super(); species = s;
@@ -56,7 +55,7 @@ abstract public class GraphHandler extends DefaultHandler
 
   public void parseDocument(String fname)
   {
-    if (G==null) G=new GraphCache();
+    if (G==null) G=new PropertyGraph();
 
     // parse
     SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -151,7 +150,7 @@ abstract public class GraphHandler extends DefaultHandler
     if (Tools.isSet(fnames))
       for (String fname : fnames)
       {
-        System.out.print("Reading PSI-MI contents from " + fname);
+        System.out.println("Reading PSI-MI contents from " + fname);
         interact.parseDocument(fname);
       }
 

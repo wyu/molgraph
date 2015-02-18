@@ -4,7 +4,6 @@ import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
 import grph.in_memory.InMemoryGrph;
-import grph.properties.StringProperty;
 import org.ms2ms.graph.Property;
 import org.ms2ms.graph.PropertyEdge;
 import org.ms2ms.utils.IOs;
@@ -15,8 +14,9 @@ import toools.set.IntHashSet;
 import toools.set.IntSet;
 import toools.set.IntSingletonSet;
 
-import java.io.DataOutput;
+import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.io.Serializable;
 import java.util.Collection;
 
 /** provide an in-memory cache of graph which can be pushed to Titan via BatchGraph
@@ -28,7 +28,7 @@ import java.util.Collection;
  * Author: wyu
  * Date:   2/3/15
  */
-class GraphCache extends InMemoryGrph
+class PropertyGraph extends InMemoryGrph implements Serializable
 {
   public long nodes=0, edges=0;
 
@@ -37,7 +37,7 @@ class GraphCache extends InMemoryGrph
   private Table<String,  String, IntSet> label_val_edge = HashBasedTable.create();
   private Table<Integer, String, String> edge_label_val = HashBasedTable.create();
 
-  public GraphCache()         { super(); }
+  public PropertyGraph()         { super(); }
 
   AutoGrowingArrayList<Float> weights = new AutoGrowingArrayList<>();
 
@@ -138,7 +138,7 @@ class GraphCache extends InMemoryGrph
   {
     return getNodeByLabelProperty(lab, val)==null;
   }
-  public GraphCache setNodeLabelProperty(int n, String lable, String val)
+  public PropertyGraph setNodeLabelProperty(int n, String lable, String val)
   {
     if (Strs.isSet(lable) && Strs.isSet(val))
     {
@@ -147,7 +147,7 @@ class GraphCache extends InMemoryGrph
     }
     return this;
   }
-  public GraphCache setNodeLabelProperty(IntSet ns, Property p)
+  public PropertyGraph setNodeLabelProperty(IntSet ns, Property p)
   {
     if (Tools.isSet(ns) && p!=null && Tools.isSet(p.getProperties()))
       for (int n : ns.toIntArray())
@@ -157,7 +157,7 @@ class GraphCache extends InMemoryGrph
 
     return this;
   }
-  public GraphCache setEdgeLabelProperties(int E, String... tag_val)
+  public PropertyGraph setEdgeLabelProperties(int E, String... tag_val)
   {
     if (Tools.isSet(tag_val))
       for (int i=0; i<tag_val.length; i+=2)
@@ -165,7 +165,7 @@ class GraphCache extends InMemoryGrph
 
     return this;
   }
-  synchronized public GraphCache setEdgeLabelProperty(int E, String lable, String val)
+  synchronized public PropertyGraph setEdgeLabelProperty(int E, String lable, String val)
   {
     if (Strs.isSet(lable) && Strs.isSet(val))
     {
@@ -174,7 +174,7 @@ class GraphCache extends InMemoryGrph
     }
     return this;
   }
-  public GraphCache setEdgeLabelProperty(int E, PropertyEdge p)
+  public PropertyGraph setEdgeLabelProperty(int E, PropertyEdge p)
   {
     setEdgeLabelProperties(E, GraphHandler.LABEL, p.getLabel(), "desc", p.getDescription(), "id", p.getId(), "url", p.getUrl());
     setEdgeWeight(E, p.getScore()!=null?p.getScore().floatValue():null);
@@ -186,7 +186,7 @@ class GraphCache extends InMemoryGrph
 
     return this;
   }
-  public GraphCache setEdgeLabelProperty(int E, Property p)
+  public PropertyGraph setEdgeLabelProperty(int E, Property p)
   {
     if (Tools.isSet(p.getProperties()))
       for (String k : p.getProperties().keySet())
@@ -226,12 +226,48 @@ class GraphCache extends InMemoryGrph
   }
   public void write(String out)
   {
-//    RandomAccessFile bin = null;
-//    try
-//    {
-//      bin = new RandomAccessFile(out+".grh", "rw");
-//
-//    }
-//    IOs.write(out, toGrphBinary());
+    RandomAccessFile bin = null;
+    try
+    {
+      // save the native graph data to a separate file
+      bin = new RandomAccessFile(out+".grh", "rw");
+      IOs.write(bin, toGrphBinary());
+      bin.close();
+      // save the auxillary data to another file
+      bin = new RandomAccessFile(out+".data", "rw");
+      IOs.writeIntStr2(bin, node_label_val);
+      IOs.writeIntStr2(bin, edge_label_val);
+      IOs.writeStr2IntSet(bin, label_val_edge);
+      IOs.writeStr2IntSet(bin, label_val_node);
+      bin.close();
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
+    }
+  }
+  public static PropertyGraph fromBinary(String in)
+  {
+    RandomAccessFile bin = null;
+    PropertyGraph out = null;
+    try
+    {
+      // save the native graph data to a separate file
+      bin = new RandomAccessFile(in+".grh", "rw");
+      out = (PropertyGraph)fromGrphBinary(IOs.readBytes(bin));
+      bin.close();
+      // save the auxillary data to another file
+      bin = new RandomAccessFile(in+".data", "rw");
+      out.node_label_val = IOs.readIntStr2(bin);
+      out.edge_label_val = IOs.readIntStr2(bin);
+      out.label_val_edge = IOs.readStr2IntSet(bin);
+      out.label_val_node = IOs.readStr2IntSet(bin);
+      bin.close();
+    }
+    catch (Exception e)
+    {
+      e.printStackTrace();
+    }
+    return out;
   }
 }

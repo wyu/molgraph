@@ -1,10 +1,8 @@
 package org.bioconsensus.kbase;
 
-import grph.properties.StringProperty;
 import org.ms2ms.utils.Strs;
 import org.ms2ms.utils.TabFile;
 import toools.set.IntSet;
-import toools.set.IntSingletonSet;
 
 import java.io.IOException;
 
@@ -20,7 +18,7 @@ public class GeneNetworkNLReader extends TabReader
 {
   long nodes=0, edges=0;
 
-  public GeneNetworkNLReader(GraphCache g) { super(g); }
+  public GeneNetworkNLReader(PropertyGraph g) { super(g); }
 
   public void parseDocument(String doc)
   {
@@ -35,8 +33,8 @@ public class GeneNetworkNLReader extends TabReader
         if (As.size()==1 && Bs.size()==1)
         {
           int E = G.addDirectedSimpleEdge(As.toIntArray()[0], Bs.toIntArray()[0]);
-          G.setEdgeLabelProperties(E, "CisTrans", (Strs.equals(tab.get("CisTrans"), "cis")?"Y":"N"));
-          G.setEdgeWeight(E, -10f*(float )Math.log10(new Double(tab.get("PValue"))));
+          G.setEdgeLabelProperties(E, "CisTrans", (Strs.equals(tab.get("CisTrans"), "cis") ? "Y" : "N"));
+          G.setEdgeWeight(E, -10f * (float) Math.log10(new Double(tab.get("PValue"))));
         }
         else
         {

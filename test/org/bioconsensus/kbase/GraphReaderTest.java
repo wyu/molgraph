@@ -47,7 +47,7 @@ public class GraphReaderTest extends TestAbstract
   {
     PsiMI25Reader biogrid = GraphHandler.read("/media/data/import/BioGRID/BIOGRID-ALL-3.2.120.psi25.xml");
 //    uniprot.parseDocument("/media/data/import/bio4j/uniprot_sprot.xml");
-    System.out.println();
+    System.out.println(biogrid.G.inventory());
   }
   @Test
   public void readIntActGraph() throws Exception
@@ -63,15 +63,17 @@ public class GraphReaderTest extends TestAbstract
          psi25 = "/media/data/import/IntAct/psi25";
 
     PsiMI25Reader interact = GraphHandler.readRecursive(ibd);
-    System.out.println("Nodes/Edges: " + interact.nodes + "/" + interact.edges);
-
+    System.out.println(interact.G.inventory());
+    interact.G.write("/tmp/IBD01");
+    PropertyGraph g2 = PropertyGraph.fromBinary("/tmp/IBD01");
+    System.out.println(g2.inventory());
   }
   @Test
   public void getGeneNetworkNL() throws Exception
   {
     String trans = "/home/wyu/Projects/molgraph/data/2012-12-21-TransEQTLsFDR0.5.txt";
 
-    GeneNetworkNLReader g = new GeneNetworkNLReader(new GraphCache());
+    GeneNetworkNLReader g = new GeneNetworkNLReader(new PropertyGraph());
     g.parseDocument(trans);
     System.out.println("Nodes/Edges: " + g.nodes + "/" + g.edges);
 
