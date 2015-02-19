@@ -11,6 +11,7 @@ import org.ms2ms.graph.PropertyEdge;
 import org.ms2ms.graph.PropertyNode;
 import org.ms2ms.nosql.Titans;
 import org.ms2ms.test.TestAbstract;
+import org.ms2ms.utils.IOs;
 import psidev.psi.mi.xml.PsimiXmlLightweightReader;
 import psidev.psi.mi.xml.io.impl.PsimiXmlReader254;
 import psidev.psi.mi.xml.model.Entry;
@@ -63,10 +64,14 @@ public class GraphReaderTest extends TestAbstract
          psi25 = "/media/data/import/IntAct/psi25";
 
     PsiMI25Reader interact = GraphHandler.readRecursive(ibd);
+    interact.G.write("/tmp/IBD02");
     System.out.println(interact.G.inventory());
-    interact.G.write("/tmp/IBD01");
-    PropertyGraph g2 = PropertyGraph.fromBinary("/tmp/IBD01");
+    PropertyGraph g2 = PropertyGraph.read("/tmp/IBD02");
     System.out.println(g2.inventory());
+
+//    IOs.write("/tmp/IBD01.grp", PropertyGraph.toBytes(interact.G));
+//    PropertyGraph g2 = PropertyGraph.fromBytes(IOs.readBytes("/tmp/IBD01.grp"));
+//    System.out.println(g2.inventory());
   }
   @Test
   public void getGeneNetworkNL() throws Exception

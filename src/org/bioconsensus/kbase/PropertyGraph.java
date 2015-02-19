@@ -1,22 +1,27 @@
 package org.bioconsensus.kbase;
 
+import com.carrotsearch.hppc.IntArrayList;
+import com.carrotsearch.hppc.cursors.IntCursor;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
+import grph.Grph;
 import grph.in_memory.InMemoryGrph;
+import grph.io.ParseException;
 import org.ms2ms.graph.Property;
 import org.ms2ms.graph.PropertyEdge;
 import org.ms2ms.utils.IOs;
 import org.ms2ms.utils.Strs;
 import org.ms2ms.utils.Tools;
+import toools.Clazz;
+import toools.NotYetImplementedException;
 import toools.collections.AutoGrowingArrayList;
 import toools.set.IntHashSet;
 import toools.set.IntSet;
+import toools.set.IntSets;
 import toools.set.IntSingletonSet;
 
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.io.Serializable;
+import java.io.*;
 import java.util.Collection;
 
 /** provide an in-memory cache of graph which can be pushed to Titan via BatchGraph
@@ -30,6 +35,8 @@ import java.util.Collection;
  */
 class PropertyGraph extends InMemoryGrph implements Serializable
 {
+  private static final long serialVersionUID = 8472752523296641668L;
+
   public long nodes=0, edges=0;
 
   private Table<String,  String, IntSet> label_val_node = HashBasedTable.create();
@@ -231,10 +238,8 @@ class PropertyGraph extends InMemoryGrph implements Serializable
     {
       // save the native graph data to a separate file
       bin = new RandomAccessFile(out+".grh", "rw");
-      IOs.write(bin, toGrphBinary());
-      bin.close();
-      // save the auxillary data to another file
-      bin = new RandomAccessFile(out+".data", "rw");
+      writeGrph(bin);
+
       IOs.writeIntStr2(bin, node_label_val);
       IOs.writeIntStr2(bin, edge_label_val);
       IOs.writeStr2IntSet(bin, label_val_edge);
@@ -246,18 +251,16 @@ class PropertyGraph extends InMemoryGrph implements Serializable
       e.printStackTrace();
     }
   }
-  public static PropertyGraph fromBinary(String in)
+  public static PropertyGraph read(String in)
   {
     RandomAccessFile bin = null;
     PropertyGraph out = null;
     try
     {
       // save the native graph data to a separate file
-      bin = new RandomAccessFile(in+".grh", "rw");
-      out = (PropertyGraph)fromGrphBinary(IOs.readBytes(bin));
-      bin.close();
-      // save the auxillary data to another file
-      bin = new RandomAccessFile(in+".data", "rw");
+      bin = new RandomAccessFile(in+".grh", "r");
+      out = (PropertyGraph)readGrph(bin);
+
       out.node_label_val = IOs.readIntStr2(bin);
       out.edge_label_val = IOs.readIntStr2(bin);
       out.label_val_edge = IOs.readStr2IntSet(bin);
@@ -269,5 +272,311 @@ class PropertyGraph extends InMemoryGrph implements Serializable
       e.printStackTrace();
     }
     return out;
+  }
+/*
+  public static PropertyGraph fromBytes(byte[] s)
+  {
+    try
+    {
+      ByteArrayInputStream bai = new ByteArrayInputStream(s);
+      ObjectInputStream in = new ObjectInputStream(bai);
+      PropertyGraph          e = (PropertyGraph ) in.readObject();
+      in.close(); bai.close();
+      return e;
+    }
+    catch(IOException i)
+    {
+      i.printStackTrace();
+    }
+    catch(ClassNotFoundException c)
+    {
+      System.out.println("Employee class not found");
+      c.printStackTrace();
+    }
+    return null;
+  }
+  public static byte[] toBytes(PropertyGraph s)
+  {
+    ByteArrayOutputStream bao = new ByteArrayOutputStream();
+    try
+    {
+      ObjectOutputStream out = new ObjectOutputStream(bao);
+      out.writeObject(s);
+      out.close(); bao.close();
+    }
+    catch (IOException e)
+    { throw new RuntimeException("Error during persistence", e); }
+
+    return bao.toByteArray();
+  }
+*/
+  private void writeGrph(DataOutput ds) throws IOException
+  {
+    int numberOfVertices = getVertices().size();
+    ds.writeInt(numberOfVertices);
+
+    if (numberOfVertices > 0)
+    {
+      int greatestVertexID = getVertices().getGreatest();
+      ds.writeInt(greatestVertexID);
+      writeVertices(ds, getIsolatedVertices(), this);
+
+      int numberOfEdges = getEdges().size();
+      ds.writeInt(numberOfEdges);
+
+      if (numberOfEdges > 0)
+      {
+        int greatestEdgeID = getEdges().getGreatest();
+        ds.writeInt(greatestEdgeID);
+        ds.writeInt(getNumberOfUndirectedSimpleEdges());
+
+        for (int e : getEdges().toIntArray())
+        {
+          if (isUndirectedSimpleEdge(e))
+          {
+            writeEdge(ds, e, this);
+            int a = getOneVertex(e);
+            writeVertex(ds, a, this);
+            writeVertex(ds, getTheOtherVertex(e, a), this);
+          }
+        }
+
+        ds.writeInt(getNumberOfDirectedSimpleEdges());
+
+        for (int e : getEdges().toIntArray())
+        {
+          if (isDirectedSimpleEdge(e))
+          {
+            writeEdge(ds, e, this);
+            writeVertex(ds, getDirectedSimpleEdgeTail(e), this);
+            writeVertex(ds, getDirectedSimpleEdgeHead(e), this);
+          }
+        }
+
+        ds.writeInt(getNumberOfUndirectedHyperEdges());
+
+        for (int e : getEdges().toIntArray())
+        {
+          if (isUndirectedHyperEdge(e))
+          {
+            writeEdge(ds, e, this);
+            writeVertices(ds, getUndirectedHyperEdgeVertices(e), this);
+          }
+        }
+
+        ds.writeInt(getNumberOfDirectedHyperEdges());
+
+        for (int e : getEdges().toIntArray())
+        {
+          if (isDirectedHyperEdge(e))
+          {
+            writeEdge(ds, e, this);
+            writeVertices(ds, getDirectedHyperEdgeTail(e), this);
+            writeVertices(ds, getDirectedHyperEdgeHead(e), this);
+          }
+        }
+      }
+    }
+
+/*
+    IntSet isolatedV = getIsolatedVertices();
+
+    ds.writeInt(isolatedV.size());
+
+    if (!isolatedV.isEmpty())
+      for (IntCursor v : isolatedV) ds.writeInt(v.value);
+
+    IntSet edges = getEdges();
+
+    ds.writeInt(edges.size());
+    for (IntCursor c : getEdges())
+    {
+      int e = c.value; ds.writeInt(e);
+      if (isUndirectedSimpleEdge(e)) // 1 2
+      {
+        ds.writeInt(0); // type if the edge
+        IOs.write(ds, getVerticesIncidentToEdge(e));
+      }
+      else if (isDirectedSimpleEdge(e)) // 1 > 2
+      {
+        ds.writeInt(1); // type if the edge
+        ds.writeInt(getDirectedSimpleEdgeTail(e));
+        ds.writeInt(getDirectedSimpleEdgeHead(e));
+      }
+      else if (isUndirectedHyperEdge(e)) // 1 2 3 4
+      {
+        ds.writeInt(2); // type if the edge
+        IOs.write(ds, getUndirectedHyperEdgeVertices(e));
+      }
+      else
+      {
+        ds.writeInt(3); // type if the edge
+        IOs.write(ds, getDirectedHyperEdgeTail(e));
+        IOs.write(ds, getDirectedHyperEdgeHead(e));
+      }
+    }
+*/
+  }
+  private static PropertyGraph readGrph(DataInput ds) throws IOException
+  {
+    PropertyGraph g = new PropertyGraph();
+
+    int numberOfVertices = ds.readInt();
+    if (numberOfVertices > 0)
+    {
+      int greatestVertexID = ds.readInt();
+      // read isolated vertices
+      for (int i = ds.readInt(); i > 0; --i)
+        g.addVertex(readInteger(ds, greatestVertexID));
+
+      int numberOfEdges = ds.readInt();
+
+      if (numberOfEdges > 0)
+      {
+        int greatestEdgeID = ds.readInt();
+        // read undirected simple edges
+        for (int i = ds.readInt(); i > 0; --i)
+        {
+          int edge = readInteger(ds, greatestEdgeID);
+          int a = readInteger(ds, greatestVertexID);
+          int b = readInteger(ds, greatestVertexID);
+          g.addUndirectedSimpleEdge(edge, a, b);
+        }
+        // read directed simple edges
+        for (int i = ds.readInt(); i > 0; --i)
+        {
+          int edge = readInteger(ds, greatestEdgeID);
+          int t = readInteger(ds, greatestVertexID);
+          int h = readInteger(ds, greatestVertexID);
+          g.addDirectedSimpleEdge(t, edge, h);
+        }
+        // read undirected hyper edges
+        for (int i = ds.readInt(); i > 0; --i)
+        {
+          int edge = readInteger(ds, greatestEdgeID);
+          g.addUndirectedHyperEdge(edge);
+
+          for (IntCursor v : parseVerticeList(ds, greatestVertexID))
+          {
+            g.addToUndirectedHyperEdge(edge, v.value);
+          }
+        }
+        // read directed hyper edges
+        for (int i = ds.readInt(); i > 0; --i)
+        {
+          throw new NotYetImplementedException("directed hyperedges are not yet supported");
+					/*
+					 * int edge = readInteger(dis, greatestEdgeID);
+					 * graph.addDirectedHyperEdge(edge);
+					 *
+					 * for (IntCursor v : parseVerticeList(dis, graph,
+					 * greatestVertexID)) { // graph.getDi(edge, v.value); }
+					 *
+					 * for (IntCursor v : parseVerticeList(dis, graph,
+					 * greatestVertexID)) { //
+					 * graph.addToDirectedHyperEdge(edge, v.value); }
+					 */
+        }
+      }
+    }
+
+/*
+    int isolated = ds.readInt();
+    if (isolated>0)
+      for (int i=0; i<isolated; i++)
+        g.addVertex(ds.readInt());
+
+    int edges = ds.readInt();
+    for (int i=0; i<edges; i++)
+    {
+      int edge=ds.readInt(), edge_type=ds.readInt();
+      if      (edge_type==0)
+      {
+        int[] ints = IOs.readIntSet(ds).toIntArray();
+        if (ints.length == 2)
+          g.addUndirectedSimpleEdge(ints[0], ints[1], edge);
+        else
+          throw new IllegalStateException("only 2 incident vertices are allowed");
+      }
+      else if (edge_type==1)
+      {
+        int head=ds.readInt(), tail=ds.readInt();
+        g.addDirectedSimpleEdge(head, tail, edge);
+      }
+      else if (edge_type==2)
+      {
+        g.addUndirectedHyperEdge(edge);
+        IntSet ints = IOs.readIntSet(ds);
+        for (int v : ints.toIntArray())
+        {
+          g.addToUndirectedHyperEdge(edge, v);
+        }
+      }
+      else if (edge_type==3)
+      {
+        g.addDirectedHyperEdge(edge);
+        IntSet heads=IOs.readIntSet(ds), tails=IOs.readIntSet(ds);
+        for (int v : heads.toIntArray()) g.addToDirectedHyperEdgeTail(edge, v);
+        for (int v : tails.toIntArray()) g.addToDirectedHyperEdgeHead(edge, v);
+      }
+    }
+*/
+    return g;
+  }
+  public static void writeVertices(DataOutput ds, IntSet set, Grph g) throws IOException
+  {
+    ds.writeInt(set.size());
+
+    for (IntCursor v : set) writeVertex(ds, v.value, g);
+  }
+
+  public static void writeEdge(DataOutput ds, int e, Grph g) throws IOException
+  {
+    writeInteger(e, ds, g.getEdges().getGreatest());
+  }
+
+  public static void writeVertex(DataOutput ds, int v, Grph g) throws IOException
+  {
+    writeInteger(v, ds, g.getVertices().getGreatest());
+  }
+  public static void writeInteger(int n, DataOutput ds, int greatestItem) throws IOException
+  {
+    if (greatestItem < 256)
+    {
+      ds.writeByte(n);
+    }
+    else if (greatestItem < 65536)
+    {
+      ds.writeChar(n);
+    }
+    else
+    {
+      ds.writeInt(n);
+    }
+  }
+  public static int readInteger(DataInput ds, int greatestValue) throws IOException
+  {
+    if (greatestValue < 256)
+    {
+      return (int) ds.readByte() & 0xFF;
+    }
+    else if (greatestValue < 65536)
+    {
+      return ds.readChar();
+    }
+    else
+    {
+      return ds.readInt();
+    }
+  }
+  private static IntArrayList parseVerticeList(DataInput ds, int numberOfVertices) throws IOException
+  {
+    IntArrayList set = new IntArrayList();
+    for (int i = ds.readInt(); i > 0; --i)
+    {
+      set.add(readInteger(ds, numberOfVertices));
+    }
+
+    return set;
   }
 }
