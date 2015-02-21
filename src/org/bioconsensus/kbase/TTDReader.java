@@ -12,11 +12,11 @@ import java.io.IOException;
  * Description:
  * <p/>
  * Author: wyu
- * Date:   1/1/15
+ * Date:   2/20/15
  */
-public class GeneNetworkNLReader extends TabReader
+public class TTDReader extends TabReader
 {
-  public GeneNetworkNLReader(PropertyGraph g) { super(g); }
+  public TTDReader(PropertyGraph g) { super(g); }
 
   public void parseDocument(String doc)
   {

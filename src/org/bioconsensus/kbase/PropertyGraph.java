@@ -7,18 +7,16 @@ import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
 import grph.Grph;
 import grph.in_memory.InMemoryGrph;
-import grph.io.ParseException;
 import org.ms2ms.graph.Property;
 import org.ms2ms.graph.PropertyEdge;
 import org.ms2ms.utils.IOs;
+import org.ms2ms.utils.Reporters;
 import org.ms2ms.utils.Strs;
 import org.ms2ms.utils.Tools;
-import toools.Clazz;
 import toools.NotYetImplementedException;
 import toools.collections.AutoGrowingArrayList;
 import toools.set.IntHashSet;
 import toools.set.IntSet;
-import toools.set.IntSets;
 import toools.set.IntSingletonSet;
 
 import java.io.*;
@@ -73,7 +71,7 @@ class PropertyGraph extends InMemoryGrph implements Serializable
 
     return Es;
   }
-  public IntSet putDirectedEdges(IntSet A, IntSet B, String tag, String val)
+  public IntSet putDirectedEdges(IntSet A, IntSet B, String... tagval)
   {
     if (!Tools.isSet(A) && !Tools.isSet(B)) return null;
     IntSet Es = new IntHashSet();
@@ -83,15 +81,18 @@ class PropertyGraph extends InMemoryGrph implements Serializable
         // fetch the existing edges
         IntSet e = getEdgesConnecting(a,b);
         boolean found=false;
-        if (Tools.isSet(e))
+        if (Tools.isSet(e) && tagval!=null && tagval.length>1)
           for (int edge : e.toIntArray())
-            if (Strs.equals(getPropertyByEdgeLabel(edge, tag), val)) { found=true; break; }
+            if (Strs.equals(getPropertyByEdgeLabel(edge, tagval[0]), tagval[1])) { found=true; break; }
 
         if (!Tools.isSet(e) || !found)
         {
           Es.add(addDirectedSimpleEdge(a, b)); edges++;
         }
       }
+
+    // deposit the property for the edges
+    setEdgeLabelProperties(Es, tagval);
 
     return Es;
   }
@@ -154,13 +155,26 @@ class PropertyGraph extends InMemoryGrph implements Serializable
     }
     return this;
   }
+  public PropertyGraph setNodeLabelProperty(int n, Property p)
+  {
+    for (String tag : p.getProperties().keySet())
+      if (tag.charAt(0)!='^')
+        setNodeLabelProperty(n, tag, p.getProperty(tag));
+
+    return this;
+  }
   public PropertyGraph setNodeLabelProperty(IntSet ns, Property p)
   {
     if (Tools.isSet(ns) && p!=null && Tools.isSet(p.getProperties()))
-      for (int n : ns.toIntArray())
-        for (String tag : p.getProperties().keySet())
-          if (tag.charAt(0)!='^')
-            setNodeLabelProperty(n, tag, p.getProperty(tag));
+      for (int n : ns.toIntArray()) setNodeLabelProperty(n, p);
+
+    return this;
+  }
+  public PropertyGraph setEdgeLabelProperties(IntSet Es, String... tag_val)
+  {
+    if (Tools.isSet(Es))
+      for (int E : Es.toIntArray())
+        setEdgeLabelProperties(E, tag_val);
 
     return this;
   }
@@ -213,13 +227,15 @@ class PropertyGraph extends InMemoryGrph implements Serializable
   public StringBuffer inventory()
   {
     StringBuffer buf = new StringBuffer();
-    buf.append("nodes/edges: " + (Tools.isSet(node_label_val)?node_label_val.rowKeySet().size():0) + "/" +
-                                 (Tools.isSet(edge_label_val)?edge_label_val.rowKeySet().size():0) + "\n");
+    buf.append("nodes/edges: " + nodes + "/" + edges + "\n\n");
+    buf = Reporters.inventory(buf, node_label_val);
+    buf = Reporters.inventory(buf, edge_label_val);
+/*
     if (Tools.isSet(node_label_val))
     {
       buf.append("Node Property\tCounts\n");
       for (String label : node_label_val.columnKeySet())
-        buf.append(label + "\t\t" + Sets.newHashSet(node_label_val.column(label).values()).size() + "\n");
+        buf.append(Sets.newHashSet(node_label_val.column(label).values()).size() + "\t\t" + label + "\n");
     }
 
     buf.append("\n");
@@ -229,6 +245,7 @@ class PropertyGraph extends InMemoryGrph implements Serializable
       for (String label : edge_label_val.columnKeySet())
         buf.append(label + "\t\t" + Sets.newHashSet(edge_label_val.column(label).values()).size() + "\n");
     }
+*/
     return buf;
   }
   public void write(String out)
@@ -237,7 +254,7 @@ class PropertyGraph extends InMemoryGrph implements Serializable
     try
     {
       // save the native graph data to a separate file
-      bin = new RandomAccessFile(out+".grh", "rw");
+      bin = new RandomAccessFile(out, "rw");
       writeGrph(bin);
 
       IOs.writeIntStr2(bin, node_label_val);
@@ -258,7 +275,7 @@ class PropertyGraph extends InMemoryGrph implements Serializable
     try
     {
       // save the native graph data to a separate file
-      bin = new RandomAccessFile(in+".grh", "r");
+      bin = new RandomAccessFile(in, "r");
       out = (PropertyGraph)readGrph(bin);
 
       out.node_label_val = IOs.readIntStr2(bin);

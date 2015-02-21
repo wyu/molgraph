@@ -74,44 +74,39 @@ public class PsiMI25Reader extends GraphHandler
     super.endElement(uri, localName, element);
 //
     // if end of book element add to list
-    if (Strs.equals(element, "entry"))
+//    if (Strs.equals(element, "entry"))
+//    {
+//      // clear out the record
+////      clearEntry();
+//    }
+    if     (Strs.equals(element,"attribute") && Strs.equals(attrs.getValue("name"), "dataset") && expt!=null)
     {
-      // clear out the record
-//      clearEntry();
-    }
-    else if (Strs.equals(element,"attribute"))
-    {
-      if (Strs.equals(attrs.getValue("name"), "dataset") && expt!=null)
-      {
-        expt.setProperty("datasetAc", attrs.getValue("nameAc"));
-        expt.setProperty("dataset", content.toString());
-      }
+      set("datasetAc", expt, attrs, "nameAc");
+      set("dataset",   expt, content);
     }
     else if (Strs.equals(element,"experimentDescription") && expt!=null)
     {
       expts.put(expt.getID().intValue(), expt);
     }
-    else if (Strs.equals(element,"interactorList"))
+//    else if (Strs.equals(element,"interactorList"))
+//    {
+////      System.out.println("Total interactors: " + nodes);
+//    }
+    else if (matchElementStack("fullName","names", "experimentDescription") && expt!=null)
     {
-//      System.out.println("Total interactors: " + nodes);
+      set(NAME, expt, content);
     }
-    else if (Strs.equals(element,"fullName"))
-    {
-      if      (matchStack("names", "experimentDescription") && expt!=null)
-      {
-        expt.setName(content.toString());
-      }
-    }
-    else if (Strs.equals(element,"interactionList"))
-    {
-//      System.out.println("Total interactions: " + nodes);
-    }
+//    else if (Strs.equals(element,"interactionList"))
+//    {
+////      System.out.println("Total interactions: " + nodes);
+//    }
     else if (Strs.equals(element,"interactor") && actor!=null)
     {
       if (!G.hasNodeLabel("intactID", attrs.getValue("id")))
       {
         lastID = G.addVertex();
-        G.setNodeLabelProperty(lastID, "intactID", attrs.getValue("id")).setVerticesLabel(new StringProperty("interactor"));
+        G.setNodeLabelProperty(lastID, "intactID", attrs.getValue("id"));
+        G.setNodeLabelProperty(lastID, actor);
       }
       if (++nodes%5000==0) System.out.print(".");
     }
@@ -119,16 +114,13 @@ public class PsiMI25Reader extends GraphHandler
     {
       if (matchStack(1, "names"))
       {
-        if      (matchStack(2, "interaction"))
-        {
-          interaction.setDescription(content.toString());
-        }
-        else if (matchStack(2, "interactor"))             set(NAME, actor, content);
-        else if (matchStack(2, "interactorType"))         set("intType", actor, content);
-        else if (matchStack(2, ORGANISM))                 set(ORGANISM, actor, content);
-        else if (matchStack(2, "interactionType"))        set("Type", interaction, content);
-        else if (matchStack(2, "experimentDescription"))  set("exptLabel", expt, content);
-        else if (matchStack(2, "hostOrganism"))           set("exptOrganism", expt, content);
+        if      (matchStack(2, "interaction"))            interaction.setDescription(content.toString());
+        else if (matchStack(2, "interactor"))             set(GENE,           actor, content);
+        else if (matchStack(2, "interactorType"))         set(TYPE_ACTOR,     actor, content);
+        else if (matchStack(2, ORGANISM))                 set(ORGANISM,       actor, content);
+        else if (matchStack(2, "experimentDescription"))  set("exptLabel",    expt,  content);
+        else if (matchStack(2, "hostOrganism"))           set("exptOrganism", expt,  content);
+        else if (matchStack(2, "interactionType"))        set(TYPE_ACTION,    interaction, content);
       }
     }
     else if (matchElementStack("interactorRef","participant","participantList","interaction"))

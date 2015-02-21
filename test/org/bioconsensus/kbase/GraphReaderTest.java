@@ -35,6 +35,24 @@ import java.util.Map;
  */
 public class GraphReaderTest extends TestAbstract
 {
+  public void getTTD() throws Exception
+  {
+    String trans = "/media/data/import/TTD";
+
+    TTDReader g = new TTDReader(new PropertyGraph());
+    g.parseDocument(trans);
+    System.out.println(g.G.inventory());
+  }
+  @Test
+  public void getNHGRI_GWAS() throws Exception
+  {
+    String trans = "/home/wyu/Projects/molgraph/data/nhgri100.txt";
+
+    NHGRICatReader g = new NHGRICatReader(new PropertyGraph());
+    g.parseDocument(trans);
+    System.out.println(g.G.inventory());
+  }
+
   @Test
   public void readDraugBankGraph() throws Exception
   {
@@ -80,7 +98,7 @@ public class GraphReaderTest extends TestAbstract
 
     GeneNetworkNLReader g = new GeneNetworkNLReader(new PropertyGraph());
     g.parseDocument(trans);
-    System.out.println("Nodes/Edges: " + g.nodes + "/" + g.edges);
+    System.out.println(g.G.inventory());
 
   }
   /** prepare the databases before running the test  **/

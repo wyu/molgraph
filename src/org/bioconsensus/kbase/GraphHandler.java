@@ -13,6 +13,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -33,6 +34,10 @@ abstract public class GraphHandler extends DefaultHandler
   public static final String GENE     = "gene";
   public static final String DRUGID   = "drugBankID";
   public static final String RSID     = "rsid";
+  public static final String DISEASE  = "disease";
+  public static final String CONTEXT  = "context";
+  public static final String TYPE_ACTOR   = "actorType";
+  public static final String TYPE_ACTION  = "actionType";
 
   PropertyGraph G=null;
 
@@ -90,6 +95,16 @@ abstract public class GraphHandler extends DefaultHandler
           p.setProperty(tag, attr.getValue(tag));
     return p;
   }
+
+  /** assign the 'tag' attribute from 'attr' to 'name' property of node 'p' */
+  protected Property set(String name, Property p, Attributes attr, String tag)
+  {
+    if (p!=null && attr!=null && attr.getValue(tag)!=null && Strs.isSet(name))
+      p.setProperty(name, attrs.getValue(tag));
+
+    return p;
+  }
+
   protected static PropertyNode newNode(String label, String val) { return newNode(label, val, null); }
   protected static PropertyNode newNode(String label, String val, Attributes attrs, String... tags)
   {
@@ -154,6 +169,30 @@ abstract public class GraphHandler extends DefaultHandler
         interact.parseDocument(fname);
       }
 
+    return interact;
+  }
+  /** An unit of kbase builder where the contents from 'fnames' with the 'root' are read and saved to 'out'
+   *
+   * @param root is the top level folder where the contents reside
+   * @param out is a binary file where the graph data will be stored
+   * @param fnames are the file or folder names where the source data are located.
+   * @return we should return a stat object that summarize the data inventory
+   */
+  public static PsiMI25Reader build(String out, String root, String... fnames)
+  {
+    PsiMI25Reader interact = new PsiMI25Reader();
+
+    if (Tools.isSet(fnames))
+      for (String fname : fnames)
+        // expand the file list if this is a folder
+        for (String fn : IOs.listFiles(root+fname, new WildcardFileFilter("*.xml")))
+        {
+          System.out.println("Reading PSI-MI contents from " + fn);
+          interact.parseDocument(fn);
+        }
+
+    System.out.println("Writing the graph contents to " + out);
+    interact.G.write(out);
     return interact;
   }
   // update the property if the element was in the pre-defined list
