@@ -2,6 +2,7 @@ package org.bioconsensus.kbase;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.ms2ms.r.Dataframe;
 import org.ms2ms.test.TestAbstract;
 
 import java.util.Date;
@@ -31,5 +32,17 @@ public class KbaseBuilder extends TestAbstract
   {
     PsiMI25Reader biogrid = GraphHandler.build(kb+date+".BioGRID", root, "BioGRID/BIOGRID-ALL-3.2.120.psi25.xml");
     System.out.println(biogrid.G.inventory());
+  }
+  @Test
+  public void getInteractionGraph() throws Exception
+  {
+    String ibd = "IntAct/psi25/datasets/IBD",
+        dataset = "IntAct/psi25/datasets",
+        psi25 = "IntAct/psi25";
+
+    PsiMI25Reader intact = GraphHandler.build(kb + date + ".intact", root, ibd);
+    GraphHandler.ESGN2Gene(intact.G, new Dataframe(root+"HGNC_20150221.mapping", '\t'));
+
+  System.out.println(intact.G.inventory());
   }
 }

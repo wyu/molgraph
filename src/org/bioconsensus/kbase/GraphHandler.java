@@ -3,6 +3,7 @@ package org.bioconsensus.kbase;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.ms2ms.graph.Property;
 import org.ms2ms.graph.PropertyNode;
+import org.ms2ms.r.Dataframe;
 import org.ms2ms.utils.IOs;
 import org.ms2ms.utils.Strs;
 import org.ms2ms.utils.Tools;
@@ -32,8 +33,10 @@ abstract public class GraphHandler extends DefaultHandler
   public static final String DESC     = "description";
   public static final String ORGANISM = "organism";
   public static final String GENE     = "gene";
+  public static final String ENSEMBLE = "ENSG";
   public static final String DRUGID   = "drugBankID";
   public static final String RSID     = "rsid";
+  public static final String ID       = "id";
   public static final String DISEASE  = "disease";
   public static final String CONTEXT  = "context";
   public static final String TYPE_ACTOR   = "actorType";
@@ -49,7 +52,7 @@ abstract public class GraphHandler extends DefaultHandler
 
   String[] species, contentList;
 
-  long nodes=0, edges=0;
+//  long nodes=0, edges=0;
 
   public GraphHandler()                 { super(); }
   public GraphHandler(PropertyGraph g)     { super(); G=g; }
@@ -74,7 +77,7 @@ abstract public class GraphHandler extends DefaultHandler
     } catch (IOException e) {
       System.out.println("IO error");
     }
-    System.out.println(" (node/edge): " + nodes + "/" + edges);
+//    System.out.println(" (node/edge): " + nodes + "/" + edges);
   }
 
   protected PropertyNode set(PropertyNode p, String tag, StringBuilder s)
@@ -194,6 +197,33 @@ abstract public class GraphHandler extends DefaultHandler
     System.out.println("Writing the graph contents to " + out);
     interact.G.write(out);
     return interact;
+  }
+  public static PropertyGraph ESGN2Gene(PropertyGraph graph, Dataframe mapping)
+  {
+    Map es2gene = mapping!=null?mapping.toMap("Ensembl Gene ID", "Approved Symbol"):null;
+    if (graph.node_label_val.column(ENSEMBLE)!=null)
+    {
+      for (Integer row : graph.node_label_val.column(ENSEMBLE).keySet())
+      {
+        Object g = es2gene.get(graph.node_label_val.get(row, ENSEMBLE));
+        if (g!=null)
+          graph.node_label_val.put(row, GENE, g.toString());
+      }
+      graph.node_label_val.column(ENSEMBLE).clear();
+    }
+/*
+    if (graph.label_val_node.row(ENSEMBLE)!=null)
+    {
+      for (String row : graph.label_val_node.row(ENSEMBLE).keySet())
+      {
+        Object g = es2gene.get(graph.node_label_val.get(row, ENSEMBLE));
+        if (g!=null)
+          graph.node_label_val.put(row, GENE, g.toString());
+      }
+      graph.node_label_val.column(ENSEMBLE).clear();
+    }
+*/
+    return graph;
   }
   // update the property if the element was in the pre-defined list
   public Property set(String label, Property p, StringBuilder content)

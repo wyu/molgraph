@@ -28,14 +28,14 @@ public class PsiMI25Reader extends GraphHandler
   private PropertyNode        expt, actor;
   private Collection<Integer> participants = new HashSet<>();
   private int                 lastID;
-  private Map<Integer, PropertyNode> expts = new HashMap<>();
+  private Map<String, PropertyNode> expts = new HashMap<>();
 
   public PsiMI25Reader()             { super(); init(); }
   public PsiMI25Reader(String... s)  { super(s); init(); }
 
   public void init()
   {
-    setContentList("shortLabel","interactorRef","experimentRef","attribute","fullName");
+    setContentList("shortLabel","interactorRef","experimentRef","attribute","fullName","alias");
   }
   @Override
   public void startElement(String uri, String localName, String elementName, Attributes attributes) throws SAXException
@@ -45,7 +45,12 @@ public class PsiMI25Reader extends GraphHandler
     if      (elementName.equalsIgnoreCase("interaction"))
     {
       // add to the graph. it's a new node by definition, assuming we're not re-import the same uniprot
-      interaction = new PropertyEdge().setID(new Long(attributes.getValue("id")));
+      interaction = new PropertyEdge();
+      interaction.setProperty(ID, attributes.getValue("id"));
+    }
+    else if (matchStack("primaryRef","xref","interactor") && Strs.equals(attributes.getValue("db"), "ensembl"))
+    {
+      actor.setProperty(ENSEMBLE, attributes.getValue("id"));
     }
 //    else if (elementName.equalsIgnoreCase("entrySet"))
 //    {
@@ -60,12 +65,14 @@ public class PsiMI25Reader extends GraphHandler
 //    }
     else if (elementName.equalsIgnoreCase("interactor"))
     {
-      actor = new PropertyNode("interactor").setID(new Long(attributes.getValue("id")));
-      if (++nodes%5000==0) System.out.print(".");
+      actor = new PropertyNode("interactor");
+      actor.setProperty(ID, attributes.getValue("id"));
+//      if (++G.nodes%5000==0) System.out.print(".");
     }
     else if (Strs.equals(elementName, "experimentDescription"))
     {
-      expt = new PropertyNode().setID(new Long(attributes.getValue("id")));
+      expt = new PropertyNode();
+      expt.setProperty(ID, attributes.getValue("id"));
     }
   }
   @Override
@@ -84,9 +91,13 @@ public class PsiMI25Reader extends GraphHandler
       set("datasetAc", expt, attrs, "nameAc");
       set("dataset",   expt, content);
     }
+    else if (matchElementStack("alias","names","interactor") && Strs.equals(attrs.getValue("type"), "gene name"))
+    {
+      set("gene name", actor, content);
+    }
     else if (Strs.equals(element,"experimentDescription") && expt!=null)
     {
-      expts.put(expt.getID().intValue(), expt);
+      expts.put(expt.getProperty(ID), expt);
     }
 //    else if (Strs.equals(element,"interactorList"))
 //    {
@@ -100,27 +111,29 @@ public class PsiMI25Reader extends GraphHandler
 //    {
 ////      System.out.println("Total interactions: " + nodes);
 //    }
-    else if (Strs.equals(element,"interactor") && actor!=null)
+    else if (Strs.equals(element,"interactor") && actor!=null && !G.hasNodeLabel("intactID", actor.getProperty(ID)))
     {
-      if (!G.hasNodeLabel("intactID", attrs.getValue("id")))
+      if (Strs.equals(actor.getProperty("actorType"), "protein") &&
+          Strs.isSet(actor.getProperty("gene name")))
       {
-        lastID = G.addVertex();
-        G.setNodeLabelProperty(lastID, "intactID", attrs.getValue("id"));
-        G.setNodeLabelProperty(lastID, actor);
+        actor.rename("gene name", GENE);
       }
-      if (++nodes%5000==0) System.out.print(".");
+      lastID = G.addVertex();
+      G.setNodeLabelProperty(lastID, "intactID", actor.getProperty(ID));
+      G.setNodeLabelProperty(lastID, actor);
+      if (++G.nodes%5000==0) System.out.print(".");
     }
     else if (Strs.equals(element, "shortLabel"))
     {
       if (matchStack(1, "names"))
       {
         if      (matchStack(2, "interaction"))            interaction.setDescription(content.toString());
-        else if (matchStack(2, "interactor"))             set(GENE,           actor, content);
-        else if (matchStack(2, "interactorType"))         set(TYPE_ACTOR,     actor, content);
-        else if (matchStack(2, ORGANISM))                 set(ORGANISM,       actor, content);
-        else if (matchStack(2, "experimentDescription"))  set("exptLabel",    expt,  content);
-        else if (matchStack(2, "hostOrganism"))           set("exptOrganism", expt,  content);
-        else if (matchStack(2, "interactionType"))        set(TYPE_ACTION,    interaction, content);
+        else if (matchStack(2, "interactor"))             set(GENE,        actor, content);
+        else if (matchStack(2, "interactorType"))         set(TYPE_ACTOR,  actor, content);
+        else if (matchStack(2, ORGANISM))                 set(ORGANISM,    actor, content);
+//        else if (matchStack(2, "experimentDescription"))  set(LABEL,       expt,  content);
+        else if (matchStack(2, "hostOrganism"))           set(ORGANISM,    expt,  content);
+        else if (matchStack(2, "interactionType"))        set(TYPE_ACTION, interaction, content);
       }
     }
     else if (matchElementStack("interactorRef","participant","participantList","interaction"))
@@ -130,7 +143,7 @@ public class PsiMI25Reader extends GraphHandler
     }
     else if (Strs.equals(element, "experimentRef"))
     {
-      PropertyNode expt = expts.get(new Integer(content.toString()));
+      PropertyNode expt = expts.get(content.toString());
       if (interaction!=null && expt!=null)
       {
         interaction.setProperty("exptName", expt.getName());
@@ -151,7 +164,7 @@ public class PsiMI25Reader extends GraphHandler
               int E = G.addUndirectedSimpleEdge(A, B);
               G.setEdgeLabelProperty(E, interaction);
               hashes.add(A.hashCode() + B.hashCode());
-              if (++edges%10000==0) System.out.print(".");
+              if (++G.edges%10000==0) System.out.print(".");
             }
           }
         participants.clear();

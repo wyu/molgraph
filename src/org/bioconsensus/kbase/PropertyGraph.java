@@ -37,10 +37,10 @@ class PropertyGraph extends InMemoryGrph implements Serializable
 
   public long nodes=0, edges=0;
 
-  private Table<String,  String, IntSet> label_val_node = HashBasedTable.create();
-  private Table<Integer, String, String> node_label_val = HashBasedTable.create();
-  private Table<String,  String, IntSet> label_val_edge = HashBasedTable.create();
-  private Table<Integer, String, String> edge_label_val = HashBasedTable.create();
+  public Table<String,  String, IntSet> label_val_node = HashBasedTable.create();
+  public Table<Integer, String, String> node_label_val = HashBasedTable.create();
+  public Table<String,  String, IntSet> label_val_edge = HashBasedTable.create();
+  public Table<Integer, String, String> edge_label_val = HashBasedTable.create();
 
   public PropertyGraph()         { super(); }
 
@@ -137,14 +137,14 @@ class PropertyGraph extends InMemoryGrph implements Serializable
           for (int idx : L.toIntArray())
           {
             setEdgeLabelProperty(idx, edge_tag, edge_val);
-            setEdgeLabelProperty(idx, E);
+            setEdgeLabelProperty(idx, E, '^');
           }
       }
     return L;
   }
   public boolean hasNodeLabel(String lab, String val)
   {
-    return getNodeByLabelProperty(lab, val)==null;
+    return getNodeByLabelProperty(lab, val)!=null;
   }
   public PropertyGraph setNodeLabelProperty(int n, String lable, String val)
   {
@@ -195,14 +195,14 @@ class PropertyGraph extends InMemoryGrph implements Serializable
     }
     return this;
   }
-  public PropertyGraph setEdgeLabelProperty(int E, PropertyEdge p)
+  public PropertyGraph setEdgeLabelProperty(int E, PropertyEdge p, char... lead)
   {
     setEdgeLabelProperties(E, GraphHandler.LABEL, p.getLabel(), "desc", p.getDescription(), "id", p.getId(), "url", p.getUrl());
     setEdgeWeight(E, p.getScore()!=null?p.getScore().floatValue():null);
 
     if (Tools.isSet(p.getProperties()))
       for (String k : p.getProperties().keySet())
-        if (k.charAt(0)=='^')
+        if (!Tools.isSet(lead) || k.charAt(0)==lead[0])
           setEdgeLabelProperty(E, k.substring(1), p.getProperty(k));
 
     return this;
@@ -228,8 +228,8 @@ class PropertyGraph extends InMemoryGrph implements Serializable
   {
     StringBuffer buf = new StringBuffer();
     buf.append("nodes/edges: " + nodes + "/" + edges + "\n\n");
-    buf = Reporters.inventory(buf, node_label_val);
-    buf = Reporters.inventory(buf, edge_label_val);
+    buf = Reporters.inventory_col(buf, node_label_val, 50);
+    buf = Reporters.inventory_col(buf, edge_label_val, 50);
 /*
     if (Tools.isSet(node_label_val))
     {
