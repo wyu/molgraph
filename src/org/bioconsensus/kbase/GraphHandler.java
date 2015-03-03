@@ -39,8 +39,11 @@ abstract public class GraphHandler extends DefaultHandler
   public static final String ID       = "id";
   public static final String DISEASE  = "disease";
   public static final String CONTEXT  = "context";
+  public static final String TISSUE   = "tissue";
+  public static final String ASSAY    = "assay";
   public static final String TYPE_ACTOR   = "actorType";
   public static final String TYPE_ACTION  = "actionType";
+  public static final String DATASET  = "dataset";
 
   PropertyGraph G=null;
 
@@ -194,8 +197,11 @@ abstract public class GraphHandler extends DefaultHandler
           interact.parseDocument(fn);
         }
 
-    System.out.println("Writing the graph contents to " + out);
-    interact.G.write(out);
+    if (Strs.isSet(out))
+    {
+      System.out.println("Writing the graph contents to " + out);
+      interact.G.write(out);
+    }
     return interact;
   }
   public static PropertyGraph ESGN2Gene(PropertyGraph graph, Dataframe mapping)
@@ -211,6 +217,13 @@ abstract public class GraphHandler extends DefaultHandler
       }
       graph.node_label_val.column(ENSEMBLE).clear();
     }
+    if (graph.node_label_val.column("gene name")!=null)
+      for (Integer row : graph.node_label_val.column("gene name").keySet())
+      {
+        if (Tools.equals(graph.node_label_val.get(row, "gene name"), graph.node_label_val.get(row, GENE)))
+          graph.node_label_val.remove(row, "gene name");
+      }
+
 /*
     if (graph.label_val_node.row(ENSEMBLE)!=null)
     {

@@ -86,10 +86,11 @@ public class PsiMI25Reader extends GraphHandler
 //      // clear out the record
 ////      clearEntry();
 //    }
-    if     (Strs.equals(element,"attribute") && Strs.equals(attrs.getValue("name"), "dataset") && expt!=null)
+    if     (matchElementStack("attribute","attributeList","experimentDescription") &&
+            Strs.equals(attrs.getValue("name"), "dataset") && expt!=null)
     {
-      set("datasetAc", expt, attrs, "nameAc");
-      set("dataset",   expt, content);
+//      set("datasetAc", expt, attrs, "nameAc");
+      set(DATASET, expt, content);
     }
     else if (matchElementStack("alias","names","interactor") && Strs.equals(attrs.getValue("type"), "gene name"))
     {
@@ -119,7 +120,7 @@ public class PsiMI25Reader extends GraphHandler
         actor.rename("gene name", GENE);
       }
       lastID = G.addVertex();
-      G.setNodeLabelProperty(lastID, "intactID", actor.getProperty(ID));
+//      G.setNodeLabelProperty(lastID, "intactID", actor.getProperty(ID));
       G.setNodeLabelProperty(lastID, actor);
       if (++G.nodes%5000==0) System.out.print(".");
     }
@@ -133,6 +134,8 @@ public class PsiMI25Reader extends GraphHandler
         else if (matchStack(2, ORGANISM))                 set(ORGANISM,    actor, content);
 //        else if (matchStack(2, "experimentDescription"))  set(LABEL,       expt,  content);
         else if (matchStack(2, "hostOrganism"))           set(ORGANISM,    expt,  content);
+        else if (matchStack(2, "tissue"))                 set(TISSUE, expt, content);
+        else if (matchStack(2, "interactionDetectionMethod")) set(ASSAY, expt, content);
         else if (matchStack(2, "interactionType"))        set(TYPE_ACTION, interaction, content);
       }
     }
