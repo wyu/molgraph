@@ -2,9 +2,7 @@ package org.bioconsensus.kbase;
 
 import com.carrotsearch.hppc.IntArrayList;
 import com.carrotsearch.hppc.cursors.IntCursor;
-import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.Sets;
-import com.google.common.collect.Table;
+import com.google.common.collect.*;
 import grph.Grph;
 import grph.in_memory.InMemoryGrph;
 import org.ms2ms.graph.Property;
@@ -222,6 +220,54 @@ class PropertyGraph extends InMemoryGrph implements Serializable
       assert getEdges().contains(e);
       weights.set(e, newWeight) ;
     }
+  }
+  // consolidate duplicate nodes as specified by the fields
+  public void consolidate(String... fields)
+  {
+    Multimap<String, Integer> field_node = HashMultimap.create();
+    for (Integer row : node_label_val.rowKeySet())
+    {
+      String tag = null;
+      for (String field : fields)
+        tag = Strs.extend(tag, node_label_val.get(row, field), "~");
+      // deposit the row
+      field_node.put(tag, row);
+    }
+    // combine the nodes and edges
+    for (String tag : field_node.keySet())
+    {
+      consolidate(field_node.get(tag));
+    }
+  }
+  public void consolidate(Collection<Integer> rows)
+  {
+    if (rows==null || rows.size()<2) return;
+    Integer pivot=null;
+    for (Integer row : rows)
+    {
+      if (pivot==null)  pivot=row;
+      else
+      {
+        for (String t : node_label_val.row(row).keySet())
+          if (!Strs.equals(node_label_val.get(pivot, t), node_label_val.get(row, t)))
+            node_label_val.put(pivot, t, node_label_val.get(row, t));
+        // move the edges
+        IntSet edges = getInEdges(row);
+        if (Tools.isSet(edges))
+          for (int edge : edges.toIntArray())
+          {
+
+          }
+        // remove the row
+        node_label_val.row(row).clear();
+      }
+    }
+  }
+  public void transferEdges(int from, int to)
+  {
+    for (String t : edge_label_val.row(from).keySet())
+      if (!Strs.equals(edge_label_val.get(to, t), edge_label_val.get(from, t)))
+        edge_label_val.put(to, t, edge_label_val.get(from, t));
   }
   // produce an inventory table
   public StringBuffer inventory()
