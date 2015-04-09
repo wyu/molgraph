@@ -7,6 +7,7 @@ import grph.Grph;
 import grph.in_memory.InMemoryGrph;
 import org.ms2ms.graph.Property;
 import org.ms2ms.graph.PropertyEdge;
+import org.ms2ms.math.Stats;
 import org.ms2ms.utils.IOs;
 import org.ms2ms.utils.Reporters;
 import org.ms2ms.utils.Strs;
@@ -45,14 +46,15 @@ class PropertyGraph extends InMemoryGrph implements Serializable
   AutoGrowingArrayList<Float> weights = new AutoGrowingArrayList<>();
 
   synchronized public IntSet getNodeByLabelProperty(String lable, String val) { return label_val_node.get(lable, val); }
-  public String getPropertyByNodeLabel(int node, String lable)   { return node_label_val.get(node, lable); }
-  public IntSet getEdgeByLabelProperty(String lable, String val) { return label_val_edge.get(lable, val); }
+//  public String getPropertyByNodeLabel(int node, String lable)   { return node_label_val.get(node, lable); }
+//  public IntSet getEdgeByLabelProperty(String lable, String val) { return label_val_edge.get(lable, val); }
   public String getPropertyByEdgeLabel(int node, String lable)   { return edge_label_val.get(node, lable); }
   public Float  getEdgeWeight(int e)
   {
     assert getEdges().contains(e);
     return weights.get(e);
   }
+/*
   public IntSet putDirectedEdges(IntSet A, IntSet B)
   {
     if (!Tools.isSet(A) && !Tools.isSet(B)) return null;
@@ -69,9 +71,10 @@ class PropertyGraph extends InMemoryGrph implements Serializable
 
     return Es;
   }
-  public IntSet putDirectedEdges(IntSet A, IntSet B, String... tagval)
+*/
+  public IntSet putEdges(IntSet A, IntSet B, boolean directed, Float weight, String... tagval)
   {
-    if (!Tools.isSet(A) && !Tools.isSet(B)) return null;
+    if (!Tools.isSet(A) || !Tools.isSet(B)) return null;
     IntSet Es = new IntHashSet();
     for (int a : A.toIntArray())
       for (int b : B.toIntArray())
@@ -85,28 +88,34 @@ class PropertyGraph extends InMemoryGrph implements Serializable
 
         if (!Tools.isSet(e) || !found)
         {
-          Es.add(addDirectedSimpleEdge(a, b)); edges++;
+          Es.add(addSimpleEdge(a, b, directed)); edges++;
         }
       }
 
     // deposit the property for the edges
-    setEdgeLabelProperties(Es, tagval);
+    if (Tools.isSet(Es))
+    {
+      setEdgeLabelProperties(Es, tagval);
+      if (weight!=null)
+       for (int i : Es.toIntArray()) setEdgeWeight(i, weight);
+    }
 
     return Es;
   }
   // add a new node if not already present
   public IntSet putNode(String... tagvals)
   {
-    IntSet combined = null;
+    // assume the first pair is the primary key
+    IntSet combined = (Tools.isSet(tagvals) && tagvals.length>1) ? getNodeByLabelProperty(tagvals[0], tagvals[1]) : null;
+/*
     if (Tools.isSet(tagvals) && tagvals.length%2==0)
-    {
       for (int i=0; i<tagvals.length; i+=2)
       {
         IntSet As = getNodeByLabelProperty(tagvals[i], tagvals[i+1]);
         combined=(combined==null?As:Tools.intersect(combined, As));
       }
-    }
-    if (combined==null || combined.size()==0)
+*/
+    if (!Tools.isSet(combined))
     {
       int N = addVertex(); nodes++;
       for (int i=0; i<tagvals.length; i+=2)
@@ -126,7 +135,7 @@ class PropertyGraph extends InMemoryGrph implements Serializable
       {
         // deposit the node if necessary
         IntSet N = putNode(tag, E.getProperty(tag));
-               L = putDirectedEdges(starters, N, edge_tag, edge_val);
+               L = putEdges(starters, N, true, null, edge_tag, edge_val);
 
         setNodeLabelProperty(N, E);
 

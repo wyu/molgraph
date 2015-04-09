@@ -39,6 +39,7 @@ abstract public class GraphHandler extends DefaultHandler
   public static final String ID       = "id";
   public static final String DISEASE  = "disease";
   public static final String CONTEXT  = "context";
+  public static final String TRAIT    = "trait";
   public static final String TISSUE   = "tissue";
   public static final String ASSAY    = "assay";
   public static final String TYPE_ACTOR   = "actorType";
@@ -213,7 +214,7 @@ abstract public class GraphHandler extends DefaultHandler
       {
         Object g = es2gene.get(graph.node_label_val.get(row, ENSEMBLE));
         if (g!=null)
-          graph.node_label_val.put(row, GENE, g.toString());
+          graph.node_label_val.put(row, GENE, g.toString().toUpperCase());
       }
       graph.node_label_val.column(ENSEMBLE).clear();
     }
