@@ -1,5 +1,6 @@
 package org.bioconsensus.kbase;
 
+import org.ms2ms.graph.Graphs;
 import org.ms2ms.math.Stats;
 import org.ms2ms.utils.Strs;
 import org.ms2ms.utils.TabFile;
@@ -31,19 +32,21 @@ public class GWASReader extends TabReader
       tab = new TabFile(doc, TabFile.tabb);
       while (tab.hasNext())
       {
-        IntSet As = putNodes(Strs.newMap('=', "CHR_ID=Chr","CHR_POS=ChrPos","CONTEXT=Context"), GraphHandler.RSID,  tab, "SNPS", 'x'),
+        IntSet As = putNodes(Graphs.SNP, "SNPS", Strs.newMap('=', "CHR_ID=Chr","CHR_POS=ChrPos","CONTEXT=Context"), tab, 'x'),
                Bs = new IntHashSet(),
-               Cs = putNodes(Strs.newMap('=', "MAPPED_TRAIT_URI=EFO_ID"), GraphHandler.TRAIT, tab, "MAPPED_TRAIT", ',');
+               Cs = putNodes(Graphs.TRAIT, "MAPPED_TRAIT_URI", Strs.newMap('=', "MAPPED_TRAIT=Trait"), tab, ','),
+               Ds = putNodes(Graphs.STUDY, "STUDY", Strs.newMap('=', "DATE=Date","FIRST AUTHOR=Author","INITIAL SAMPLE DESCRIPTION=Sample","JOURNAL=Journal","LINK=Link"), tab, ',');
 
         // need to figure out the special cases for the genes
         Set<String> genes = parseGenes(parseGenes(null, tab.get("REPORTED GENE(S)"), '-', "NR", "Intergenic"),
-                                                        tab.get("MAPPED_GENE"),      '-', "NR", "Intergenic");
+            tab.get("MAPPED_GENE"), '-', "NR", "Intergenic");
         if (Tools.isSet(genes))
-          for (String gene : genes) Bs.addAll(G.putNode(GraphHandler.GENE, gene));
+          for (String gene : genes) Bs.addAll(G.putNode(Graphs.LABEL, "GENE", Graphs.ID, gene));
 
         G.putEdges(As, Cs, false, null);
+        G.putEdges(As, Ds, false, null);
         G.putEdges(As, Bs, false,
-            Stats.toFloat(tab.get("PVALUE_MLOG")), GraphHandler.DISEASE, tab.get("DISEASE/TRAIT"));
+            Stats.toFloat(tab.get("PVALUE_MLOG")), Graphs.DISEASE, tab.get("DISEASE/TRAIT"), "Context", tab.get("P-VALUE (TEXT)"));
       }
     }
     catch (IOException e)

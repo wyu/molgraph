@@ -1,5 +1,6 @@
 package org.bioconsensus.kbase;
 
+import org.ms2ms.graph.Graphs;
 import org.ms2ms.utils.Strs;
 import org.ms2ms.utils.TabFile;
 import org.ms2ms.utils.Tools;
@@ -24,12 +25,12 @@ abstract public class TabReader
 
   public TabReader(PropertyGraph g) { super(); G=g; };
 
-  public IntSet putNodes(Map<String, String> tag_name, String tag, TabFile tab, String name, char delimiter, IntSet... Bs)
+  public IntSet putNodes(String type, String label_tag, Map<String, String> tag_name, TabFile tab, char delimiter, IntSet... Bs)
   {
-    if (tab==null || tab.get(name)==null) return Tools.isSet(Bs)?Bs[0]:null;
+    if (tab==null || tab.get(label_tag)==null) return Tools.isSet(Bs)?Bs[0]:null;
 
     if (!Tools.isSet(Bs)) Bs = new IntSet[] {new IntHashSet()};
-    String[] genes = Strs.split(tab.get(name), delimiter, true);
+    String[] genes = Strs.split(tab.get(label_tag), delimiter, true);
     if (Tools.isSet(genes))
     {
       // fetch the properties
@@ -42,7 +43,7 @@ abstract public class TabReader
           }
       for (String g : genes)
       {
-        Bs[0].addAll(G.putNode(Strs.toStringArrayHead(ps, tag, g)));
+        Bs[0].addAll(G.putNode(Strs.toStringArrayHead(ps, Graphs.TYPE, type, Graphs.LABEL, g)));
       }
     }
     return Bs[0];

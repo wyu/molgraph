@@ -1,6 +1,7 @@
 package org.bioconsensus.kbase;
 
 import org.apache.commons.io.filefilter.WildcardFileFilter;
+import org.ms2ms.graph.Graphs;
 import org.ms2ms.graph.Property;
 import org.ms2ms.graph.PropertyNode;
 import org.ms2ms.r.Dataframe;
@@ -28,22 +29,18 @@ import java.util.*;
  */
 abstract public class GraphHandler extends DefaultHandler
 {
-  public static final String LABEL    = "_label_";
+//  public static final String LABEL    = "_label_";
   public static final String NAME     = "name";
   public static final String DESC     = "description";
   public static final String ORGANISM = "organism";
-  public static final String GENE     = "gene";
   public static final String ENSEMBLE = "ENSG";
   public static final String DRUGID   = "drugBankID";
   public static final String RSID     = "rsid";
-  public static final String ID       = "id";
-  public static final String DISEASE  = "disease";
+//  public static final String ID       = "ID";
   public static final String CONTEXT  = "context";
-  public static final String TRAIT    = "trait";
-  public static final String TISSUE   = "tissue";
-  public static final String ASSAY    = "assay";
   public static final String TYPE_ACTOR   = "actorType";
   public static final String TYPE_ACTION  = "actionType";
+
   public static final String DATASET  = "dataset";
 
   PropertyGraph G=null;
@@ -214,14 +211,14 @@ abstract public class GraphHandler extends DefaultHandler
       {
         Object g = es2gene.get(graph.node_label_val.get(row, ENSEMBLE));
         if (g!=null)
-          graph.node_label_val.put(row, GENE, g.toString().toUpperCase());
+          graph.node_label_val.put(row, Graphs.GENE, g.toString().toUpperCase());
       }
       graph.node_label_val.column(ENSEMBLE).clear();
     }
     if (graph.node_label_val.column("gene name")!=null)
       for (Integer row : graph.node_label_val.column("gene name").keySet())
       {
-        if (Tools.equals(graph.node_label_val.get(row, "gene name"), graph.node_label_val.get(row, GENE)))
+        if (Tools.equals(graph.node_label_val.get(row, "gene name"), graph.node_label_val.get(row, Graphs.GENE)))
           graph.node_label_val.remove(row, "gene name");
       }
 

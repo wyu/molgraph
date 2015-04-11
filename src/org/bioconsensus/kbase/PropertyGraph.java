@@ -5,6 +5,7 @@ import com.carrotsearch.hppc.cursors.IntCursor;
 import com.google.common.collect.*;
 import grph.Grph;
 import grph.in_memory.InMemoryGrph;
+import org.ms2ms.graph.Graphs;
 import org.ms2ms.graph.Property;
 import org.ms2ms.graph.PropertyEdge;
 import org.ms2ms.math.Stats;
@@ -19,7 +20,9 @@ import toools.set.IntSet;
 import toools.set.IntSingletonSet;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /** provide an in-memory cache of graph which can be pushed to Titan via BatchGraph
  *
@@ -204,7 +207,7 @@ class PropertyGraph extends InMemoryGrph implements Serializable
   }
   public PropertyGraph setEdgeLabelProperty(int E, PropertyEdge p, char... lead)
   {
-    setEdgeLabelProperties(E, GraphHandler.LABEL, p.getLabel(), "desc", p.getDescription(), "id", p.getId(), "url", p.getUrl());
+    setEdgeLabelProperties(E, Graphs.LABEL, p.getLabel(), "desc", p.getDescription(), "id", p.getId(), "url", p.getUrl());
     setEdgeWeight(E, p.getScore()!=null?p.getScore().floatValue():null);
 
     if (Tools.isSet(p.getProperties()))
@@ -650,5 +653,55 @@ class PropertyGraph extends InMemoryGrph implements Serializable
     }
 
     return set;
+  }
+  public void writeNodes2CSV(String filename)
+  {
+    try
+    {
+      FileWriter w = new FileWriter(filename);
+      // name:ID – global id column by which the node is looked up for later reconnecting, if property name is left off
+      //           it will be not stored (temporary), this is what the --id-type refers to currently this node-id has
+      //           to be globally unique even across entities
+      // :LABEL  – label column for nodes, multiple labels can be separated by delimiter
+      // all other columns are treated as properties but skipped if empty
+      // type conversion is possible by suffixing the name, e.g. by :INT, :BOOLEAN, etc.
+      w.write("name:ID,:LABEL");
+      List<String> cols = new ArrayList<>();
+      cols.add(Graphs.LABEL);
+      for (String col : node_label_val.columnKeySet())
+      {
+        if (Strs.isA(col, Graphs.LABEL, Graphs.ID)) continue;
+        w.write(","+col); cols.add(col);
+      }
+      w.write("\n");
+      for (Integer row : node_label_val.rowKeySet())
+      {
+        w.write(row+","+node_label_val.get(row, Graphs.LABEL));
+        IOs.write(w, ',', Tools.toCols(node_label_val.row(row), cols));
+        w.write("\n");
+      }
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
+    }
+
+  }
+  public void writeEdges2CSV(String filename)
+  {
+    try
+    {
+      FileWriter w = new FileWriter(filename);
+      // :START_ID, :END_ID – relationship file columns referring to global node-lookup-id
+      // :TYPE – relationship-type column
+      // all other columns are treated as properties but skipped if empty
+      // type conversion is possible by suffixing the name, e.g. by :INT, :BOOLEAN, etc.
+
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
+    }
+
   }
 }

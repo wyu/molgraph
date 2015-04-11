@@ -30,8 +30,9 @@ public class PsiMI25Reader extends GraphHandler
   private int                 lastID;
   private Map<String, PropertyNode> expts = new HashMap<>();
 
-  public PsiMI25Reader()             { super(); init(); }
-  public PsiMI25Reader(String... s)  { super(s); init(); }
+  public PsiMI25Reader()                { super(); init(); }
+  public PsiMI25Reader(PropertyGraph g) { super(g); init(); }
+  public PsiMI25Reader(String... s)     { super(s); init(); }
 
   public void init()
   {

@@ -11,7 +11,6 @@ import org.ms2ms.graph.PropertyEdge;
 import org.ms2ms.graph.PropertyNode;
 import org.ms2ms.nosql.Titans;
 import org.ms2ms.test.TestAbstract;
-import org.ms2ms.utils.IOs;
 import psidev.psi.mi.xml.PsimiXmlLightweightReader;
 import psidev.psi.mi.xml.io.impl.PsimiXmlReader254;
 import psidev.psi.mi.xml.model.Entry;
@@ -35,6 +34,21 @@ import java.util.Map;
  */
 public class GraphReaderTest extends TestAbstract
 {
+  @Test
+  public void readComboGraph() throws Exception
+  {
+    GWASReader g = new GWASReader(new PropertyGraph());
+    g.parseDocument("/home/wyu/Projects/molgraph/data/gwas_ebi1000.tsv");
+    System.out.println(g.G.inventory());
+
+    BioGRIDReader biogrid = new BioGRIDReader(g.G);
+
+    biogrid.parseDocuments("/media/data/import/BioGRID/BIOGRID-ALL-3.2.120.psi25.xml");
+    System.out.println(biogrid.G.inventory());
+    biogrid.G.write("/tmp/BioGRID.20150408");
+  }
+
+  @Test
   public void getTTD() throws Exception
   {
     String trans = "/media/data/import/TTD";
@@ -44,17 +58,18 @@ public class GraphReaderTest extends TestAbstract
     System.out.println(g.G.inventory());
   }
   @Test
-  public void getNHGRI_GWAS() throws Exception
+  public void getEBI_GWAS() throws Exception
   {
-    String trans = "/home/wyu/Projects/molgraph/data/nhgri100.txt";
-
-    NHGRICatReader g = new NHGRICatReader(new PropertyGraph());
-    g.parseDocument(trans);
+    GWASReader g = new GWASReader(new PropertyGraph());
+    g.parseDocument("/home/wyu/Projects/molgraph/data/gwas_ebi1000.tsv");
+//    g.parseDocument("/media/data/import/GWAS/gwas_catalog_v1.0.1-downloaded_2015-04-08.tsv");
     System.out.println(g.G.inventory());
+
+    g.G.write("/tmp/GWAS.20150407");
   }
 
   @Test
-  public void readDraugBankGraph() throws Exception
+  public void readDrugBankGraph() throws Exception
   {
     DrugBankReader dbank = new DrugBankReader();
     dbank.parseDocument("/media/data/import/drugbank/drugbank.xml");
@@ -64,9 +79,13 @@ public class GraphReaderTest extends TestAbstract
   @Test
   public void readBioGRIDGraph() throws Exception
   {
-    PsiMI25Reader biogrid = GraphHandler.read("/media/data/import/BioGRID/BIOGRID-ALL-3.2.120.psi25.xml");
+//    PsiMI25Reader biogrid = GraphHandler.read("/media/data/import/BioGRID/BIOGRID-ALL-3.2.120.psi25.xml");
 //    uniprot.parseDocument("/media/data/import/bio4j/uniprot_sprot.xml");
+    BioGRIDReader biogrid = new BioGRIDReader(new PropertyGraph());
+
+    biogrid.parseDocuments("/media/data/import/BioGRID/BIOGRID-ALL-3.2.120.psi25.xml");
     System.out.println(biogrid.G.inventory());
+    biogrid.G.write("/tmp/BioGRID.20150408");
   }
   @Test
   public void readIntActGraph() throws Exception
