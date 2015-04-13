@@ -65,6 +65,8 @@ public class GraphReaderTest extends TestAbstract
 //    g.parseDocument("/media/data/import/GWAS/gwas_catalog_v1.0.1-downloaded_2015-04-08.tsv");
     System.out.println(g.G.inventory());
 
+    g.G.writeNodes2CSV("/tmp/GWAS_20150411");
+    g.G.writeEdges2CSV("/tmp/GWAS_20150411.edges");
     g.G.write("/tmp/GWAS.20150407");
   }
 

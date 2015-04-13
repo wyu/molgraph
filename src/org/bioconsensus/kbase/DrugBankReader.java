@@ -2,6 +2,7 @@ package org.bioconsensus.kbase;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import org.ms2ms.graph.Graphs;
 import org.ms2ms.graph.PropertyEdge;
 import org.ms2ms.graph.PropertyNode;
 import org.ms2ms.utils.Strs;
@@ -83,8 +84,8 @@ public class DrugBankReader extends GraphHandler
       drugIdx = G.putNode(DRUGID, drug.getProperty(DRUGID));
       G.setNodeLabelProperty(drugIdx, drug);
       // deposit the drug
-      G.putDirectedEdges(drugIdx, GENE, interactors.get(DRUG_TRGT), LABEL, DRUG_TRGT);
-      G.putDirectedEdges(drugIdx, DRUGID, interactors.get(DRUG_INCT), LABEL, DRUG_INCT);
+      G.putDirectedEdges(drugIdx, Graphs.GENE, interactors.get(DRUG_TRGT), Graphs.LABEL, DRUG_TRGT);
+      G.putDirectedEdges(drugIdx, DRUGID, interactors.get(DRUG_INCT), Graphs.LABEL, DRUG_INCT);
       // clear the cache
       interactors.clear();
     }
@@ -103,7 +104,7 @@ public class DrugBankReader extends GraphHandler
       if (Strs.equals(properties.get("resource"), "GeneCards") && edge!=null)
       {
         // setup the drug target link
-        edge.setProperty(GENE, properties.get("identifier"));
+        edge.setProperty(Graphs.GENE, properties.get("identifier"));
       }
       properties.clear();
     }

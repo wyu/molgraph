@@ -1,6 +1,7 @@
 package org.bioconsensus.kbase;
 
 import grph.properties.StringProperty;
+import org.ms2ms.graph.Graphs;
 import org.ms2ms.graph.PropertyEdge;
 import org.ms2ms.graph.PropertyNode;
 import org.ms2ms.utils.Strs;
@@ -47,7 +48,7 @@ public class PsiMI25Reader extends GraphHandler
     {
       // add to the graph. it's a new node by definition, assuming we're not re-import the same uniprot
       interaction = new PropertyEdge();
-      interaction.setProperty(ID, attributes.getValue("id"));
+      interaction.setProperty(Graphs.ID, attributes.getValue("id"));
     }
     else if (matchStack("primaryRef","xref","interactor") && Strs.equals(attributes.getValue("db"), "ensembl"))
     {
@@ -67,13 +68,13 @@ public class PsiMI25Reader extends GraphHandler
     else if (elementName.equalsIgnoreCase("interactor"))
     {
       actor = new PropertyNode("interactor");
-      actor.setProperty(ID, attributes.getValue("id"));
+      actor.setProperty(Graphs.ID, attributes.getValue("id"));
 //      if (++G.nodes%5000==0) System.out.print(".");
     }
     else if (Strs.equals(elementName, "experimentDescription"))
     {
       expt = new PropertyNode();
-      expt.setProperty(ID, attributes.getValue("id"));
+      expt.setProperty(Graphs.ID, attributes.getValue("id"));
     }
   }
   @Override
@@ -99,7 +100,7 @@ public class PsiMI25Reader extends GraphHandler
     }
     else if (Strs.equals(element,"experimentDescription") && expt!=null)
     {
-      expts.put(expt.getProperty(ID), expt);
+      expts.put(expt.getProperty(Graphs.ID), expt);
     }
 //    else if (Strs.equals(element,"interactorList"))
 //    {
@@ -113,12 +114,12 @@ public class PsiMI25Reader extends GraphHandler
 //    {
 ////      System.out.println("Total interactions: " + nodes);
 //    }
-    else if (Strs.equals(element,"interactor") && actor!=null && !G.hasNodeLabel("intactID", actor.getProperty(ID)))
+    else if (Strs.equals(element,"interactor") && actor!=null && !G.hasNodeLabel("intactID", actor.getProperty(Graphs.ID)))
     {
       if (Strs.equals(actor.getProperty("actorType"), "protein") &&
           Strs.isSet(actor.getProperty("gene name")))
       {
-        actor.rename("gene name", GENE);
+        actor.rename("gene name", Graphs.GENE);
       }
       lastID = G.addVertex();
 //      G.setNodeLabelProperty(lastID, "intactID", actor.getProperty(ID));
@@ -130,13 +131,13 @@ public class PsiMI25Reader extends GraphHandler
       if (matchStack(1, "names"))
       {
         if      (matchStack(2, "interaction"))            interaction.setDescription(content.toString());
-        else if (matchStack(2, "interactor"))             set(GENE,        actor, content);
+        else if (matchStack(2, "interactor"))             set(Graphs.GENE,        actor, content);
         else if (matchStack(2, "interactorType"))         set(TYPE_ACTOR,  actor, content);
         else if (matchStack(2, ORGANISM))                 set(ORGANISM,    actor, content);
 //        else if (matchStack(2, "experimentDescription"))  set(LABEL,       expt,  content);
         else if (matchStack(2, "hostOrganism"))           set(ORGANISM,    expt,  content);
-        else if (matchStack(2, "tissue"))                 set(TISSUE, expt, content);
-        else if (matchStack(2, "interactionDetectionMethod")) set(ASSAY, expt, content);
+        else if (matchStack(2, "tissue"))                 set(Graphs.TISSUE, expt, content);
+        else if (matchStack(2, "interactionDetectionMethod")) set(Graphs.ASSAY, expt, content);
         else if (matchStack(2, "interactionType"))        set(TYPE_ACTION, interaction, content);
       }
     }

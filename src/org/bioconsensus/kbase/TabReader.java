@@ -25,6 +25,16 @@ abstract public class TabReader
 
   public TabReader(PropertyGraph g) { super(); G=g; };
 
+  /**
+   *
+   * @param type is the type of the node, e.g. GENE, SNP, etc.
+   * @param label_tag is a tag to retrieve the label of the node. e.g. gene_name, rs#
+   * @param tag_name is the tag-name mapping for the rest of the properties retrieved from the tab_file
+   * @param tab is the tab_file containing the source data
+   * @param delimiter
+   * @param Bs
+   * @return
+   */
   public IntSet putNodes(String type, String label_tag, Map<String, String> tag_name, TabFile tab, char delimiter, IntSet... Bs)
   {
     if (tab==null || tab.get(label_tag)==null) return Tools.isSet(Bs)?Bs[0]:null;
@@ -43,7 +53,7 @@ abstract public class TabReader
           }
       for (String g : genes)
       {
-        Bs[0].addAll(G.putNode(Strs.toStringArrayHead(ps, Graphs.TYPE, type, Graphs.LABEL, g)));
+        Bs[0].addAll(G.putNode(Strs.toStringArrayHead(ps, Graphs.LABEL, g, Graphs.TYPE, type)));
       }
     }
     return Bs[0];

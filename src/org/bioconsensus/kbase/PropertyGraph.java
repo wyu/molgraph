@@ -20,9 +20,7 @@ import toools.set.IntSet;
 import toools.set.IntSingletonSet;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /** provide an in-memory cache of graph which can be pushed to Titan via BatchGraph
  *
@@ -656,39 +654,78 @@ class PropertyGraph extends InMemoryGrph implements Serializable
   }
   public void writeNodes2CSV(String filename)
   {
+    char d = '\t';
     try
     {
-      FileWriter w = new FileWriter(filename);
-      // name:ID – global id column by which the node is looked up for later reconnecting, if property name is left off
-      //           it will be not stored (temporary), this is what the --id-type refers to currently this node-id has
-      //           to be globally unique even across entities
-      // :LABEL  – label column for nodes, multiple labels can be separated by delimiter
-      // all other columns are treated as properties but skipped if empty
-      // type conversion is possible by suffixing the name, e.g. by :INT, :BOOLEAN, etc.
-      w.write("name:ID,:LABEL");
-      List<String> cols = new ArrayList<>();
-      cols.add(Graphs.LABEL);
-      for (String col : node_label_val.columnKeySet())
+      // divide the nodes by their types
+      for (String type : label_val_node.row(Graphs.TYPE).keySet())
       {
-        if (Strs.isA(col, Graphs.LABEL, Graphs.ID)) continue;
-        w.write(","+col); cols.add(col);
+        writeNodes2CSV(filename+"_nodes."+type, type, d);
       }
-      w.write("\n");
-      for (Integer row : node_label_val.rowKeySet())
-      {
-        w.write(row+","+node_label_val.get(row, Graphs.LABEL));
-        IOs.write(w, ',', Tools.toCols(node_label_val.row(row), cols));
-        w.write("\n");
-      }
+//      FileWriter w = new FileWriter(filename);
+//      // name:ID – global id column by which the node is looked up for later reconnecting, if property name is left off
+//      //           it will be not stored (temporary), this is what the --id-type refers to currently this node-id has
+//      //           to be globally unique even across entities
+//      // :LABEL  – label column for nodes, multiple labels can be separated by delimiter
+//      // all other columns are treated as properties but skipped if empty
+//      // type conversion is possible by suffixing the name, e.g. by :INT, :BOOLEAN, etc.
+//      w.write("name:ID"+d+":LABEL");
+//      List<String> cols = new ArrayList<>();
+////      cols.add(Graphs.LABEL);
+//      for (String col : node_label_val.columnKeySet())
+//      {
+//        if (Strs.isA(col, Graphs.LABEL, Graphs.ID)) continue;
+//        w.write(d+col); cols.add(col);
+//      }
+//      w.write("\n");
+//      for (Integer row : node_label_val.rowKeySet())
+//      {
+//        w.write(row.toString()+d+node_label_val.get(row, Graphs.LABEL)+d);
+//        IOs.write(w,d, Tools.toCols(node_label_val.row(row), cols));
+//        w.write("\n");
+//      }
     }
     catch (IOException e)
     {
       e.printStackTrace();
     }
+  }
+  public void writeNodes2CSV(String nodefile, String type, char d) throws IOException
+  {
+    // name:ID – global id column by which the node is looked up for later reconnecting, if property name is left off
+    //           it will be not stored (temporary), this is what the --id-type refers to currently this node-id has
+    //           to be globally unique even across entities
+    // :LABEL  – label column for nodes, multiple labels can be separated by delimiter
+    // all other columns are treated as properties but skipped if empty
+    // type conversion is possible by suffixing the name, e.g. by :INT, :BOOLEAN, etc.
+    Set<String> cols = new HashSet<>();
+    for (int i : getVertices().toIntArray())
+      if (Strs.equals(node_label_val.row(i).get(Graphs.TYPE), type))
+        cols.addAll(node_label_val.row(i).keySet());
 
+    cols.remove(Graphs.TYPE);cols.remove(Graphs.LABEL);
+    List<String> columns = new ArrayList<>(cols);
+//      cols.add(Graphs.LABEL);
+    FileWriter w = new FileWriter(nodefile);
+
+    w.write("name:ID"+d+":LABEL"+d+Strs.toString(cols, d+"")+"\n");
+    for (Integer row : getVertices().toIntArray())
+      if (Strs.equals(node_label_val.row(row).get(Graphs.TYPE), type))
+      {
+        w.write(row.toString()+d+node_label_val.get(row, Graphs.LABEL));
+        if (Tools.isSet(columns))
+        {
+          w.write(d);
+          IOs.write(w,d, Tools.toCols(node_label_val.row(row), columns));
+        }
+        w.write("\n");
+      }
+
+    w.close();
   }
   public void writeEdges2CSV(String filename)
   {
+    char d = '\t';
     try
     {
       FileWriter w = new FileWriter(filename);
@@ -696,7 +733,22 @@ class PropertyGraph extends InMemoryGrph implements Serializable
       // :TYPE – relationship-type column
       // all other columns are treated as properties but skipped if empty
       // type conversion is possible by suffixing the name, e.g. by :INT, :BOOLEAN, etc.
-
+      w.write(":START_ID"+d+":END_ID"+d+":TYPE");
+      List<String> cols = new ArrayList<>();
+//      cols.add(Graphs.LABEL);
+      for (String col : edge_label_val.columnKeySet())
+      {
+        if (Strs.isA(col, Graphs.TYPE)) continue;
+        w.write(d+col); cols.add(col);
+      }
+      w.write("\n");
+      for (int i : getEdges().toIntArray())
+      {
+        IntSet nodes = getVerticesIncidentToEdge(i);
+        assert nodes!=null && nodes.size()==2;
+        IOs.write(w,d,nodes.toIntArray()[0]+"", nodes.toIntArray()[1]+"", edge_label_val.get(i, Graphs.TYPE)+"\n");
+      }
+      w.close();
     }
     catch (IOException e)
     {
