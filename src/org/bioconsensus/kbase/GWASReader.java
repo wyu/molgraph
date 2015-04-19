@@ -35,7 +35,7 @@ public class GWASReader extends TabReader
         IntSet As = putNodes(Graphs.SNP, "SNPS", Strs.newMap('=', "CHR_ID=Chr","CHR_POS=ChrPos","CONTEXT=Context"), tab, 'x'),
                Bs = new IntHashSet(),
                Cs = putNodes(Graphs.TRAIT, "MAPPED_TRAIT_URI", Strs.newMap('=', "MAPPED_TRAIT=Trait"), tab, ','),
-               Ds = putNodes(Graphs.STUDY, "STUDY", Strs.newMap('=', "DATE=Date","FIRST AUTHOR=Author","INITIAL SAMPLE DESCRIPTION=Sample","JOURNAL=Journal","LINK=Link"), tab, ',');
+               Ds = putNodes(Graphs.STUDY, "LINK", Strs.newMap('=', "DATE=Date","FIRST AUTHOR=Author","INITIAL SAMPLE DESCRIPTION=Sample","JOURNAL=Journal","STUDY=Study"), tab, ',');
 
         // need to figure out the special cases for the genes
         Set<String> genes = parseGenes(parseGenes(null, tab.get("REPORTED GENE(S)"), '-', "NR", "Intergenic"),
@@ -47,6 +47,8 @@ public class GWASReader extends TabReader
         G.putEdges(As, Ds, false, null, Graphs.TYPE, "SNP-STUDY");
         G.putEdges(As, Bs, false,
             Stats.toFloat(tab.get("PVALUE_MLOG")), Graphs.DISEASE, tab.get("DISEASE/TRAIT"), "Context", tab.get("P-VALUE (TEXT)"), Graphs.TYPE, "SNP-GENE");
+
+        //if (G.getVertices().size()>20000) break;
       }
     }
     catch (IOException e)

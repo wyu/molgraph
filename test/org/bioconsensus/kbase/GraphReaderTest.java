@@ -61,12 +61,12 @@ public class GraphReaderTest extends TestAbstract
   public void getEBI_GWAS() throws Exception
   {
     GWASReader g = new GWASReader(new PropertyGraph());
-    g.parseDocument("/home/wyu/Projects/molgraph/data/gwas_ebi1000.tsv");
-//    g.parseDocument("/media/data/import/GWAS/gwas_catalog_v1.0.1-downloaded_2015-04-08.tsv");
+//    g.parseDocument("/home/wyu/Projects/molgraph/data/gwas_ebi1000.tsv");
+    g.parseDocument("/media/data/import/GWAS/gwas_catalog_v1.0.1-downloaded_2015-04-08.tsv");
     System.out.println(g.G.inventory());
 
-    g.G.writeNodes2CSV("/tmp/GWAS_20150411");
-    g.G.writeEdges2CSV("/tmp/GWAS_20150411.edges");
+    g.G.writeNodes2CSV("/usr/local/neo4j/current/import/GWAS");
+    g.G.writeEdges2CSV("/usr/local/neo4j/current/import/GWAS");
     g.G.write("/tmp/GWAS.20150407");
   }
 
@@ -121,6 +121,7 @@ public class GraphReaderTest extends TestAbstract
     g.parseDocument(trans);
     System.out.println(g.G.inventory());
 
+    System.out.println();
   }
   /** prepare the databases before running the test  **/
   // /usr/local/hbase/4titan$ bin/start-hbase.sh

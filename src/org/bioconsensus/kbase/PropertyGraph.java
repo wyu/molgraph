@@ -708,7 +708,7 @@ class PropertyGraph extends InMemoryGrph implements Serializable
 //      cols.add(Graphs.LABEL);
     FileWriter w = new FileWriter(nodefile);
 
-    w.write("name:ID"+d+":LABEL"+d+Strs.toString(cols, d+"")+"\n");
+    w.write("id"+d+"uid"+Strs.toString(cols, d+"")+"\n");
     for (Integer row : getVertices().toIntArray())
       if (Strs.equals(node_label_val.row(row).get(Graphs.TYPE), type))
       {
@@ -728,6 +728,13 @@ class PropertyGraph extends InMemoryGrph implements Serializable
     char d = '\t';
     try
     {
+      // divide the nodes by their types
+      for (String type : label_val_edge.row(Graphs.TYPE).keySet())
+      {
+        writeEdges2CSV(filename+"_edges."+type, type, d);
+      }
+/*
+
       FileWriter w = new FileWriter(filename);
       // :START_ID, :END_ID – relationship file columns referring to global node-lookup-id
       // :TYPE – relationship-type column
@@ -745,15 +752,95 @@ class PropertyGraph extends InMemoryGrph implements Serializable
       for (int i : getEdges().toIntArray())
       {
         IntSet nodes = getVerticesIncidentToEdge(i);
-        assert nodes!=null && nodes.size()==2;
-        IOs.write(w,d,nodes.toIntArray()[0]+"", nodes.toIntArray()[1]+"", edge_label_val.get(i, Graphs.TYPE)+"\n");
+        if (nodes==null || nodes.size()!=2)
+        {
+          System.out.println("edge="+i+", nodes="+nodes.size());
+          continue;
+        }
+//        assert nodes!=null && nodes.size()==2;
+        IOs.write(w,d,nodes.toIntArray()[0]+"", nodes.toIntArray()[1]+"", edge_label_val.get(i, Graphs.TYPE));
+        w.write(d+"");
+        IOs.write(w,d, Tools.toCols(edge_label_val.row(i), cols));
+        w.write("\n");
       }
       w.close();
+*/
     }
     catch (IOException e)
     {
       e.printStackTrace();
     }
+  }
+  public void writeEdges2CSV(String filename, String type, char d) throws IOException
+  {
+    Set<String> cols = new HashSet<>();
+    for (int i : getEdges().toIntArray())
+      if (Strs.equals(edge_label_val.row(i).get(Graphs.TYPE), type))
+        cols.addAll(edge_label_val.row(i).keySet());
 
+    cols.remove(Graphs.TYPE); cols.remove(Graphs.LABEL);
+    List<String> columns = new ArrayList<>(cols);
+
+    FileWriter w = new FileWriter(filename);
+
+    // :START_ID, :END_ID – relationship file columns referring to global node-lookup-id
+    // :TYPE – relationship-type column
+    // all other columns are treated as properties but skipped if empty
+    // type conversion is possible by suffixing the name, e.g. by :INT, :BOOLEAN, etc.
+    w.write("start"+d+"end"+Strs.toString(cols, d+"")+"\n");
+    for (Integer row : getEdges().toIntArray())
+      if (Strs.equals(edge_label_val.row(row).get(Graphs.TYPE), type))
+      {
+        IntSet nodes = getVerticesIncidentToEdge(row);
+        if (nodes==null || nodes.size()!=2)
+        {
+          System.out.println("edge="+row+", nodes="+nodes.size());
+          continue;
+        }
+        IOs.write(w,d,nodes.toIntArray()[0]+"", nodes.toIntArray()[1]+"");
+        if (Tools.isSet(columns))
+        {
+          w.write(d);
+          IOs.write(w,d, Tools.toCols(edge_label_val.row(row), columns));
+        }
+        w.write("\n");
+//        w.write(row.toString()+d+edge_label_val.get(row, Graphs.LABEL));
+//        if (Tools.isSet(columns))
+//        {
+//          w.write(d);
+//          IOs.write(w,d, Tools.toCols(node_label_val.row(row), columns));
+//        }
+//        w.write("\n");
+      }
+    w.close();
+/*
+
+
+    FileWriter w = new FileWriter(filename);
+    w.write(":START_ID"+d+":END_ID");
+    List<String> cols = new ArrayList<>();
+//      cols.add(Graphs.LABEL);
+    for (String col : edge_label_val.columnKeySet())
+    {
+      if (Strs.isA(col, Graphs.TYPE)) continue;
+      w.write(d+col); cols.add(col);
+    }
+    w.write("\n");
+    for (int i : getEdges().toIntArray())
+    {
+      IntSet nodes = getVerticesIncidentToEdge(i);
+      if (nodes==null || nodes.size()!=2)
+      {
+        System.out.println("edge="+i+", nodes="+nodes.size());
+        continue;
+      }
+//        assert nodes!=null && nodes.size()==2;
+      IOs.write(w,d,nodes.toIntArray()[0]+"", nodes.toIntArray()[1]+"", edge_label_val.get(i, Graphs.TYPE));
+      w.write(d+"");
+      IOs.write(w,d, Tools.toCols(edge_label_val.row(i), cols));
+      w.write("\n");
+    }
+    w.close();
+*/
   }
 }
