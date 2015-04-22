@@ -103,19 +103,29 @@ class PropertyGraph extends InMemoryGrph implements Serializable
 
     return Es;
   }
+  public IntSet putNode(Property p, String idtag)
+  {
+    if (p==null || !Tools.isSet(p.getProperties())) return null;
+    // fetch the existing node if there
+    IntSet combined = (idtag!=null && p.getProperty(idtag)!=null) ? getNodeByLabelProperty(idtag, p.getProperty(idtag)) : null;
+
+    if (!Tools.isSet(combined))
+    {
+      int N = addVertex(); nodes++;
+      for (String tag : p.getProperties().keySet())
+      {
+        setNodeLabelProperty(N, tag, p.getProperty(tag));
+      }
+      combined = new IntSingletonSet(N);
+    }
+
+    return combined;
+  }
   // add a new node if not already present
   public IntSet putNode(String... tagvals)
   {
     // assume the first pair is the primary key
     IntSet combined = (Tools.isSet(tagvals) && tagvals.length>1) ? getNodeByLabelProperty(tagvals[0], tagvals[1]) : null;
-/*
-    if (Tools.isSet(tagvals) && tagvals.length%2==0)
-      for (int i=0; i<tagvals.length; i+=2)
-      {
-        IntSet As = getNodeByLabelProperty(tagvals[i], tagvals[i+1]);
-        combined=(combined==null?As:Tools.intersect(combined, As));
-      }
-*/
     if (!Tools.isSet(combined))
     {
       int N = addVertex(); nodes++;

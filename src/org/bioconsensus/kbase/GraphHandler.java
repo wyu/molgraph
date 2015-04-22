@@ -1,5 +1,8 @@
 package org.bioconsensus.kbase;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Multimap;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.ms2ms.graph.Graphs;
 import org.ms2ms.graph.Property;
@@ -7,15 +10,16 @@ import org.ms2ms.graph.PropertyNode;
 import org.ms2ms.r.Dataframe;
 import org.ms2ms.utils.IOs;
 import org.ms2ms.utils.Strs;
+import org.ms2ms.utils.TabFile;
 import org.ms2ms.utils.Tools;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+import toools.set.IntSet;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -50,13 +54,12 @@ abstract public class GraphHandler extends DefaultHandler
   StringBuilder content = new StringBuilder();
   boolean isParsing = false, canConnect;
   Attributes attrs; String ele;
+  Multimap<String, String> curated;
 
   String[] species, contentList;
 
-//  long nodes=0, edges=0;
-
   public GraphHandler()                 { super(); }
-  public GraphHandler(PropertyGraph g)     { super(); G=g; }
+  public GraphHandler(PropertyGraph g)  { super(); G=g; }
   public GraphHandler(String... s)
   {
     super(); species = s;
@@ -78,8 +81,9 @@ abstract public class GraphHandler extends DefaultHandler
     } catch (IOException e) {
       System.out.println("IO error");
     }
-//    System.out.println(" (node/edge): " + nodes + "/" + edges);
   }
+
+  public void clearCuration() { curated=null; }
 
   protected PropertyNode set(PropertyNode p, String tag, StringBuilder s)
   {
@@ -148,16 +152,69 @@ abstract public class GraphHandler extends DefaultHandler
   {
     return Strs.equals(Tools.fromLast(stack, fromLast), s);
   }
+  /** read a tab-delimited file that contains the private set of nodes
+   *
+   type    label   abbr    ID
+   disease ulcerative colitis      UC      EFO_0000729
+   *
+   * @return the type and labels of the nodes
+   */
+  public Multimap<String, String> curation(String file)
+  {
+    try
+    {
+      if (G==null) G=new PropertyGraph();
+
+      TabFile d = new TabFile(file, TabFile.tabb);
+      // come up with the headers. need to preserve the order of the keys
+      LinkedHashMap<String, String> props = new LinkedHashMap<>();
+      props.put("ID", Graphs.ID);
+      props.put("type", Graphs.TYPE);
+      props.put("label", Graphs.LABEL);
+
+      for (String col : d.getHeaders())
+        if (!Strs.isA(col, "type", "label", "ID")) props.put(col, col);
+
+      curated = HashMultimap.create();
+      while (d.hasNext())
+      {
+        G.putNode(Tools.toColsHdr(d.nextRow(), props));
+        curated.put(d.get("type"), d.get("label"));
+      }
+      return curated;
+    }
+    catch (IOException e) {}
+
+    return null;
+  }
+
   public static PsiMI25Reader readRecursive(String... folders)
   {
     if (Tools.isSet(folders))
     {
-      List<String> files = new ArrayList<>();
+      PsiMI25Reader interact = new PsiMI25Reader();
+
+      Multimap<String, String> dir_file = HashMultimap.create();
       for (String flder : folders)
       {
-        files.addAll(IOs.listFiles(flder, new WildcardFileFilter("*.xml")));
+        dir_file.putAll(flder, IOs.listFiles(flder, new WildcardFileFilter("*.xml")));
       }
-      if (Tools.isSet(files)) return read(files.toArray(new String[]{}));
+      if (Tools.isSet(dir_file))
+      {
+        for (String fldr : dir_file.keySet())
+        {
+          List<String> diseases = IOs.listFiles(fldr, new WildcardFileFilter("nodes*"));
+          // setup the disease node
+          if (Tools.isSet(diseases)) interact.curation(diseases.get(0));
+          for (String fname : dir_file.get(fldr))
+          {
+            System.out.println("Reading PSI-MI contents from " + fname);
+            interact.parseDocument(fname);
+          }
+          interact.clearCuration();
+        }
+      }
+      return interact;
     }
 
     return null;
@@ -202,7 +259,7 @@ abstract public class GraphHandler extends DefaultHandler
     }
     return interact;
   }
-  public static PropertyGraph ESGN2Gene(PropertyGraph graph, Dataframe mapping)
+  public static PropertyGraph fixup(PropertyGraph graph, Dataframe mapping)
   {
     Map es2gene = mapping!=null?mapping.toMap("Ensembl Gene ID", "Approved Symbol"):null;
     if (graph.node_label_val.column(ENSEMBLE)!=null)
@@ -222,18 +279,14 @@ abstract public class GraphHandler extends DefaultHandler
           graph.node_label_val.remove(row, "gene name");
       }
 
-/*
-    if (graph.label_val_node.row(ENSEMBLE)!=null)
+    // setup the node type
+    for (Integer row : graph.node_label_val.rowKeySet())
     {
-      for (String row : graph.label_val_node.row(ENSEMBLE).keySet())
-      {
-        Object g = es2gene.get(graph.node_label_val.get(row, ENSEMBLE));
-        if (g!=null)
-          graph.node_label_val.put(row, GENE, g.toString());
-      }
-      graph.node_label_val.column(ENSEMBLE).clear();
+      if (graph.node_label_val.contains(row, Graphs.GENE))
+        graph.node_label_val.put(row, Graphs.TYPE, Graphs.GENE);
+      else if (graph.node_label_val.contains(row, PsiMI25Reader.TYPE_ACTOR))
+        graph.node_label_val.put(row, Graphs.TYPE, graph.node_label_val.get(row, PsiMI25Reader.TYPE_ACTOR).toUpperCase());
     }
-*/
     return graph;
   }
   // update the property if the element was in the pre-defined list

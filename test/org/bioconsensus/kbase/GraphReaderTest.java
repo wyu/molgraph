@@ -10,6 +10,7 @@ import org.ms2ms.graph.Graphs;
 import org.ms2ms.graph.PropertyEdge;
 import org.ms2ms.graph.PropertyNode;
 import org.ms2ms.nosql.Titans;
+import org.ms2ms.r.Dataframe;
 import org.ms2ms.test.TestAbstract;
 import psidev.psi.mi.xml.PsimiXmlLightweightReader;
 import psidev.psi.mi.xml.io.impl.PsimiXmlReader254;
@@ -92,8 +93,7 @@ public class GraphReaderTest extends TestAbstract
   @Test
   public void readIntActGraph() throws Exception
   {
-    PsiMI25Reader interact = GraphHandler.read("/home/wyu/Projects/molgraph/data/IBD25407307.xml");
-    System.out.println();
+    PsiMI25Reader interact = GraphHandler.read(null, "/home/wyu/Projects/molgraph/data/IBD25407307.xml");
   }
   @Test
   public void getInteractionGraph() throws Exception
@@ -103,10 +103,16 @@ public class GraphReaderTest extends TestAbstract
          psi25 = "/media/data/import/IntAct/psi25";
 
     PsiMI25Reader interact = GraphHandler.readRecursive(ibd);
+    GraphHandler.fixup(interact.G, new Dataframe("/media/data/import/HGNC_20150221.mapping", '\t'));
+
     interact.G.write("/tmp/IBD02");
     System.out.println(interact.G.inventory());
-    PropertyGraph g2 = PropertyGraph.read("/tmp/IBD02");
-    System.out.println(g2.inventory());
+
+    interact.G.writeNodes2CSV("/usr/local/neo4j/current/import/IntAct");
+    interact.G.writeEdges2CSV("/usr/local/neo4j/current/import/IntAct");
+
+//    PropertyGraph g2 = PropertyGraph.read("/tmp/IBD02");
+//    System.out.println(g2.inventory());
 
 //    IOs.write("/tmp/IBD01.grp", PropertyGraph.toBytes(interact.G));
 //    PropertyGraph g2 = PropertyGraph.fromBytes(IOs.readBytes("/tmp/IBD01.grp"));

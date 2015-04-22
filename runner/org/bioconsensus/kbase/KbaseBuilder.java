@@ -42,7 +42,7 @@ public class KbaseBuilder extends TestAbstract
 
 //    PsiMI25Reader intact = GraphHandler.build(null, root+"IntAct/psi25/", "datasets", "pmid","species/human");
     PsiMI25Reader intact = GraphHandler.build(null, root, ibd);
-    GraphHandler.ESGN2Gene(intact.G, new Dataframe(root+"HGNC_20150221.mapping", '\t'));
+    GraphHandler.fixup(intact.G, new Dataframe(root + "HGNC_20150221.mapping", '\t'));
 
     System.out.println(intact.G.inventory());
     intact.G.write(kb+date+".intact");
