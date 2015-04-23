@@ -15,6 +15,7 @@ import org.ms2ms.utils.Tools;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+import toools.set.IntHashSet;
 import toools.set.IntSet;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -54,7 +55,7 @@ abstract public class GraphHandler extends DefaultHandler
   StringBuilder content = new StringBuilder();
   boolean isParsing = false, canConnect;
   Attributes attrs; String ele;
-  Multimap<String, String> curated;
+  Collection<Integer> curated;
 
   String[] species, contentList;
 
@@ -159,7 +160,7 @@ abstract public class GraphHandler extends DefaultHandler
    *
    * @return the type and labels of the nodes
    */
-  public Multimap<String, String> curation(String file)
+  public Collection<Integer> curation(String file)
   {
     try
     {
@@ -168,18 +169,19 @@ abstract public class GraphHandler extends DefaultHandler
       TabFile d = new TabFile(file, TabFile.tabb);
       // come up with the headers. need to preserve the order of the keys
       LinkedHashMap<String, String> props = new LinkedHashMap<>();
-      props.put("ID", Graphs.ID);
-      props.put("type", Graphs.TYPE);
-      props.put("label", Graphs.LABEL);
+      props.put("ID",    Graphs.UID);
+      props.put("type",  Graphs.TYPE);
+      props.put("label", Graphs.TITLE);
 
       for (String col : d.getHeaders())
-        if (!Strs.isA(col, "type", "label", "ID")) props.put(col, col);
+        if (!Strs.isA(col, "type", "label", "ID"))
+          props.put(col, col);
 
-      curated = HashMultimap.create();
+      curated = new HashSet<>();
       while (d.hasNext())
       {
-        G.putNode(Tools.toColsHdr(d.nextRow(), props));
-        curated.put(d.get("type"), d.get("label"));
+        Tools.add(curated, G.putNode(Tools.toColsHdr(d.nextRow(), props)));
+        //curated.put(d.get("type"), d.get("label"));
       }
       return curated;
     }
@@ -197,20 +199,25 @@ abstract public class GraphHandler extends DefaultHandler
       Multimap<String, String> dir_file = HashMultimap.create();
       for (String flder : folders)
       {
-        dir_file.putAll(flder, IOs.listFiles(flder, new WildcardFileFilter("*.xml")));
+        //dir_file.putAll(flder, IOs.listFiles(flder, new WildcardFileFilter("*.xml")));
+        dir_file.putAll(IOs.listDirFiles(flder, new WildcardFileFilter("*.xml")));
       }
       if (Tools.isSet(dir_file))
       {
+        int counts=0;
         for (String fldr : dir_file.keySet())
         {
+          System.out.println("Reading PSI-MI contents from the folder: " + fldr);
+
           List<String> diseases = IOs.listFiles(fldr, new WildcardFileFilter("nodes*"));
           // setup the disease node
           if (Tools.isSet(diseases)) interact.curation(diseases.get(0));
           for (String fname : dir_file.get(fldr))
           {
-            System.out.println("Reading PSI-MI contents from " + fname);
+            if (++counts%25==0) System.out.print(".");
             interact.parseDocument(fname);
           }
+          System.out.println();
           interact.clearCuration();
         }
       }
@@ -283,9 +290,16 @@ abstract public class GraphHandler extends DefaultHandler
     for (Integer row : graph.node_label_val.rowKeySet())
     {
       if (graph.node_label_val.contains(row, Graphs.GENE))
+      {
         graph.node_label_val.put(row, Graphs.TYPE, Graphs.GENE);
+        graph.label_val_node.put(Graphs.TYPE, Graphs.GENE, Tools.newIntSet(row));
+      }
       else if (graph.node_label_val.contains(row, PsiMI25Reader.TYPE_ACTOR))
-        graph.node_label_val.put(row, Graphs.TYPE, graph.node_label_val.get(row, PsiMI25Reader.TYPE_ACTOR).toUpperCase());
+      {
+        String type = graph.node_label_val.get(row, PsiMI25Reader.TYPE_ACTOR).toUpperCase();
+        graph.node_label_val.put(row, Graphs.TYPE, type);
+        graph.label_val_node.put(Graphs.TYPE, type, Tools.newIntSet(row));
+      }
     }
     return graph;
   }

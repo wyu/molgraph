@@ -38,8 +38,18 @@ public class GraphReaderTest extends TestAbstract
   @Test
   public void readComboGraph() throws Exception
   {
-    GWASReader g = new GWASReader(new PropertyGraph());
-    g.parseDocument("/home/wyu/Projects/molgraph/data/gwas_ebi1000.tsv");
+    String ibd = "/media/data/import/IntAct/psi25/datasets/IBD",
+        dataset = "/media/data/import/IntAct/psi25/datasets",
+        psi25 = "/media/data/import/IntAct/psi25";
+
+    PsiMI25Reader interact = GraphHandler.readRecursive(ibd);
+    GraphHandler.fixup(interact.G, new Dataframe("/media/data/import/HGNC_20150221.mapping", '\t'));
+
+    System.out.println(interact.G.inventory());
+
+    GWASReader g = new GWASReader(interact.G);
+//    g.parseDocument("/home/wyu/Projects/molgraph/data/gwas_ebi1000.tsv");
+    g.parseDocument("/media/data/import/GWAS/gwas_catalog_v1.0.1-downloaded_2015-04-08.tsv");
     System.out.println(g.G.inventory());
 
     BioGRIDReader biogrid = new BioGRIDReader(g.G);
@@ -47,6 +57,9 @@ public class GraphReaderTest extends TestAbstract
     biogrid.parseDocuments("/media/data/import/BioGRID/BIOGRID-ALL-3.2.120.psi25.xml");
     System.out.println(biogrid.G.inventory());
     biogrid.G.write("/tmp/BioGRID.20150408");
+
+    interact.G.writeNodes2CSV("/usr/local/neo4j/current/import/IntAct");
+    interact.G.writeEdges2CSV("/usr/local/neo4j/current/import/IntAct");
   }
 
   @Test
@@ -62,8 +75,8 @@ public class GraphReaderTest extends TestAbstract
   public void getEBI_GWAS() throws Exception
   {
     GWASReader g = new GWASReader(new PropertyGraph());
-//    g.parseDocument("/home/wyu/Projects/molgraph/data/gwas_ebi1000.tsv");
-    g.parseDocument("/media/data/import/GWAS/gwas_catalog_v1.0.1-downloaded_2015-04-08.tsv");
+    g.parseDocument("/home/wyu/Projects/molgraph/data/gwas_ebi1000.tsv");
+//    g.parseDocument("/media/data/import/GWAS/gwas_catalog_v1.0.1-downloaded_2015-04-08.tsv");
     System.out.println(g.G.inventory());
 
     g.G.writeNodes2CSV("/usr/local/neo4j/current/import/GWAS");

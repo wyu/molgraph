@@ -22,9 +22,9 @@ import java.util.*;
  */
 public class PsiMI25Reader extends GraphHandler
 {
-  public static String INTACT_ACTOR_ID = "IntAct_ActorID";
-  public static String INTACT_EXPT_ID = "IntAct_ExptID";
-  public static String INTACT_ACTION_ID = "IntAct_ActionID";
+//  public static String INTACT_ACTOR_ID = "IntAct_ActorID";
+//  public static String INTACT_EXPT_ID = "IntAct_ExptID";
+//  public static String INTACT_ACTION_ID = "IntAct_ActionID";
 
 //  private Map<Long, PropertyNode> actors;
   private PropertyEdge        interaction;
@@ -50,7 +50,7 @@ public class PsiMI25Reader extends GraphHandler
     {
       // add to the graph. it's a new node by definition, assuming we're not re-import the same uniprot
       interaction = new PropertyEdge();
-      interaction.setProperty(INTACT_ACTION_ID, attributes.getValue("id"));
+      interaction.setProperty(Graphs.UID, attributes.getValue("id"));
     }
     else if (matchStack("primaryRef","xref","interactor") && Strs.equals(attributes.getValue("db"), "ensembl"))
     {
@@ -59,12 +59,12 @@ public class PsiMI25Reader extends GraphHandler
     else if (elementName.equalsIgnoreCase("interactor"))
     {
       actor = new PropertyNode("interactor");
-      actor.setProperty(INTACT_ACTOR_ID, attributes.getValue("id"));
+      actor.setProperty(Graphs.UID, attributes.getValue("id"));
     }
     else if (Strs.equals(elementName, "experimentDescription"))
     {
       expt = new PropertyNode();
-      expt.setProperty(INTACT_EXPT_ID, attributes.getValue("id"));
+      expt.setProperty(Graphs.UID, attributes.getValue("id"));
     }
   }
   @Override
@@ -82,7 +82,7 @@ public class PsiMI25Reader extends GraphHandler
     }
     else if (Strs.equals(element,"experimentDescription") && expt!=null)
     {
-      expts.put(expt.getProperty(INTACT_EXPT_ID), expt);
+      expts.put(expt.getProperty(Graphs.UID), expt);
     }
     else if (matchElementStack("fullName","names", "experimentDescription") && expt!=null)
     {
@@ -96,7 +96,7 @@ public class PsiMI25Reader extends GraphHandler
     {
       set(ORGANISM, actor, content);
     }
-    else if (Strs.equals(element,"interactor") && actor!=null && !G.hasNodeLabel(INTACT_ACTOR_ID, actor.getProperty(INTACT_ACTOR_ID)))
+    else if (Strs.equals(element,"interactor") && actor!=null && !G.hasNodeLabel(Graphs.UID, actor.getProperty(Graphs.UID)))
     {
       if (/*Strs.equals(actor.getProperty("actorType"), "protein") &&*/
           Strs.isSet(actor.getProperty("gene name")))
@@ -105,10 +105,19 @@ public class PsiMI25Reader extends GraphHandler
       }
 //      lastID = G.addVertex();
 //      G.setNodeLabelProperty(lastID, actor);
-      IntSet N = G.putNode(actor, INTACT_ACTOR_ID);
-      if (N!=null) lastID=N.toIntArray()[0];
+      IntSet N = G.putNode(actor, Graphs.UID);
+      if (N!=null)
+      {
+        lastID=N.toIntArray()[0];
+        curates("curated_to", N.toIntArray());
+      }
 
       if (++G.nodes%5000==0) System.out.print(".");
+    }
+    else if (matchElementStack("primaryRef","xref", "tissue","hostOrganism","experimentDescription") && interaction!=null)
+    {
+      // <primaryRef db="brenda" dbAc="MI:0864" id="BTO:0000776" refType="identity" refTypeAc="MI:0356"/>
+      interaction.setProperty("BRENDA_ID", attrs.getValue("id"));
     }
     else if (Strs.equals(element, "shortLabel"))
     {
@@ -121,13 +130,17 @@ public class PsiMI25Reader extends GraphHandler
 //        else if (matchStack(2, "hostOrganism"))           set(ORGANISM,    expt,  content);
         else if (matchStack(2, "tissue"))                 set(Graphs.TISSUE, expt, content);
         else if (matchStack(2, "interactionDetectionMethod")) set(Graphs.ASSAY, expt, content);
-        else if (matchStack(2, "interactionType"))        set(TYPE_ACTION, interaction, content);
+        else if (matchStack(2, "interactionType"))        set(Graphs.TYPE, interaction, content);
       }
     }
     else if (matchElementStack("interactorRef","participant","participantList","interaction"))
     {
-      IntSet N = G.putNode(INTACT_ACTOR_ID, content.toString());
-      if (Tools.isSet(N)) participants.addAll(N.toIntegerArrayList());
+      IntSet N = G.putNode(Graphs.UID, content.toString());
+      if (Tools.isSet(N))
+      {
+        participants.addAll(N.toIntegerArrayList());
+        curates("curated_to", N.toIntArray());
+      }
     }
     else if (Strs.equals(element, "experimentRef"))
     {
@@ -158,5 +171,17 @@ public class PsiMI25Reader extends GraphHandler
       }
     }
     isParsing=false;
+  }
+  // Attach the newly created nodes to the curation if exist
+  private void curates(String type, int... nodes)
+  {
+    if (!Tools.isSet(curated)) return;
+
+    for (Integer node : nodes)
+      for (Integer c : curated)
+      {
+        int E = G.addUndirectedSimpleEdge(node, c);
+        if (Strs.isSet(type)) G.setEdgeLabelProperty(E, Graphs.TYPE, type);
+      }
   }
 }
