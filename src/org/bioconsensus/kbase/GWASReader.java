@@ -41,7 +41,7 @@ public class GWASReader extends TabReader
         Set<String> genes = parseGenes(parseGenes(null, tab.get("REPORTED GENE(S)"), '-', "NR", "Intergenic"),
                                                         tab.get("MAPPED_GENE"),      '-', "NR", "Intergenic");
         if (Tools.isSet(genes))
-          for (String gene : genes) Bs.addAll(G.putNode(Graphs.LABEL, gene, Graphs.TYPE, Graphs.GENE));
+          for (String gene : genes) Bs.addAll(G.putNodeByUIDType(Graphs.UID, gene, Graphs.TYPE, Graphs.GENE));
 
         G.putEdges(As, Cs, false, null, Graphs.TYPE, "SNP-TRAIT");
         G.putEdges(As, Ds, false, null, Graphs.TYPE, "SNP-STUDY");

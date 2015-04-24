@@ -42,7 +42,7 @@ public class GraphReaderTest extends TestAbstract
         dataset = "/media/data/import/IntAct/psi25/datasets",
         psi25 = "/media/data/import/IntAct/psi25";
 
-    PsiMI25Reader interact = GraphHandler.readRecursive(ibd);
+    PsiMI25Reader interact = GraphHandler.readRecursive(dataset);
     GraphHandler.fixup(interact.G, new Dataframe("/media/data/import/HGNC_20150221.mapping", '\t'));
 
     System.out.println(interact.G.inventory());
@@ -52,14 +52,14 @@ public class GraphReaderTest extends TestAbstract
     g.parseDocument("/media/data/import/GWAS/gwas_catalog_v1.0.1-downloaded_2015-04-08.tsv");
     System.out.println(g.G.inventory());
 
-    BioGRIDReader biogrid = new BioGRIDReader(g.G);
+//    BioGRIDReader biogrid = new BioGRIDReader(g.G);
+//
+//    biogrid.parseDocuments("/media/data/import/BioGRID/BIOGRID-ALL-3.2.120.psi25.xml");
+//    System.out.println(biogrid.G.inventory());
+//    biogrid.G.write("/tmp/BioGRID.20150408");
 
-    biogrid.parseDocuments("/media/data/import/BioGRID/BIOGRID-ALL-3.2.120.psi25.xml");
-    System.out.println(biogrid.G.inventory());
-    biogrid.G.write("/tmp/BioGRID.20150408");
-
-    interact.G.writeNodes2CSV("/usr/local/neo4j/current/import/IntAct");
-    interact.G.writeEdges2CSV("/usr/local/neo4j/current/import/IntAct");
+    interact.G.writeNodes2CSVByLabel("/usr/local/neo4j/current/import/Combined");
+    interact.G.writeEdges2CSVByType("/usr/local/neo4j/current/import/Combined");
   }
 
   @Test
@@ -79,9 +79,11 @@ public class GraphReaderTest extends TestAbstract
 //    g.parseDocument("/media/data/import/GWAS/gwas_catalog_v1.0.1-downloaded_2015-04-08.tsv");
     System.out.println(g.G.inventory());
 
+//    g.G.writeNodes2CSVByLabel("/usr/local/neo4j/current/import/GWAS");
+//    g.G.writeEdges2CSVByType("/usr/local/neo4j/current/import/GWAS");
     g.G.writeNodes2CSV("/usr/local/neo4j/current/import/GWAS");
     g.G.writeEdges2CSV("/usr/local/neo4j/current/import/GWAS");
-    g.G.write("/tmp/GWAS.20150407");
+    //g.G.write("/tmp/GWAS.20150407");
   }
 
   @Test
@@ -115,14 +117,14 @@ public class GraphReaderTest extends TestAbstract
        dataset = "/media/data/import/IntAct/psi25/datasets",
          psi25 = "/media/data/import/IntAct/psi25";
 
-    PsiMI25Reader interact = GraphHandler.readRecursive(ibd);
+    PsiMI25Reader interact = GraphHandler.readRecursive(dataset);
     GraphHandler.fixup(interact.G, new Dataframe("/media/data/import/HGNC_20150221.mapping", '\t'));
 
     interact.G.write("/tmp/IBD02");
     System.out.println(interact.G.inventory());
 
-    interact.G.writeNodes2CSV("/usr/local/neo4j/current/import/IntAct");
-    interact.G.writeEdges2CSV("/usr/local/neo4j/current/import/IntAct");
+    interact.G.writeNodes2CSVByLabel("/usr/local/neo4j/current/import/IntAct");
+    interact.G.writeEdges2CSVByType("/usr/local/neo4j/current/import/IntAct");
 
 //    PropertyGraph g2 = PropertyGraph.read("/tmp/IBD02");
 //    System.out.println(g2.inventory());

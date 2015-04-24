@@ -53,7 +53,8 @@ abstract public class TabReader
           }
       for (String g : genes)
       {
-        Bs[0].addAll(G.putNode(Strs.toStringArrayHead(ps, Graphs.LABEL, g, Graphs.TYPE, type)));
+        //Bs[0].addAll(G.putNode(Strs.toStringArrayHead(ps, Graphs.UID, g, Graphs.TYPE, type)));
+        Bs[0].addAll(G.putNodeByUIDType(Strs.toStringArrayHead(ps, Graphs.UID, g, Graphs.TYPE, type)));
       }
     }
     return Bs[0];

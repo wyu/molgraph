@@ -135,7 +135,7 @@ public class PsiMI25Reader extends GraphHandler
     }
     else if (matchElementStack("interactorRef","participant","participantList","interaction"))
     {
-      IntSet N = G.putNode(Graphs.UID, content.toString());
+      IntSet N = G.putNodeByUIDType(Graphs.UID, content.toString());
       if (Tools.isSet(N))
       {
         participants.addAll(N.toIntegerArrayList());

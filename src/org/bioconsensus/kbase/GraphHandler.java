@@ -175,7 +175,7 @@ abstract public class GraphHandler extends DefaultHandler
 
       for (String col : d.getHeaders())
         if (!Strs.isA(col, "type", "label", "ID"))
-          props.put(col, col);
+          props.put(col, Strs.equals(col,"abbr")?Graphs.TITLE:col);
 
       curated = new HashSet<>();
       while (d.hasNext())
@@ -289,17 +289,20 @@ abstract public class GraphHandler extends DefaultHandler
     // setup the node type
     for (Integer row : graph.node_label_val.rowKeySet())
     {
-      if (graph.node_label_val.contains(row, Graphs.GENE))
+      String type=null;
+      if      (graph.node_label_val.contains(row, Graphs.GENE))
       {
-        graph.node_label_val.put(row, Graphs.TYPE, Graphs.GENE);
-        graph.label_val_node.put(Graphs.TYPE, Graphs.GENE, Tools.newIntSet(row));
+        String gene = graph.node_label_val.get(row, Graphs.GENE);
+        graph.setNode(Graphs.UID, gene, row);
+        type = Graphs.GENE;
+        graph.node_label_val.remove(row, Graphs.GENE);
+        graph.label_val_node.remove(Graphs.GENE, gene);
       }
       else if (graph.node_label_val.contains(row, PsiMI25Reader.TYPE_ACTOR))
       {
-        String type = graph.node_label_val.get(row, PsiMI25Reader.TYPE_ACTOR).toUpperCase();
-        graph.node_label_val.put(row, Graphs.TYPE, type);
-        graph.label_val_node.put(Graphs.TYPE, type, Tools.newIntSet(row));
+        type = graph.node_label_val.get(row, PsiMI25Reader.TYPE_ACTOR).toUpperCase();
       }
+      graph.setNode(Graphs.TYPE, type, row);
     }
     return graph;
   }
