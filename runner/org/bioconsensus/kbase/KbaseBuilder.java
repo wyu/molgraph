@@ -30,7 +30,7 @@ public class KbaseBuilder extends TestAbstract
   @Test
   public void readBioGRIDGraph() throws Exception
   {
-    PsiMI25Reader biogrid = GraphHandler.build(kb+date+".BioGRID", root, "BioGRID/BIOGRID-ALL-3.2.120.psi25.xml");
+    PsiMI25Reader biogrid = PsiMI25Reader.build(kb+date+".BioGRID", root, "BioGRID/BIOGRID-ALL-3.2.120.psi25.xml");
     System.out.println(biogrid.G.inventory());
   }
   @Test
@@ -41,8 +41,8 @@ public class KbaseBuilder extends TestAbstract
         psi25 = "IntAct/psi25";
 
 //    PsiMI25Reader intact = GraphHandler.build(null, root+"IntAct/psi25/", "datasets", "pmid","species/human");
-    PsiMI25Reader intact = GraphHandler.build(null, root, ibd);
-    GraphHandler.fixup(intact.G, new Dataframe(root + "HGNC_20150221.mapping", '\t'));
+    PsiMI25Reader intact = PsiMI25Reader.build(null, root, ibd);
+    PropertyGraph.fixup(intact.G, new Dataframe(root + "HGNC_20150221.mapping", '\t'));
 
     System.out.println(intact.G.inventory());
     intact.G.write(kb+date+".intact");

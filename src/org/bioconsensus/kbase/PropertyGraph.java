@@ -9,6 +9,7 @@ import org.ms2ms.graph.Graphs;
 import org.ms2ms.graph.Property;
 import org.ms2ms.graph.PropertyEdge;
 import org.ms2ms.math.Stats;
+import org.ms2ms.r.Dataframe;
 import org.ms2ms.utils.IOs;
 import org.ms2ms.utils.Reporters;
 import org.ms2ms.utils.Strs;
@@ -45,6 +46,47 @@ class PropertyGraph extends InMemoryGrph implements Serializable
   public PropertyGraph()         { super(); }
 
   AutoGrowingArrayList<Float> weights = new AutoGrowingArrayList<>();
+
+  public static PropertyGraph fixup(PropertyGraph graph, Dataframe mapping)
+  {
+    Map es2gene = mapping!=null?mapping.toMap("Ensembl Gene ID", "Approved Symbol"):null;
+    if (graph.node_label_val.column(GraphHandler.ENSEMBLE)!=null)
+    {
+      for (Integer row : graph.node_label_val.column(GraphHandler.ENSEMBLE).keySet())
+      {
+        Object g = es2gene.get(graph.node_label_val.get(row, GraphHandler.ENSEMBLE));
+        if (g!=null)
+          graph.node_label_val.put(row, Graphs.GENE, g.toString().toUpperCase());
+      }
+      graph.node_label_val.column(GraphHandler.ENSEMBLE).clear();
+    }
+    if (graph.node_label_val.column("gene name")!=null)
+      for (Integer row : graph.node_label_val.column("gene name").keySet())
+      {
+        if (Tools.equals(graph.node_label_val.get(row, "gene name"), graph.node_label_val.get(row, Graphs.GENE)))
+          graph.node_label_val.remove(row, "gene name");
+      }
+
+    // setup the node type
+    for (Integer row : graph.node_label_val.rowKeySet())
+    {
+      String type=null;
+      if      (graph.node_label_val.contains(row, Graphs.GENE))
+      {
+        String gene = graph.node_label_val.get(row, Graphs.GENE);
+        graph.setNode(Graphs.UID, gene, row);
+        type = Graphs.GENE;
+        graph.node_label_val.remove(row, Graphs.GENE);
+        graph.label_val_node.remove(Graphs.GENE, gene);
+      }
+      else if (graph.node_label_val.contains(row, PsiMI25Reader.TYPE_ACTOR))
+      {
+        type = graph.node_label_val.get(row, PsiMI25Reader.TYPE_ACTOR).toUpperCase();
+      }
+      graph.setNode(Graphs.TYPE, type, row);
+    }
+    return graph;
+  }
 
   synchronized public IntSet getNodeByLabelProperty(String lable, String val) { return label_val_node.get(lable, val); }
 //  public String getPropertyByNodeLabel(int node, String lable)   { return node_label_val.get(node, lable); }
@@ -785,7 +827,7 @@ class PropertyGraph extends InMemoryGrph implements Serializable
       // all other columns are treated as properties but skipped if empty
       // type conversion is possible by suffixing the name, e.g. by :INT, :BOOLEAN, etc.
       //w.write(":START_ID"+d+":END_ID"+d+":TYPE");
-      w.write("start"+d+"end"+d+"type");
+      w.write("start"+d+"end"+d+"type"+d+"weight");
       List<String> cols = new ArrayList<>();
 //      cols.add(Graphs.LABEL);
       for (String col : edge_label_val.columnKeySet())
@@ -803,7 +845,7 @@ class PropertyGraph extends InMemoryGrph implements Serializable
           continue;
         }
 //        assert nodes!=null && nodes.size()==2;
-        IOs.write(w,d,nodes.toIntArray()[0]+"", nodes.toIntArray()[1]+"", edge_label_val.get(i, Graphs.TYPE));
+        IOs.write(w,d,nodes.toIntArray()[0]+"", nodes.toIntArray()[1]+"", edge_label_val.get(i, Graphs.TYPE), (getEdgeWeight(i)!=null?getEdgeWeight(i).toString():""));
         w.write(d+"");
         IOs.write(w,d, Tools.toCols(edge_label_val.row(i), cols));
         w.write("\n");
@@ -879,7 +921,7 @@ class PropertyGraph extends InMemoryGrph implements Serializable
     // :TYPE – relationship-type column
     // all other columns are treated as properties but skipped if empty
     // type conversion is possible by suffixing the name, e.g. by :INT, :BOOLEAN, etc.
-    w.write("start"+d+"end"+Strs.toString(cols, d+"")+"\n");
+    w.write("start"+d+"end"+d+"weight"+Strs.toString(cols, d+"")+"\n");
     for (Integer row : getEdges().toIntArray())
       if (Strs.equals(edge_label_val.row(row).get(Graphs.TYPE), type))
       {
@@ -889,7 +931,7 @@ class PropertyGraph extends InMemoryGrph implements Serializable
           System.out.println("edge="+row+", nodes="+nodes.size());
           continue;
         }
-        IOs.write(w,d,nodes.toIntArray()[0]+"", nodes.toIntArray()[1]+"");
+        IOs.write(w,d,nodes.toIntArray()[0]+"", nodes.toIntArray()[1]+"", (getEdgeWeight(row)!=null?getEdgeWeight(row).toString():""));
         if (Tools.isSet(columns))
         {
           w.write(d);

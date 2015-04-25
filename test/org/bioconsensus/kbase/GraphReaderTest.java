@@ -42,8 +42,8 @@ public class GraphReaderTest extends TestAbstract
         dataset = "/media/data/import/IntAct/psi25/datasets",
         psi25 = "/media/data/import/IntAct/psi25";
 
-    PsiMI25Reader interact = GraphHandler.readRecursive(dataset);
-    GraphHandler.fixup(interact.G, new Dataframe("/media/data/import/HGNC_20150221.mapping", '\t'));
+    PsiMI25Reader interact = PsiMI25Reader.readRecursive(dataset);
+    PropertyGraph.fixup(interact.G, new Dataframe("/media/data/import/HGNC_20150221.mapping", '\t'));
 
     System.out.println(interact.G.inventory());
 
@@ -108,7 +108,7 @@ public class GraphReaderTest extends TestAbstract
   @Test
   public void readIntActGraph() throws Exception
   {
-    PsiMI25Reader interact = GraphHandler.read(null, "/home/wyu/Projects/molgraph/data/IBD25407307.xml");
+    PsiMI25Reader interact = PsiMI25Reader.read(null, "/home/wyu/Projects/molgraph/data/IBD25407307.xml");
   }
   @Test
   public void getInteractionGraph() throws Exception
@@ -117,8 +117,8 @@ public class GraphReaderTest extends TestAbstract
        dataset = "/media/data/import/IntAct/psi25/datasets",
          psi25 = "/media/data/import/IntAct/psi25";
 
-    PsiMI25Reader interact = GraphHandler.readRecursive(dataset);
-    GraphHandler.fixup(interact.G, new Dataframe("/media/data/import/HGNC_20150221.mapping", '\t'));
+    PsiMI25Reader interact = PsiMI25Reader.readRecursive(dataset);
+    PropertyGraph.fixup(interact.G, new Dataframe("/media/data/import/HGNC_20150221.mapping", '\t'));
 
     interact.G.write("/tmp/IBD02");
     System.out.println(interact.G.inventory());
@@ -136,10 +136,16 @@ public class GraphReaderTest extends TestAbstract
   @Test
   public void getGeneNetworkNL() throws Exception
   {
-    String trans = "/home/wyu/Projects/molgraph/data/2012-12-21-TransEQTLsFDR0.5.txt";
+    String trans = "2012-12-21-TransEQTLsFDR0.5.txt",
+             cis = "2012-12-21-CisAssociationsProbeLevelFDR0.5.txt",
+//            root = "/home/wyu/Projects/molgraph/data/";
+            root = "/media/data/import/eQTL/genenetwork.nl/";
 
     GeneNetworkNLReader g = new GeneNetworkNLReader(new PropertyGraph());
-    g.parseDocument(trans);
+    g.parseDocument(root+trans);
+    System.out.println(g.G.inventory());
+
+    g.parseDocument(root+cis);
     System.out.println(g.G.inventory());
 
     System.out.println();

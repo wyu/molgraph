@@ -32,7 +32,7 @@ public class GWASReader extends TabReader
       tab = new TabFile(doc, TabFile.tabb);
       while (tab.hasNext())
       {
-        IntSet As = putNodes(Graphs.SNP, "SNPS", Strs.newMap('=', "CHR_ID=Chr","CHR_POS=ChrPos","CONTEXT=Context"), tab, 'x'),
+        IntSet As = putNodes(Graphs.SNP, "SNPS", Strs.newMap('=', "CHR_ID="+Graphs.CHR,"CHR_POS="+Graphs.CHR_POS,"CONTEXT=Context"), tab, 'x'),
                Bs = new IntHashSet(),
                Cs = putNodes(Graphs.TRAIT, "MAPPED_TRAIT_URI", Strs.newMap('=', "MAPPED_TRAIT=Trait"), tab, ','),
                Ds = putNodes(Graphs.STUDY, "LINK", Strs.newMap('=', "DATE=Date","FIRST AUTHOR=Author","INITIAL SAMPLE DESCRIPTION=Sample","JOURNAL=Journal","STUDY=Study"), tab, ',');

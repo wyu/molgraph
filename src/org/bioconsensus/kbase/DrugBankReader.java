@@ -2,9 +2,11 @@ package org.bioconsensus.kbase;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.ms2ms.graph.Graphs;
 import org.ms2ms.graph.PropertyEdge;
 import org.ms2ms.graph.PropertyNode;
+import org.ms2ms.utils.IOs;
 import org.ms2ms.utils.Strs;
 import org.ms2ms.utils.Tools;
 import org.xml.sax.Attributes;
@@ -12,6 +14,7 @@ import org.xml.sax.SAXException;
 import toools.set.IntSet;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -46,6 +49,86 @@ public class DrugBankReader extends GraphHandler
   {
     super(g); init();
   }
+
+  public static PsiMI25Reader readRecursive(String... folders)
+  {
+    if (Tools.isSet(folders))
+    {
+      PsiMI25Reader interact = new PsiMI25Reader();
+
+      Multimap<String, String> dir_file = HashMultimap.create();
+      for (String flder : folders)
+      {
+        //dir_file.putAll(flder, IOs.listFiles(flder, new WildcardFileFilter("*.xml")));
+        dir_file.putAll(IOs.listDirFiles(flder, new WildcardFileFilter("*.xml")));
+      }
+      if (Tools.isSet(dir_file))
+      {
+        int counts=0;
+        for (String fldr : dir_file.keySet())
+        {
+          System.out.println("Reading PSI-MI contents from the folder: " + fldr);
+
+          List<String> diseases = IOs.listFiles(fldr, new WildcardFileFilter("nodes*"));
+          // setup the disease node
+          if (Tools.isSet(diseases)) interact.curation(diseases.get(0));
+          for (String fname : dir_file.get(fldr))
+          {
+            if (++counts%25==0) System.out.print(".");
+            interact.parseDocument(fname);
+          }
+          System.out.println();
+          interact.clearCuration();
+        }
+      }
+      return interact;
+    }
+
+    return null;
+  }
+
+  public static PsiMI25Reader read(String... fnames)
+  {
+    PsiMI25Reader interact = new PsiMI25Reader();
+
+    if (Tools.isSet(fnames))
+      for (String fname : fnames)
+      {
+        System.out.println("Reading PSI-MI contents from " + fname);
+        interact.parseDocument(fname);
+      }
+
+    return interact;
+  }
+
+  /** An unit of kbase builder where the contents from 'fnames' with the 'root' are read and saved to 'out'
+   *
+   * @param root is the top level folder where the contents reside
+   * @param out is a binary file where the graph data will be stored
+   * @param fnames are the file or folder names where the source data are located.
+   * @return we should return a stat object that summarize the data inventory
+   */
+  public static PsiMI25Reader build(String out, String root, String... fnames)
+  {
+    PsiMI25Reader interact = new PsiMI25Reader();
+
+    if (Tools.isSet(fnames))
+      for (String fname : fnames)
+        // expand the file list if this is a folder
+        for (String fn : IOs.listFiles(root+fname, new WildcardFileFilter("*.xml")))
+        {
+          System.out.println("Reading PSI-MI contents from " + fn);
+          interact.parseDocument(fn);
+        }
+
+    if (Strs.isSet(out))
+    {
+      System.out.println("Writing the graph contents to " + out);
+      interact.G.write(out);
+    }
+    return interact;
+  }
+
   private void init()
   {
     setContentList("name", "description","drugbank-id","identifier","resource");
