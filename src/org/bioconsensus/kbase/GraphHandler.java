@@ -70,6 +70,8 @@ abstract public class GraphHandler extends DefaultHandler
   {
     if (G==null) G=new PropertyGraph();
 
+    System.out.println("Parsing the document: " + fname);
+
     // parse
     SAXParserFactory factory = SAXParserFactory.newInstance();
     try {

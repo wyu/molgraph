@@ -79,20 +79,18 @@ public class GTExReader extends TabReader
       {
         IntSet As=null, Bs=null;
 
-        if (     tab.get("HGNCName")!=null)
+        if (     tab.get("Gene_Name")!=null)
           Bs = G.putNodeByUIDType(Graphs.UID, tab.get("Gene_Name").toUpperCase(), Graphs.TYPE, Graphs.GENE);
-        else if (tab.get("HUGO")!=null)
-          Bs = G.putNodeByUIDType(Graphs.UID, tab.get("HUGO").toUpperCase(), Graphs.TYPE, Graphs.GENE);
 
-        if (tab.get("SNPName")!=null)
-          As = G.putNodeByUIDType(Graphs.UID, tab.get("SNP"),  Graphs.TYPE, Graphs.SNP, Graphs.CHR, tab.get("SNPChr"), Graphs.CHR_POS, tab.get("SNPChrPos"));
+        if (tab.get("SNP")!=null)
+          As = G.putNodeByUIDType(Graphs.UID, tab.get("SNP"),  Graphs.TYPE, Graphs.SNP, Graphs.CHR, tab.get("SNP_Chr"), Graphs.CHR_POS, tab.get("SNP_Pos"));
 
         if (Tools.isSet(As) && Tools.isSet(Bs))
         {
           int E = G.addDirectedSimpleEdge(As.toIntArray()[0], Bs.toIntArray()[0]);
           G.setEdgeLabelProperties(E, Graphs.TYPE, "is_eQTL_of");
-          G.setEdgeLabelProperties(E, "CisTrans", (Strs.equals(tab.get("CisTrans"), "cis") ? "cis" : "trans"));
-          G.setEdgeWeight(E, -10f * (float) Math.log10(new Double(tab.get("PValue"))));
+//          G.setEdgeLabelProperties(E, "CisTrans", (Strs.equals(tab.get("CisTrans"), "cis") ? "cis" : "trans"));
+          G.setEdgeWeight(E, -10f * (float) Math.log10(new Double(tab.get("P_Val"))));
           // copy the curation to the edges
           if (Tools.isSet(active))
             for (int i : active)

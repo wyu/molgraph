@@ -51,7 +51,7 @@ public class PsiMI25Reader extends GraphHandler
         int counts=0;
         for (String fldr : dir_file.keySet())
         {
-          System.out.println("Reading PSI-MI contents from the folder: " + fldr);
+//          System.out.println("Reading PSI-MI contents from the folder: " + fldr);
 
           List<String> diseases = IOs.listFiles(fldr, new WildcardFileFilter("nodes*"));
           // setup the disease node

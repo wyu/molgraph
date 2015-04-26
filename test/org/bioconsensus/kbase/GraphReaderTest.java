@@ -57,6 +57,14 @@ public class GraphReaderTest extends TestAbstract
     dbank.parseDocument("/media/data/import/drugbank/drugbank.xml");
     System.out.println(dbank.G.inventory());
 
+    GTExReader gteX = new GTExReader(dbank.G);
+    gteX.readRecursive(mapping, "/media/data/import/eQTL/GTEx/2014-01-17/");
+    System.out.println(gteX.G.inventory());
+
+    DisGeNETReader disease = new DisGeNETReader(gteX.G);
+    disease.readRecursive(mapping, "/media/data/import/DisGeNET/all_gene_disease_associations.txt");
+    System.out.println(disease.G.inventory());
+
     interact.G.writeNodes2CSVByLabel("/usr/local/neo4j/current/import/Combined");
     interact.G.writeEdges2CSVByType("/usr/local/neo4j/current/import/Combined");
   }
@@ -133,6 +141,15 @@ public class GraphReaderTest extends TestAbstract
 //    IOs.write("/tmp/IBD01.grp", PropertyGraph.toBytes(interact.G));
 //    PropertyGraph g2 = PropertyGraph.fromBytes(IOs.readBytes("/tmp/IBD01.grp"));
 //    System.out.println(g2.inventory());
+  }
+  @Test
+  public void getDisGeNET() throws Exception
+  {
+    DisGeNETReader g = new DisGeNETReader(new PropertyGraph());
+    g.readRecursive(mapping, "/media/data/import/DisGeNET/all_gene_disease_associations.txt");
+    System.out.println(g.G.inventory());
+
+    System.out.println();
   }
   @Test
   public void getGTEx() throws Exception
