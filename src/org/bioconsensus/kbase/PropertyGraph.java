@@ -1002,9 +1002,20 @@ class PropertyGraph extends InMemoryGrph implements Serializable
       }
       return curated;
     }
-    catch (IOException e) {}
+    catch (IOException e) { e.printStackTrace(); }
 
     return null;
   }
+  // Attach the newly created nodes to the curation if exist
+  public void curates(Collection<Integer> curated, String type, int... nodes)
+  {
+    if (!Tools.isSet(curated)) return;
 
+    for (Integer node : nodes)
+      for (Integer c : curated)
+      {
+        int E = addUndirectedSimpleEdge(node, c);
+        if (Strs.isSet(type)) setEdgeLabelProperty(E, Graphs.TYPE, type);
+      }
+  }
 }

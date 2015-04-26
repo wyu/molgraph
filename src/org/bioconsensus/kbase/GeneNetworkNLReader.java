@@ -42,7 +42,7 @@ public class GeneNetworkNLReader extends TabReader
           if (As.size()==1 && Bs.size()==1)
           {
             int E = G.addDirectedSimpleEdge(As.toIntArray()[0], Bs.toIntArray()[0]);
-            G.setEdgeLabelProperties(E, Graphs.TYPE, "SNP-eQTL-GENE");
+            G.setEdgeLabelProperties(E, Graphs.TYPE, "is_eQTL_of");
             G.setEdgeLabelProperties(E, "CisTrans", (Strs.equals(tab.get("CisTrans"), "cis") ? "Y" : "N"));
             G.setEdgeWeight(E, -10f * (float) Math.log10(new Double(tab.get("PValue"))));
           }

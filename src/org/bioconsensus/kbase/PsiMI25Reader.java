@@ -55,7 +55,7 @@ public class PsiMI25Reader extends GraphHandler
 
           List<String> diseases = IOs.listFiles(fldr, new WildcardFileFilter("nodes*"));
           // setup the disease node
-          if (Tools.isSet(diseases)) G.curation(diseases.get(0), Strs.newMap('=', "ID=" + Graphs.UID, "type=" + Graphs.TYPE, "label=" + Graphs.TITLE));
+          if (Tools.isSet(diseases)) curated = G.curation(diseases.get(0), Strs.newMap('=', "ID=" + Graphs.UID, "type=" + Graphs.TYPE, "label=" + Graphs.TITLE));
           for (String fname : dir_file.get(fldr))
           {
             if (++counts%25==0) System.out.print(".");
@@ -239,7 +239,7 @@ public class PsiMI25Reader extends GraphHandler
       if (N!=null)
       {
         lastID=N.toIntArray()[0];
-        curates("curated_to", N.toIntArray());
+        G.curates(curated, "curated_to", N.toIntArray());
       }
 
       if (++G.nodes%5000==0) System.out.print(".");
@@ -269,7 +269,7 @@ public class PsiMI25Reader extends GraphHandler
       if (Tools.isSet(N))
       {
         participants.addAll(N.toIntegerArrayList());
-        curates("curated_to", N.toIntArray());
+        G.curates(curated, "curated_to", N.toIntArray());
       }
     }
     else if (Strs.equals(element, "experimentRef"))
@@ -301,17 +301,5 @@ public class PsiMI25Reader extends GraphHandler
       }
     }
     isParsing=false;
-  }
-  // Attach the newly created nodes to the curation if exist
-  private void curates(String type, int... nodes)
-  {
-    if (!Tools.isSet(curated)) return;
-
-    for (Integer node : nodes)
-      for (Integer c : curated)
-      {
-        int E = G.addUndirectedSimpleEdge(node, c);
-        if (Strs.isSet(type)) G.setEdgeLabelProperty(E, Graphs.TYPE, type);
-      }
   }
 }

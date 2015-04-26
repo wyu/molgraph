@@ -12,6 +12,8 @@ import org.ms2ms.utils.Tools;
 import toools.set.IntSet;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -42,9 +44,10 @@ public class GTExReader extends TabReader
         {
           System.out.println("Reading eQTL contents from the folder: " + fldr);
 
-          List<String> diseases = IOs.listFiles(fldr, new WildcardFileFilter("nodes*"));
+          List<String> diseases = IOs.listFiles(fldr, new WildcardFileFilter("nodes"));
           // setup the disease node
-          if (Tools.isSet(diseases)) G.curation(diseases.get(0), Strs.newMap('=', "ID="+Graphs.UID, "type="+Graphs.TYPE, "label="+Graphs.TITLE));
+          // type	title	uid_tissue	uid_location	file
+          if (Tools.isSet(diseases)) curated=G.curation(diseases.get(0), Strs.newMap('=', "uid_tissue="+Graphs.UID, "type="+Graphs.TYPE, "title="+Graphs.TITLE));
 
           for (String fname : dir_file.get(fldr))
           {
@@ -67,32 +70,46 @@ public class GTExReader extends TabReader
     try
     {
       tab = new TabFile(doc, TabFile.tabb);
+      Collection<Integer> active = new HashSet<>();
+      if (Tools.isSet(curated))
+        for (Integer i : curated)
+          if (Strs.indexOf(doc, G.node_label_val.get(i, "file"))>=0) active.add(i);
+
       while (tab.hasNext())
       {
         IntSet As=null, Bs=null;
 
         if (     tab.get("HGNCName")!=null)
-          Bs = G.putNodeByUIDType(Graphs.UID, tab.get("HGNCName").toUpperCase(), Graphs.TYPE, Graphs.GENE);
+          Bs = G.putNodeByUIDType(Graphs.UID, tab.get("Gene_Name").toUpperCase(), Graphs.TYPE, Graphs.GENE);
         else if (tab.get("HUGO")!=null)
           Bs = G.putNodeByUIDType(Graphs.UID, tab.get("HUGO").toUpperCase(), Graphs.TYPE, Graphs.GENE);
 
         if (tab.get("SNPName")!=null)
-          As = G.putNodeByUIDType(Graphs.UID, tab.get("SNPName"),  Graphs.TYPE, Graphs.SNP, Graphs.CHR, tab.get("SNPChr"), Graphs.CHR_POS, tab.get("SNPChrPos"));
+          As = G.putNodeByUIDType(Graphs.UID, tab.get("SNP"),  Graphs.TYPE, Graphs.SNP, Graphs.CHR, tab.get("SNPChr"), Graphs.CHR_POS, tab.get("SNPChrPos"));
 
-        if (As!=null && Bs!=null)
+        if (Tools.isSet(As) && Tools.isSet(Bs))
+        {
+          int E = G.addDirectedSimpleEdge(As.toIntArray()[0], Bs.toIntArray()[0]);
+          G.setEdgeLabelProperties(E, Graphs.TYPE, "is_eQTL_of");
+          G.setEdgeLabelProperties(E, "CisTrans", (Strs.equals(tab.get("CisTrans"), "cis") ? "cis" : "trans"));
+          G.setEdgeWeight(E, -10f * (float) Math.log10(new Double(tab.get("PValue"))));
+          // copy the curation to the edges
+          if (Tools.isSet(active))
+            for (int i : active)
+              for (String tag : G.node_label_val.row(i).keySet())
+                G.setEdgeLabelProperties(E, tag, G.node_label_val.get(i, tag));
+/*
           // only expect one rs and one gene
           if (As.size()==1 && Bs.size()==1)
           {
-            int E = G.addDirectedSimpleEdge(As.toIntArray()[0], Bs.toIntArray()[0]);
-            G.setEdgeLabelProperties(E, Graphs.TYPE, "SNP-eQTL-GENE");
-            G.setEdgeLabelProperties(E, "CisTrans", (Strs.equals(tab.get("CisTrans"), "cis") ? "cis" : "trans"));
-            G.setEdgeWeight(E, -10f * (float) Math.log10(new Double(tab.get("PValue"))));
           }
           else
           {
             // unexpected situation
             System.out.println("Rs# "+As.size() + "/Gene# " + Bs.size());
           }
+*/
+        }
       }
 
     }
