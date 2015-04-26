@@ -42,8 +42,7 @@ public class GTExReader extends TabReader
         int counts=0;
         for (String fldr : dir_file.keySet())
         {
-          System.out.println("Reading eQTL contents from the folder: " + fldr);
-
+//          System.out.println("Reading eQTL contents from the folder: " + fldr);
           List<String> diseases = IOs.listFiles(fldr, new WildcardFileFilter("nodes"));
           // setup the disease node
           // type	title	uid_tissue	uid_location	file
