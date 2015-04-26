@@ -1,0 +1,33 @@
+# load the nodes by their 'labels'
+LOAD CSV WITH HEADERS FROM 'file:///usr/local/neo4j/current/import/GWAS_nodes.GENE' AS line FIELDTERMINATOR '\t'
+CREATE (:GENE { id: toInt(line.id), uid: line.label})
+
+LOAD CSV WITH HEADERS FROM 'file:///usr/local/neo4j/current/import/GWAS_nodes.STUDY' AS line FIELDTERMINATOR '\t'
+CREATE (:STUDY { id:toInt(line.id), uid:line.label, title:line.STUDY, journal:line.Journal, author:line.Author, sample:line.Sample})
+
+LOAD CSV WITH HEADERS FROM 'file:///usr/local/neo4j/current/import/GWAS_nodes.SNP' AS line FIELDTERMINATOR '\t'
+CREATE (:SNP { id:toInt(line.id), uid:line.label, context:line.Context, chr:line.Chr, position:toInt(line.ChrPos)})
+
+LOAD CSV WITH HEADERS FROM 'file:///usr/local/neo4j/current/import/GWAS_nodes.TRAIT' AS line FIELDTERMINATOR '\t'
+CREATE (:TRAIT { id:toInt(line.id), uid:line.label, title:line.Trait })
+
+# loading the edges with additional properties by their 'types'
+LOAD CSV WITH HEADERS FROM "file:///usr/local/neo4j/current/import/GWAS_edges.SNP-GENE" AS line FIELDTERMINATOR '\t'
+match (a:SNP), (b:GENE) where a.id=toInt(line.start) AND b.id=toInt(line.end)
+create (a)-[r:SNP_GENE  { context:line.Context, disease:line.DISEASE}]->(b) return r;
+
+LOAD CSV WITH HEADERS FROM "file:///usr/local/neo4j/current/import/GWAS_edges.SNP-STUDY" AS line FIELDTERMINATOR '\t'
+match (a:SNP), (b:STUDY) where a.id=toInt(line.start) AND b.id=toInt(line.end)
+create (b)-[r:SNP_STUDY]->(a) return r;
+
+LOAD CSV WITH HEADERS FROM "file:///usr/local/neo4j/current/import/GWAS_edges.SNP-TRAIT" AS line FIELDTERMINATOR '\t'
+match (a:SNP), (b:TRAIT) where a.id=toInt(line.start) AND b.id=toInt(line.end)
+create (b)-[r:SNP_TRAIT]->(a) return r;
+
+# load the edges in one swoop
+LOAD CSV WITH HEADERS FROM "file:///usr/local/neo4j/current/import/GWAS.edges" AS line FIELDTERMINATOR '\t'
+WITH line.type as t, toInt(line.start) as s, toInt(line.end) as e, line.DISEASE as d, line.Context as c, toFloat(line.weight) as w
+match (a:SNP), (b:GENE) where a.id=s AND b.id=e
+create (a)-[r:t { context:c, disease:c, weight:w}]->(b) return r;
+
+

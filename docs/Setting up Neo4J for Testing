@@ -1,0 +1,18 @@
+# edit ./conf/neo4j-server.properties to indicate the location of the database directory
+org.neo4j.server.database.location=data/gwas.db
+
+# if necessary, delete the existing database
+rm -rf data/
+
+# start the Neo4J server
+bin/neo4j start
+
+# Open the Neo4J browser @
+http://localhost:7474
+
+# setup the constraint and index prior to the node insertion. Repeat for all node types that require indices
+CREATE CONSTRAINT ON (c:GENE)  ASSERT c.id IS UNIQUE;
+CREATE CONSTRAINT ON (c:STUDY) ASSERT c.id IS UNIQUE;
+CREATE CONSTRAINT ON (c:TRAIT) ASSERT c.id IS UNIQUE;
+CREATE CONSTRAINT ON (c:SNP)   ASSERT c.id IS UNIQUE;
+
