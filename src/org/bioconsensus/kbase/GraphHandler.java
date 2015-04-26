@@ -153,43 +153,6 @@ abstract public class GraphHandler extends DefaultHandler
   {
     return Strs.equals(Tools.fromLast(stack, fromLast), s);
   }
-  /** read a tab-delimited file that contains the private set of nodes
-   *
-   type    label   abbr    ID
-   disease ulcerative colitis      UC      EFO_0000729
-   *
-   * @return the type and labels of the nodes
-   */
-  public Collection<Integer> curation(String file)
-  {
-    try
-    {
-      if (G==null) G=new PropertyGraph();
-
-      TabFile d = new TabFile(file, TabFile.tabb);
-      // come up with the headers. need to preserve the order of the keys
-      LinkedHashMap<String, String> props = new LinkedHashMap<>();
-      props.put("ID",    Graphs.UID);
-      props.put("type",  Graphs.TYPE);
-      props.put("label", Graphs.TITLE);
-
-      for (String col : d.getHeaders())
-        if (!Strs.isA(col, "type", "label", "ID"))
-          props.put(col, Strs.equals(col,"abbr")?Graphs.TITLE:col);
-
-      curated = new HashSet<>();
-      while (d.hasNext())
-      {
-        Tools.add(curated, G.putNode(Tools.toColsHdr(d.nextRow(), props)));
-        //curated.put(d.get("type"), d.get("label"));
-      }
-      return curated;
-    }
-    catch (IOException e) {}
-
-    return null;
-  }
-
   // update the property if the element was in the pre-defined list
   public Property set(String label, Property p, StringBuilder content)
   {

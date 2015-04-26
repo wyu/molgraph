@@ -6,6 +6,7 @@ import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.ms2ms.graph.Graphs;
 import org.ms2ms.graph.PropertyEdge;
 import org.ms2ms.graph.PropertyNode;
+import org.ms2ms.r.Dataframe;
 import org.ms2ms.utils.IOs;
 import org.ms2ms.utils.Strs;
 import org.ms2ms.utils.Tools;
@@ -36,6 +37,55 @@ public class PsiMI25Reader extends GraphHandler
   public PsiMI25Reader(PropertyGraph g) { super(g); init(); }
   public PsiMI25Reader(String... s)     { super(s); init(); }
 
+  public PsiMI25Reader readRecursive(Dataframe mapping, String... folders)
+  {
+    if (Tools.isSet(folders))
+    {
+      Multimap<String, String> dir_file = HashMultimap.create();
+      for (String flder : folders)
+      {
+        dir_file.putAll(IOs.listDirFiles(flder, new WildcardFileFilter("*.xml")));
+      }
+      if (Tools.isSet(dir_file))
+      {
+        int counts=0;
+        for (String fldr : dir_file.keySet())
+        {
+          System.out.println("Reading PSI-MI contents from the folder: " + fldr);
+
+          List<String> diseases = IOs.listFiles(fldr, new WildcardFileFilter("nodes*"));
+          // setup the disease node
+          if (Tools.isSet(diseases)) G.curation(diseases.get(0), Strs.newMap('=', "ID=" + Graphs.UID, "type=" + Graphs.TYPE, "label=" + Graphs.TITLE));
+          for (String fname : dir_file.get(fldr))
+          {
+            if (++counts%25==0) System.out.print(".");
+            parseDocument(fname);
+          }
+          System.out.println();
+          clearCuration();
+        }
+      }
+      PropertyGraph.fixup(G, mapping);
+
+      return this;
+    }
+
+    return null;
+  }
+
+  public PsiMI25Reader read(String... fnames)
+  {
+    if (Tools.isSet(fnames))
+      for (String fname : fnames)
+      {
+        System.out.println("Reading PSI-MI contents from " + fname);
+        parseDocument(fname);
+      }
+
+    return this;
+  }
+
+/*
   public static PsiMI25Reader readRecursive(String... folders)
   {
     if (Tools.isSet(folders))
@@ -86,6 +136,7 @@ public class PsiMI25Reader extends GraphHandler
 
     return interact;
   }
+*/
 
   /** An unit of kbase builder where the contents from 'fnames' with the 'root' are read and saved to 'out'
    *
@@ -118,6 +169,7 @@ public class PsiMI25Reader extends GraphHandler
   public void init()
   {
     setContentList("shortLabel","interactorRef","experimentRef","attribute","fullName","alias");
+    if (G==null) G= new PropertyGraph();
   }
   @Override
   public void startElement(String uri, String localName, String elementName, Attributes attributes) throws SAXException

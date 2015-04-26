@@ -10,10 +10,7 @@ import org.ms2ms.graph.Property;
 import org.ms2ms.graph.PropertyEdge;
 import org.ms2ms.math.Stats;
 import org.ms2ms.r.Dataframe;
-import org.ms2ms.utils.IOs;
-import org.ms2ms.utils.Reporters;
-import org.ms2ms.utils.Strs;
-import org.ms2ms.utils.Tools;
+import org.ms2ms.utils.*;
 import toools.NotYetImplementedException;
 import toools.collections.AutoGrowingArrayList;
 import toools.set.IntHashSet;
@@ -977,4 +974,37 @@ class PropertyGraph extends InMemoryGrph implements Serializable
     w.close();
 */
   }
+  /** read a tab-delimited file that contains the private set of nodes
+   *
+   type    label   abbr    ID
+   disease ulcerative colitis      UC      EFO_0000729
+   *
+   * @return the type and labels of the nodes
+   */
+  public Collection<Integer> curation(String file, Map<String, String> props)
+  {
+    try
+    {
+      TabFile d = new TabFile(file, TabFile.tabb);
+//      // come up with the headers. need to preserve the order of the keys
+//      LinkedHashMap<String, String> props = new LinkedHashMap<>();
+//      props.put("ID",    Graphs.UID);
+//      props.put("type",  Graphs.TYPE);
+//      props.put("label", Graphs.TITLE);
+
+      for (String col : d.getHeaders())
+        if (!props.keySet().contains(col)) props.put(col, col);
+
+      Set<Integer> curated = new HashSet<>();
+      while (d.hasNext())
+      {
+        Tools.add(curated, putNode(Tools.toColsHdr(d.nextRow(), props)));
+      }
+      return curated;
+    }
+    catch (IOException e) {}
+
+    return null;
+  }
+
 }

@@ -8,6 +8,7 @@ import toools.set.IntHashSet;
 import toools.set.IntSet;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -22,8 +23,11 @@ import java.util.Map;
 abstract public class TabReader
 {
   protected PropertyGraph G=null;
+  protected Collection<Integer> curated;
 
   public TabReader(PropertyGraph g) { super(); G=g; };
+
+  public void clearCuration() { curated=null; }
 
   /**
    *

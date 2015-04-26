@@ -50,16 +50,13 @@ public class DrugBankReader extends GraphHandler
     super(g); init();
   }
 
-  public static PsiMI25Reader readRecursive(String... folders)
+  public DrugBankReader readRecursive(String... folders)
   {
     if (Tools.isSet(folders))
     {
-      PsiMI25Reader interact = new PsiMI25Reader();
-
       Multimap<String, String> dir_file = HashMultimap.create();
       for (String flder : folders)
       {
-        //dir_file.putAll(flder, IOs.listFiles(flder, new WildcardFileFilter("*.xml")));
         dir_file.putAll(IOs.listDirFiles(flder, new WildcardFileFilter("*.xml")));
       }
       if (Tools.isSet(dir_file))
@@ -71,34 +68,32 @@ public class DrugBankReader extends GraphHandler
 
           List<String> diseases = IOs.listFiles(fldr, new WildcardFileFilter("nodes*"));
           // setup the disease node
-          if (Tools.isSet(diseases)) interact.curation(diseases.get(0));
+          if (Tools.isSet(diseases)) G.curation(diseases.get(0), Strs.newMap('=', "ID="+Graphs.UID, "type="+Graphs.TYPE, "label="+Graphs.TITLE));
           for (String fname : dir_file.get(fldr))
           {
             if (++counts%25==0) System.out.print(".");
-            interact.parseDocument(fname);
+            parseDocument(fname);
           }
           System.out.println();
-          interact.clearCuration();
+          clearCuration();
         }
       }
-      return interact;
+      return this;
     }
 
     return null;
   }
 
-  public static PsiMI25Reader read(String... fnames)
+  public DrugBankReader read(String... fnames)
   {
-    PsiMI25Reader interact = new PsiMI25Reader();
-
     if (Tools.isSet(fnames))
       for (String fname : fnames)
       {
         System.out.println("Reading PSI-MI contents from " + fname);
-        interact.parseDocument(fname);
+        parseDocument(fname);
       }
 
-    return interact;
+    return this;
   }
 
   /** An unit of kbase builder where the contents from 'fnames' with the 'root' are read and saved to 'out'
@@ -164,11 +159,27 @@ public class DrugBankReader extends GraphHandler
       if (G.nodes%100 ==0) System.out.print(".");
       if (G.nodes%5000==0) System.out.println(G.nodes + "/" + G.edges + ".");
       // save the drug node
-      drugIdx = G.putNode(DRUGID, drug.getProperty(DRUGID));
-      G.setNodeLabelProperty(drugIdx, drug);
+      drugIdx = G.putNodeByUIDType(Graphs.UID, drug.getProperty(DRUGID), Graphs.TYPE, Graphs.DRUG, Graphs.NAME, drug.getProperty(DRUG_NAME), Graphs.TITLE, drug.getProperty(DRUG_DESC), "type", drug.getProperty("drugType"));
+//      G.setNodeLabelProperty(drugIdx, drug);
       // deposit the drug
-      G.putDirectedEdges(drugIdx, Graphs.GENE, interactors.get(DRUG_TRGT), Graphs.LABEL, DRUG_TRGT);
-      G.putDirectedEdges(drugIdx, DRUGID, interactors.get(DRUG_INCT), Graphs.LABEL, DRUG_INCT);
+      if (interactors.get(DRUG_TRGT)!=null)
+        for (PropertyEdge E : interactors.get(DRUG_TRGT))
+        {
+          IntSet target = G.putNodeByUIDType(Graphs.UID, E.getProperty(Graphs.GENE), Graphs.TYPE, Graphs.GENE, Graphs.NAME, E.getProperty("name"));
+          G.putEdges(drugIdx, target, true, 1f);
+        }
+
+      // drug-drug interaction
+      if (interactors.get(DRUG_INCT)!=null)
+        for (PropertyEdge E : interactors.get(DRUG_INCT))
+        {
+          IntSet drugB = G.putNodeByUIDType(Graphs.UID, E.getProperty(DRUGID), Graphs.TYPE, Graphs.DRUG, Graphs.NAME, E.getProperty(DRUG_NAME));
+          G.putEdges(drugIdx, drugB, true, 1f, Graphs.TITLE, E.getProperty(DRUG_INCT_DESC));
+        }
+
+//      G.putDirectedEdges(drugIdx, Graphs.GENE, interactors.get(DRUG_TRGT), Graphs.LABEL, DRUG_TRGT);
+//      G.putDirectedEdges(drugIdx, DRUGID, interactors.get(DRUG_INCT), Graphs.LABEL, DRUG_INCT);
+
       // clear the cache
       interactors.clear();
     }

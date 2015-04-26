@@ -35,6 +35,8 @@ import java.util.Map;
  */
 public class GraphReaderTest extends TestAbstract
 {
+  public Dataframe mapping = new Dataframe("/media/data/import/HGNC_20150221.mapping", '\t');
+
   @Test
   public void readComboGraph() throws Exception
   {
@@ -42,21 +44,18 @@ public class GraphReaderTest extends TestAbstract
         dataset = "/media/data/import/IntAct/psi25/datasets",
         psi25 = "/media/data/import/IntAct/psi25";
 
-    PsiMI25Reader interact = PsiMI25Reader.readRecursive(dataset);
-    PropertyGraph.fixup(interact.G, new Dataframe("/media/data/import/HGNC_20150221.mapping", '\t'));
+    PsiMI25Reader interact = new PsiMI25Reader();
+    interact.readRecursive(mapping, dataset);
 
     System.out.println(interact.G.inventory());
 
     GWASReader g = new GWASReader(interact.G);
-//    g.parseDocument("/home/wyu/Projects/molgraph/data/gwas_ebi1000.tsv");
     g.parseDocument("/media/data/import/GWAS/gwas_catalog_v1.0.1-downloaded_2015-04-08.tsv");
     System.out.println(g.G.inventory());
 
-//    BioGRIDReader biogrid = new BioGRIDReader(g.G);
-//
-//    biogrid.parseDocuments("/media/data/import/BioGRID/BIOGRID-ALL-3.2.120.psi25.xml");
-//    System.out.println(biogrid.G.inventory());
-//    biogrid.G.write("/tmp/BioGRID.20150408");
+    DrugBankReader dbank = new DrugBankReader(g.G);
+    dbank.parseDocument("/media/data/import/drugbank/drugbank.xml");
+    System.out.println(dbank.G.inventory());
 
     interact.G.writeNodes2CSVByLabel("/usr/local/neo4j/current/import/Combined");
     interact.G.writeEdges2CSVByType("/usr/local/neo4j/current/import/Combined");
@@ -75,13 +74,13 @@ public class GraphReaderTest extends TestAbstract
   public void getEBI_GWAS() throws Exception
   {
     GWASReader g = new GWASReader(new PropertyGraph());
-    g.parseDocument("/home/wyu/Projects/molgraph/data/gwas_ebi1000.tsv");
-//    g.parseDocument("/media/data/import/GWAS/gwas_catalog_v1.0.1-downloaded_2015-04-08.tsv");
+//    g.parseDocument("/home/wyu/Projects/molgraph/data/gwas_ebi1000.tsv");
+    g.parseDocument("/media/data/import/GWAS/gwas_catalog_v1.0.1-downloaded_2015-04-08.tsv");
     System.out.println(g.G.inventory());
 
-//    g.G.writeNodes2CSVByLabel("/usr/local/neo4j/current/import/GWAS");
+    g.G.writeNodes2CSVByLabel("/usr/local/neo4j/current/import/GWAS");
 //    g.G.writeEdges2CSVByType("/usr/local/neo4j/current/import/GWAS");
-    g.G.writeNodes2CSV("/usr/local/neo4j/current/import/GWAS");
+//    g.G.writeNodes2CSV("/usr/local/neo4j/current/import/GWAS");
     g.G.writeEdges2CSV("/usr/local/neo4j/current/import/GWAS");
     //g.G.write("/tmp/GWAS.20150407");
   }
@@ -105,11 +104,13 @@ public class GraphReaderTest extends TestAbstract
     System.out.println(biogrid.G.inventory());
     biogrid.G.write("/tmp/BioGRID.20150408");
   }
+/*
   @Test
   public void readIntActGraph() throws Exception
   {
     PsiMI25Reader interact = PsiMI25Reader.read(null, "/home/wyu/Projects/molgraph/data/IBD25407307.xml");
   }
+*/
   @Test
   public void getInteractionGraph() throws Exception
   {
@@ -117,8 +118,8 @@ public class GraphReaderTest extends TestAbstract
        dataset = "/media/data/import/IntAct/psi25/datasets",
          psi25 = "/media/data/import/IntAct/psi25";
 
-    PsiMI25Reader interact = PsiMI25Reader.readRecursive(dataset);
-    PropertyGraph.fixup(interact.G, new Dataframe("/media/data/import/HGNC_20150221.mapping", '\t'));
+    PsiMI25Reader interact = new PsiMI25Reader();
+    interact.readRecursive(mapping, dataset);
 
     interact.G.write("/tmp/IBD02");
     System.out.println(interact.G.inventory());
@@ -132,6 +133,17 @@ public class GraphReaderTest extends TestAbstract
 //    IOs.write("/tmp/IBD01.grp", PropertyGraph.toBytes(interact.G));
 //    PropertyGraph g2 = PropertyGraph.fromBytes(IOs.readBytes("/tmp/IBD01.grp"));
 //    System.out.println(g2.inventory());
+  }
+  @Test
+  public void getGTEx() throws Exception
+  {
+    String gteX = "/media/data/import/eQTL/GTEx/2014-01-17/";
+
+    GTExReader g = new GTExReader(new PropertyGraph());
+    g.readRecursive(mapping, gteX);
+    System.out.println(g.G.inventory());
+
+    System.out.println();
   }
   @Test
   public void getGeneNetworkNL() throws Exception
@@ -207,104 +219,4 @@ public class GraphReaderTest extends TestAbstract
     Assert.assertNotNull(indexedEntries);
     Assert.assertEquals( 1, indexedEntries.size() );
   }
-
-/*
-  private static void parsePsiMI(String xmlFileName) throws Exception
-  {
-    // initialise default factories for reading and writing MITAB/PSI-MI XML files
-    PsiJami.initialiseAllFactories();
-
-    // reading MITAB and PSI-MI XML files
-
-    // the option factory for reading files and other datasources
-    MIDataSourceOptionFactory optionfactory = MIDataSourceOptionFactory.getInstance();
-    // the datasource factory for reading MITAB/PSI-MI XML files and other datasources
-    MIDataSourceFactory dataSourceFactory = MIDataSourceFactory.getInstance();
-
-    // get default options for a file. It will identify if the file is MITAB or PSI-MI XML file and then it will load the appropriate options.
-    // By default, the datasource will be streaming (only returns an iterator of interactions), and returns a source of Interaction objects.
-    // The default options can be overridden using the optionfactory or by manually adding options listed in MitabDataSourceOptions or PsiXmlDataSourceOptions
-    Map<String, Object> parsingOptions = optionfactory.getDefaultOptions(new File(fileName));
-
-    InteractionStream interactionSource = null;
-    InteractionWriter xmlInteractionWriter = null;
-    InteractionWriter mitabInteractionWriter = null;
-    try{
-      // Get the stream of interactions knowing the default options for this file
-      interactionSource = dataSourceFactory.
-          getInteractionSourceWith(parsingOptions);
-
-      // writing MITAB and PSI-XML files
-
-      // the option factory for reading files and other datasources
-      MIWriterOptionFactory optionwriterFactory = MIWriterOptionFactory.getInstance();
-      // the interaction writer factory for writing MITAB/PSI-MI XML files. Other writers can be dynamically added to the interactionWriterFactory
-      InteractionWriterFactory writerFactory = InteractionWriterFactory.getInstance();
-
-      // get default options for writing MITAB file.
-      // By default, the writer will be a MITAB 2.7 writer and it will write the header
-      // The default options can be overridden using the optionWriterfactory or by manually adding options listed in
-      // MitabWriterOptions
-      Map<String, Object> mitabWritingOptions = optionwriterFactory.getDefaultMitabOptions(new File(mitabFileName));
-
-      // get default options for writing PSI-MI XML file.
-      // By default, the writer will be a PSI-MI XML 2.5.4 writer and it will write expanded PSI-MI XML
-      // The default options can be overridden using the optionWriterfactory or by manually adding options listed in
-      // PsiXmlWriterOptions
-      Map<String, Object> xmlWritingOptions = optionwriterFactory.getDefaultXmlOptions(new File(xmlFileName));
-
-      // Get the default MITAB writer
-      mitabInteractionWriter = writerFactory.getInteractionWriterWith(mitabWritingOptions);
-      // Get the default PSI-MI XML writer
-      mitabInteractionWriter = writerFactory.getInteractionWriterWith(mitabWritingOptions);
-
-      // parse the stream and write as we parse
-      // the interactionSource can be null if the file is not recognized or the provided options are not matching any existing/registered datasources
-      if (interactionSource != null){
-        Iterator interactionIterator = interactionSource.getInteractionsIterator();
-
-        // start the writers (write headers, etc.)
-        mitabInteractionWriter.start();
-        xmlInteractionWriter.start();
-
-        while (interactionIterator.hasNext()){
-          Interaction interaction = (Interaction)interactionIterator.next();
-
-          // most of the interactions will have experimental data attached to them so they will be of type InteractionEvidence
-          if (interaction instanceof InteractionEvidence){
-            InteractionEvidence interactionEvidence = (InteractionEvidence)interaction;
-            // process the interaction evidence
-          }
-          // modelled interactions are equivalent to abstractInteractions in PSI-MI XML 3.0. They are returned when the interaction is not an
-          // experimental interaction but a 'modelled' one extracted from any experimental context
-          else if (interaction instanceof ModelledInteraction){
-            ModelledInteraction modelledInteraction = (ModelledInteraction)interaction;
-            // process the modelled interaction
-          }
-
-          // write the interaction in MITAB and XML
-          mitabInteractionWriter.write(interaction);
-          xmlInteractionWriter.write(interaction);
-        }
-
-        // end the writers (write end tags, etc.)
-        mitabInteractionWriter.end();
-        xmlInteractionWriter.end();
-      }
-    }
-    finally {
-      // always close the opened interaction stream
-      if (interactionSource != null){
-        interactionSource.close();
-      }
-      // always close the opened interaction writers
-      if (mitabInteractionWriter != null){
-        mitabInteractionWriter.close();
-      }
-      if (xmlInteractionWriter != null){
-        xmlInteractionWriter.close();
-      }
-    }
-  }
-*/
 }
