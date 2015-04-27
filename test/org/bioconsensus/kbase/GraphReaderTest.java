@@ -5,6 +5,7 @@ import com.thinkaurelius.titan.core.util.TitanCleanup;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.ms2ms.graph.Graphs;
 import org.ms2ms.graph.PropertyEdge;
@@ -35,7 +36,12 @@ import java.util.Map;
  */
 public class GraphReaderTest extends TestAbstract
 {
-  public Dataframe mapping = new Dataframe("/media/data/import/HGNC_20150221.mapping", '\t');
+  @Before
+  public void setUp()
+  {
+    PsiMI25Reader.mapping = new Dataframe("/media/data/import/HGNC_20150221.mapping", '\t');
+    PsiMI25Reader.es2gene = PsiMI25Reader.mapping.toMap("Ensembl Gene ID", "Approved Symbol");
+  }
 
   @Test
   public void readComboGraph() throws Exception
@@ -44,29 +50,32 @@ public class GraphReaderTest extends TestAbstract
         dataset = "/media/data/import/IntAct/psi25/datasets",
         psi25 = "/media/data/import/IntAct/psi25";
 
+/*
     PsiMI25Reader interact = new PsiMI25Reader();
-    interact.readRecursive(mapping, dataset);
+    interact.readRecursive(dataset);
 
     System.out.println(interact.G.inventory());
 
     GWASReader g = new GWASReader(interact.G);
+*/
+    GWASReader g = new GWASReader(new PropertyGraph());
     g.parseDocument("/media/data/import/GWAS/gwas_catalog_v1.0.1-downloaded_2015-04-08.tsv");
     System.out.println(g.G.inventory());
 
     DrugBankReader dbank = new DrugBankReader(g.G);
-    dbank.parseDocument("/media/data/import/drugbank/drugbank.xml");
+    dbank.read("/media/data/import/drugbank/drugbank.xml");
     System.out.println(dbank.G.inventory());
 
     GTExReader gteX = new GTExReader(dbank.G);
-    gteX.readRecursive(mapping, "/media/data/import/eQTL/GTEx/2014-01-17/");
+    gteX.readRecursive("/media/data/import/eQTL/GTEx/2014-01-17/");
     System.out.println(gteX.G.inventory());
 
     DisGeNETReader disease = new DisGeNETReader(gteX.G);
-    disease.readRecursive(mapping, "/media/data/import/DisGeNET/all_gene_disease_associations.txt");
+    disease.readRecursive("/media/data/import/DisGeNET/all_gene_disease_associations.txt");
     System.out.println(disease.G.inventory());
 
-    interact.G.writeNodes2CSVByLabel("/usr/local/neo4j/current/import/Combined");
-    interact.G.writeEdges2CSVByType("/usr/local/neo4j/current/import/Combined");
+    disease.G.writeNodes2CSVByLabel("/usr/local/neo4j/current/import/Combined");
+    disease.G.writeEdges2CSV("/usr/local/neo4j/current/import/Combined");
   }
 
   @Test
@@ -127,7 +136,7 @@ public class GraphReaderTest extends TestAbstract
          psi25 = "/media/data/import/IntAct/psi25";
 
     PsiMI25Reader interact = new PsiMI25Reader();
-    interact.readRecursive(mapping, dataset);
+    interact.readRecursive(dataset);
 
     interact.G.write("/tmp/IBD02");
     System.out.println(interact.G.inventory());
@@ -146,7 +155,7 @@ public class GraphReaderTest extends TestAbstract
   public void getDisGeNET() throws Exception
   {
     DisGeNETReader g = new DisGeNETReader(new PropertyGraph());
-    g.readRecursive(mapping, "/media/data/import/DisGeNET/all_gene_disease_associations.txt");
+    g.readRecursive("/media/data/import/DisGeNET/all_gene_disease_associations.txt");
     System.out.println(g.G.inventory());
 
     System.out.println();
@@ -157,7 +166,7 @@ public class GraphReaderTest extends TestAbstract
     String gteX = "/media/data/import/eQTL/GTEx/2014-01-17/";
 
     GTExReader g = new GTExReader(new PropertyGraph());
-    g.readRecursive(mapping, gteX);
+    g.readRecursive(gteX);
     System.out.println(g.G.inventory());
 
     System.out.println();

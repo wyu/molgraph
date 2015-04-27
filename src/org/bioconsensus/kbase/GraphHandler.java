@@ -34,14 +34,12 @@ import java.util.*;
  */
 abstract public class GraphHandler extends DefaultHandler
 {
-//  public static final String LABEL    = "_label_";
   public static final String NAME     = "name";
   public static final String DESC     = "description";
   public static final String ORGANISM = "organism";
   public static final String ENSEMBLE = "ENSG";
   public static final String DRUGID   = "drugBankID";
   public static final String RSID     = "rsid";
-//  public static final String ID       = "ID";
   public static final String CONTEXT  = "context";
   public static final String TYPE_ACTOR   = "actorType";
   public static final String TYPE_ACTION  = "actionType";
@@ -57,7 +55,7 @@ abstract public class GraphHandler extends DefaultHandler
   Attributes attrs; String ele;
   Collection<Integer> curated;
 
-  String[] species, contentList;
+  String[] species = Strs.toStringArray("Homo sapiens"), contentList;
 
   public GraphHandler()                 { super(); }
   public GraphHandler(PropertyGraph g)  { super(); G=g; }
@@ -70,8 +68,7 @@ abstract public class GraphHandler extends DefaultHandler
   {
     if (G==null) G=new PropertyGraph();
 
-    System.out.println("Parsing the document: " + fname);
-
+//    System.out.println("Parsing the document: " + fname);
     // parse
     SAXParserFactory factory = SAXParserFactory.newInstance();
     try {

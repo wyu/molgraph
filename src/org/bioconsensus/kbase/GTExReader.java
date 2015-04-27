@@ -28,7 +28,7 @@ public class GTExReader extends TabReader
 {
   public GTExReader(PropertyGraph g) { super(g); }
 
-  public GTExReader readRecursive(Dataframe mapping, String... folders)
+  public GTExReader readRecursive(String... folders)
   {
     if (Tools.isSet(folders))
     {
@@ -88,24 +88,12 @@ public class GTExReader extends TabReader
         {
           int E = G.addDirectedSimpleEdge(As.toIntArray()[0], Bs.toIntArray()[0]);
           G.setEdgeLabelProperties(E, Graphs.TYPE, "is_eQTL_of");
-//          G.setEdgeLabelProperties(E, "CisTrans", (Strs.equals(tab.get("CisTrans"), "cis") ? "cis" : "trans"));
           G.setEdgeWeight(E, -10f * (float) Math.log10(new Double(tab.get("P_Val"))));
           // copy the curation to the edges
           if (Tools.isSet(active))
             for (int i : active)
               for (String tag : G.node_label_val.row(i).keySet())
                 G.setEdgeLabelProperties(E, tag, G.node_label_val.get(i, tag));
-/*
-          // only expect one rs and one gene
-          if (As.size()==1 && Bs.size()==1)
-          {
-          }
-          else
-          {
-            // unexpected situation
-            System.out.println("Rs# "+As.size() + "/Gene# " + Bs.size());
-          }
-*/
         }
       }
 

@@ -31,3 +31,43 @@ match (a:SNP), (b:GENE) where a.id=s AND b.id=e
 create (a)-[r:t { context:c, disease:c, weight:w}]->(b) return r;
 
 
+-rw-r--r-- 1 wyu wyu 234M Apr 26 19:51 Combined.edges
+-rw-r--r-- 1 wyu wyu 718K Apr 26 19:51 Combined_nodes.DISEASE
+-rw-r--r-- 1 wyu wyu 1.2M Apr 26 19:51 Combined_nodes.DRUG
+-rw-r--r-- 1 wyu wyu 2.1M Apr 26 19:51 Combined_nodes.GENE
+-rw-r--r-- 1 wyu wyu  16M Apr 26 19:51 Combined_nodes.SNP
+-rw-r--r-- 1 wyu wyu 544K Apr 26 19:51 Combined_nodes.STUDY
+-rw-r--r-- 1 wyu wyu 1008 Apr 26 19:51 Combined_nodes.TISSUE
+-rw-r--r-- 1 wyu wyu  61K Apr 26 19:51 Combined_nodes.TRAIT
+
+
+# load the nodes by their 'labels'
+LOAD CSV WITH HEADERS FROM 'file:///usr/local/neo4j/current/import/Combined_nodes.GENE' AS line FIELDTERMINATOR '\t'
+CREATE (:GENE { id: toInt(line.id), uid: line.uid, name: line.name})
+
+LOAD CSV WITH HEADERS FROM 'file:///usr/local/neo4j/current/import/Combined_nodes.SNP' AS line FIELDTERMINATOR '\t'
+CREATE (:SNP { id:toInt(line.id), uid:line.uid, context:line.Context, chr:line.Chr, position:toInt(line.ChrPos)})
+
+LOAD CSV WITH HEADERS FROM 'file:///usr/local/neo4j/current/import/Combined_nodes.STUDY' AS line FIELDTERMINATOR '\t'
+CREATE (:STUDY { id:toInt(line.id), uid:line.uid, title:line.Study, journal:line.Journal, author:line.Author, sample:line.Sample})
+
+LOAD CSV WITH HEADERS FROM 'file:///usr/local/neo4j/current/import/Combined_nodes.TRAIT' AS line FIELDTERMINATOR '\t'
+CREATE (:TRAIT { id:toInt(line.id), uid:line.uid, title:line.Trait })
+
+LOAD CSV WITH HEADERS FROM 'file:///usr/local/neo4j/current/import/Combined_nodes.DISEASE' AS line FIELDTERMINATOR '\t'
+CREATE (:TRAIT { id:toInt(line.id), uid:line.uid, title:line.name })
+
+LOAD CSV WITH HEADERS FROM 'file:///usr/local/neo4j/current/import/Combined_nodes.TISSUE' AS line FIELDTERMINATOR '\t'
+CREATE (:TRAIT { id:toInt(line.id), uid:line.uid, title:line.title })
+
+LOAD CSV WITH HEADERS FROM 'file:///usr/local/neo4j/current/import/Combined_nodes.DRUG' AS line FIELDTERMINATOR '\t'
+CREATE (:TRAIT { id:toInt(line.id), uid:line.uid, title:line.title, name:line.name, type:line.type })
+
+# load the edges in one swoop
+USING PERIODIC COMMIT 5000
+LOAD CSV WITH HEADERS FROM "file:///usr/local/neo4j/current/import/Combined.edges" AS line FIELDTERMINATOR '\t'
+WITH line.type as t, toInt(line.start) as s, toInt(line.end) as e, line.DISEASE as d, line.Context as c, toFloat(line.weight) as w, line.title as l, line.uid as u
+match (a), (b) where a.id=s AND b.id=e
+create (a)-[r:t { context:c, disease:c, weight:w, title:l, uid:u}]->(b) return r;
+
+start	end	type	weight	Context	DISEASE	title	uid	file	Source	nPubMed

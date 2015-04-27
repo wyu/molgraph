@@ -28,7 +28,7 @@ public class DisGeNETReader extends TabReader
 {
   public DisGeNETReader(PropertyGraph g) { super(g); }
 
-  public DisGeNETReader readRecursive(Dataframe mapping, String... folders)
+  public DisGeNETReader readRecursive(String... folders)
   {
     if (Tools.isSet(folders))
     {

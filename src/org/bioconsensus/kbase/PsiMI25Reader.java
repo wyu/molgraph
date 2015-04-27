@@ -26,7 +26,9 @@ import java.util.*;
  */
 public class PsiMI25Reader extends GraphHandler
 {
-//  private Map<Long, PropertyNode> actors;
+  public static Dataframe mapping;
+  public static Map       es2gene;
+
   private PropertyEdge        interaction;
   private PropertyNode        expt, actor;
   private Collection<Integer> participants = new HashSet<>();
@@ -37,7 +39,7 @@ public class PsiMI25Reader extends GraphHandler
   public PsiMI25Reader(PropertyGraph g) { super(g); init(); }
   public PsiMI25Reader(String... s)     { super(s); init(); }
 
-  public PsiMI25Reader readRecursive(Dataframe mapping, String... folders)
+  public PsiMI25Reader readRecursive(String... folders)
   {
     if (Tools.isSet(folders))
     {
@@ -51,8 +53,6 @@ public class PsiMI25Reader extends GraphHandler
         int counts=0;
         for (String fldr : dir_file.keySet())
         {
-//          System.out.println("Reading PSI-MI contents from the folder: " + fldr);
-
           List<String> diseases = IOs.listFiles(fldr, new WildcardFileFilter("nodes*"));
           // setup the disease node
           if (Tools.isSet(diseases)) curated = G.curation(diseases.get(0), Strs.newMap('=', "ID=" + Graphs.UID, "type=" + Graphs.TYPE, "label=" + Graphs.TITLE));
@@ -84,60 +84,6 @@ public class PsiMI25Reader extends GraphHandler
 
     return this;
   }
-
-/*
-  public static PsiMI25Reader readRecursive(String... folders)
-  {
-    if (Tools.isSet(folders))
-    {
-      PsiMI25Reader interact = new PsiMI25Reader();
-
-      Multimap<String, String> dir_file = HashMultimap.create();
-      for (String flder : folders)
-      {
-        //dir_file.putAll(flder, IOs.listFiles(flder, new WildcardFileFilter("*.xml")));
-        dir_file.putAll(IOs.listDirFiles(flder, new WildcardFileFilter("*.xml")));
-      }
-      if (Tools.isSet(dir_file))
-      {
-        int counts=0;
-        for (String fldr : dir_file.keySet())
-        {
-          System.out.println("Reading PSI-MI contents from the folder: " + fldr);
-
-          List<String> diseases = IOs.listFiles(fldr, new WildcardFileFilter("nodes*"));
-          // setup the disease node
-          if (Tools.isSet(diseases)) interact.curation(diseases.get(0));
-          for (String fname : dir_file.get(fldr))
-          {
-            if (++counts%25==0) System.out.print(".");
-            interact.parseDocument(fname);
-          }
-          System.out.println();
-          interact.clearCuration();
-        }
-      }
-      return interact;
-    }
-
-    return null;
-  }
-
-  public static PsiMI25Reader read(String... fnames)
-  {
-    PsiMI25Reader interact = new PsiMI25Reader();
-
-    if (Tools.isSet(fnames))
-      for (String fname : fnames)
-      {
-        System.out.println("Reading PSI-MI contents from " + fname);
-        interact.parseDocument(fname);
-      }
-
-    return interact;
-  }
-*/
-
   /** An unit of kbase builder where the contents from 'fnames' with the 'root' are read and saved to 'out'
    *
    * @param root is the top level folder where the contents reside
@@ -185,6 +131,9 @@ public class PsiMI25Reader extends GraphHandler
     else if (matchStack("primaryRef","xref","interactor") && Strs.equals(attributes.getValue("db"), "ensembl"))
     {
       actor.setProperty(ENSEMBLE, attributes.getValue("id"));
+      Object g = (es2gene!=null?es2gene.get(actor.getProperty(GraphHandler.ENSEMBLE)):null);
+      if (g!=null)
+        actor.setProperty(Graphs.GENE, g.toString().toUpperCase());
     }
     else if (elementName.equalsIgnoreCase("interactor"))
     {
@@ -226,7 +175,8 @@ public class PsiMI25Reader extends GraphHandler
     {
       set(ORGANISM, actor, content);
     }
-    else if (Strs.equals(element,"interactor") && actor!=null && !G.hasNodeLabel(Graphs.UID, actor.getProperty(Graphs.UID)))
+    else if (Strs.equals(element,"interactor") && actor!=null && !G.hasNodeLabel(Graphs.UID, actor.getProperty(Graphs.UID)) &&
+        (!Tools.isSet(species) || !Strs.isSet(actor.getProperty(ORGANISM)) || Strs.isA(actor.getProperty(ORGANISM), species)))
     {
       if (/*Strs.equals(actor.getProperty("actorType"), "protein") &&*/
           Strs.isSet(actor.getProperty("gene name")))
@@ -257,7 +207,7 @@ public class PsiMI25Reader extends GraphHandler
         else if (matchStack(2, "interactor"))             set(Graphs.GENE,        actor, content);
         else if (matchStack(2, "interactorType"))         set(TYPE_ACTOR,  actor, content);
 //        else if (matchStack(2, ORGANISM))                 set(ORGANISM,    actor, content);
-//        else if (matchStack(2, "hostOrganism"))           set(ORGANISM,    expt,  content);
+        else if (matchStack(2, "hostOrganism"))           set(ORGANISM,    expt,  content);
         else if (matchStack(2, "tissue"))                 set(Graphs.TISSUE, expt, content);
         else if (matchStack(2, "interactionDetectionMethod")) set(Graphs.ASSAY, expt, content);
         else if (matchStack(2, "interactionType"))        set(Graphs.TYPE, interaction, content);
@@ -284,7 +234,8 @@ public class PsiMI25Reader extends GraphHandler
     else if (Strs.equals(element, "interaction"))
     {
       // done with this group of interactors
-      if (Tools.isSet(participants))
+      if (Tools.isSet(participants) &&
+        (!Tools.isSet(species) || !Strs.isSet(interaction.getProperty(ORGANISM)) || Strs.isA(interaction.getProperty(ORGANISM), species)))
       {
         Set<Integer> hashes = new HashSet<>();
         for (Integer A : participants)

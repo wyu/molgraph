@@ -797,11 +797,11 @@ class PropertyGraph extends InMemoryGrph implements Serializable
 //      cols.add(Graphs.LABEL);
     FileWriter w = new FileWriter(nodefile);
 
-    w.write("id"+d+"uid"+Strs.toString(cols, d+"")+"\n");
+    w.write("id"+Strs.toString(cols, d+"")+"\n");
     for (Integer row : getVertices().toIntArray())
       if (Strs.equals(node_label_val.row(row).get(Graphs.TYPE), type))
       {
-        w.write(row.toString()+d+node_label_val.get(row, Graphs.LABEL));
+        w.write(row.toString());
         if (Tools.isSet(columns))
         {
           w.write(d);
