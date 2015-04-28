@@ -55,7 +55,7 @@ abstract public class GraphHandler extends DefaultHandler
   Attributes attrs; String ele;
   Collection<Integer> curated;
 
-  String[] species = Strs.toStringArray("Homo sapiens"), contentList;
+  String[] species = Strs.toStringArray("Homo sapiens", "human"), contentList;
 
   public GraphHandler()                 { super(); }
   public GraphHandler(PropertyGraph g)  { super(); G=g; }
@@ -175,5 +175,16 @@ abstract public class GraphHandler extends DefaultHandler
   {
     ele=element;
     if (!stack.removeLast().equals(ele)) throw new RuntimeException("Unmatched element!");
+  }
+
+  protected boolean isOrganism(String g)
+  {
+    if (!Strs.isSet(g) || !Tools.isSet(species) || Strs.equalsIgnoreCase(g, "in vitro")) return true;
+
+    String gg = g.toUpperCase().trim();
+    for (String sp : species)
+      if (gg.indexOf(sp.toUpperCase().trim())==0) return true;
+
+    return false;
   }
 }

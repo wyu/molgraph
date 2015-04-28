@@ -31,7 +31,8 @@ public class PsiMI25Reader extends GraphHandler
 
   private PropertyEdge        interaction;
   private PropertyNode        expt, actor;
-  private Collection<Integer> participants = new HashSet<>();
+  private Multimap<String, Integer> actor_id = HashMultimap.create();
+  private Set<String> participants = new HashSet<>();
   private int                 lastID;
   private Map<String, PropertyNode> expts = new HashMap<>();
 
@@ -183,16 +184,36 @@ public class PsiMI25Reader extends GraphHandler
       {
         actor.rename("gene name", Graphs.GENE);
       }
-//      lastID = G.addVertex();
-//      G.setNodeLabelProperty(lastID, actor);
-      IntSet N = G.putNode(actor, Graphs.UID);
-      if (N!=null)
+//      if (Strs.equals("gsk3b-hu-bsa_protein", actor.getProperty(Graphs.GENE)))
+//      {
+//        System.out.println();
+//      }
+      if (!Strs.isA(actor.getProperty(TYPE_ACTOR), "dna", "peptide"))
       {
-        lastID=N.toIntArray()[0];
-        G.curates(curated, "curated_to", N.toIntArray());
-      }
+        String gene = actor.getProperty(Graphs.GENE);
+        IntSet N    = null;
+        if (Strs.isA(actor.getProperty(TYPE_ACTOR), "small molecule"))
+        {
+          N = G.putNodeByUIDType(Graphs.UID, gene, Graphs.TYPE, Graphs.SM);
+        }
+        else
+        {
+          if      (gene.indexOf("_human") >0) gene = gene.split("_human" )[0].toUpperCase();
+          else if (gene.indexOf("_fusion")>0) gene = gene.split("_fusion")[0].toUpperCase();
+          else if (gene.indexOf(" fusion")>0) gene = gene.split(" fusion")[0].toUpperCase();
+          else                                gene = gene.toUpperCase();
 
-      if (++G.nodes%5000==0) System.out.print(".");
+          N = G.putNodeByUIDType(Graphs.UID, gene, Graphs.TYPE, Graphs.GENE);
+        }
+        if (N!=null)
+        {
+          lastID=N.toIntArray()[0];
+          G.curates(curated, "curated_to", N.toIntArray());
+          actor_id.putAll(actor.getProperty(Graphs.UID), N.toIntegerArrayList());
+        }
+
+        if (++G.nodes%5000==0) System.out.print(".");
+      }
     }
     else if (matchElementStack("primaryRef","xref", "tissue","hostOrganism","experimentDescription") && interaction!=null)
     {
@@ -215,12 +236,7 @@ public class PsiMI25Reader extends GraphHandler
     }
     else if (matchElementStack("interactorRef","participant","participantList","interaction"))
     {
-      IntSet N = G.putNodeByUIDType(Graphs.UID, content.toString());
-      if (Tools.isSet(N))
-      {
-        participants.addAll(N.toIntegerArrayList());
-        G.curates(curated, "curated_to", N.toIntArray());
-      }
+      participants.add(content.toString());
     }
     else if (Strs.equals(element, "experimentRef"))
     {
@@ -234,22 +250,27 @@ public class PsiMI25Reader extends GraphHandler
     else if (Strs.equals(element, "interaction"))
     {
       // done with this group of interactors
-      if (Tools.isSet(participants) &&
-        (!Tools.isSet(species) || !Strs.isSet(interaction.getProperty(ORGANISM)) || Strs.isA(interaction.getProperty(ORGANISM), species)))
+      if (Tools.isSet(participants) && participants.size()>1 && isOrganism(interaction.getProperty(ORGANISM)))
       {
-        Set<Integer> hashes = new HashSet<>();
-        for (Integer A : participants)
-          for (Integer B : participants)
-            if (!Tools.equals(A,B) && (!Tools.isSet(hashes) || !hashes.contains(A.hashCode()+B.hashCode())))
-            {
-              int E = G.addUndirectedSimpleEdge(A, B);
-              G.setEdgeLabelProperty(E, interaction);
-              hashes.add(A.hashCode() + B.hashCode());
-              if (++G.edges%10000==0) System.out.print(".");
-            }
+        Set<Integer> hashes = new HashSet<>(), parties = new HashSet<>();
+        for (String id : participants)
+          if (actor_id.get(id)!=null)
+            parties.addAll(actor_id.get(id));
+          else
+            System.out.println("participant not found");
 
-        participants.clear();
+        if (parties.size()>1)
+          for (Integer A : parties)
+            for (Integer B : parties)
+              if (!Tools.equals(A,B) && (!Tools.isSet(hashes) || !hashes.contains(A.hashCode()+B.hashCode())))
+              {
+                int E = G.addUndirectedSimpleEdge(A, B);
+                G.setEdgeLabelProperty(E, interaction);
+                hashes.add(A.hashCode() + B.hashCode());
+                if (++G.edges%10000==0) System.out.print(".");
+              }
       }
+      participants.clear();
     }
     isParsing=false;
   }

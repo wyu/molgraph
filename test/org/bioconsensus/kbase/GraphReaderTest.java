@@ -50,15 +50,13 @@ public class GraphReaderTest extends TestAbstract
         dataset = "/media/data/import/IntAct/psi25/datasets",
         psi25 = "/media/data/import/IntAct/psi25";
 
-/*
     PsiMI25Reader interact = new PsiMI25Reader();
     interact.readRecursive(dataset);
 
     System.out.println(interact.G.inventory());
 
     GWASReader g = new GWASReader(interact.G);
-*/
-    GWASReader g = new GWASReader(new PropertyGraph());
+//    GWASReader g = new GWASReader(new PropertyGraph());
     g.parseDocument("/media/data/import/GWAS/gwas_catalog_v1.0.1-downloaded_2015-04-08.tsv");
     System.out.println(g.G.inventory());
 
@@ -75,7 +73,7 @@ public class GraphReaderTest extends TestAbstract
     System.out.println(disease.G.inventory());
 
     disease.G.writeNodes2CSVByLabel("/usr/local/neo4j/current/import/Combined");
-    disease.G.writeEdges2CSV("/usr/local/neo4j/current/import/Combined");
+    disease.G.writeEdges2CSVByType( "/usr/local/neo4j/current/import/Combined");
   }
 
   @Test
@@ -138,11 +136,11 @@ public class GraphReaderTest extends TestAbstract
     PsiMI25Reader interact = new PsiMI25Reader();
     interact.readRecursive(dataset);
 
-    interact.G.write("/tmp/IBD02");
+//    interact.G.write("/tmp/IBD02");
     System.out.println(interact.G.inventory());
 
     interact.G.writeNodes2CSVByLabel("/usr/local/neo4j/current/import/IntAct");
-    interact.G.writeEdges2CSVByType("/usr/local/neo4j/current/import/IntAct");
+    interact.G.writeEdges2CSVByType( "/usr/local/neo4j/current/import/IntAct");
 
 //    PropertyGraph g2 = PropertyGraph.read("/tmp/IBD02");
 //    System.out.println(g2.inventory());
@@ -158,6 +156,9 @@ public class GraphReaderTest extends TestAbstract
     g.readRecursive("/media/data/import/DisGeNET/all_gene_disease_associations.txt");
     System.out.println(g.G.inventory());
 
+    g.G.writeNodes2CSVByLabel("/usr/local/neo4j/current/import/DisGeNET");
+    g.G.writeEdges2CSVByType( "/usr/local/neo4j/current/import/DisGeNET");
+
     System.out.println();
   }
   @Test
@@ -169,7 +170,8 @@ public class GraphReaderTest extends TestAbstract
     g.readRecursive(gteX);
     System.out.println(g.G.inventory());
 
-    System.out.println();
+    g.G.writeNodes2CSVByLabel("/usr/local/neo4j/current/import/GTEx");
+    g.G.writeEdges2CSVByType( "/usr/local/neo4j/current/import/GTEx");
   }
   @Test
   public void getGeneNetworkNL() throws Exception

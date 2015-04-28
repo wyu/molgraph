@@ -70,4 +70,14 @@ WITH line.type as t, toInt(line.start) as s, toInt(line.end) as e, line.DISEASE 
 match (a), (b) where a.id=s AND b.id=e
 create (a)-[r:t { context:c, disease:c, weight:w, title:l, uid:u}]->(b) return r;
 
+USING PERIODIC COMMIT 5000
+LOAD CSV WITH HEADERS FROM "file:///usr/local/neo4j/current/import/Combined_edges.Biomarker" AS line FIELDTERMINATOR '\t'
+WITH line.type as t, toInt(line.start) as s, toInt(line.end) as e, line.DISEASE as d, line.Context as c, toFloat(line.weight) as w, line.title as l, line.uid as u
+match (a), (b) where a.id=s AND b.id=e
+create (a)-[r:t { context:c, disease:c, weight:w, title:l, uid:u}]->(b) return r;
+
+
+
+
+
 start	end	type	weight	Context	DISEASE	title	uid	file	Source	nPubMed
