@@ -94,9 +94,9 @@ public class GraphReaderTest extends TestAbstract
     System.out.println(g.G.inventory());
 
     g.G.writeNodes2CSVByLabel("/usr/local/neo4j/current/import/GWAS");
-//    g.G.writeEdges2CSVByType("/usr/local/neo4j/current/import/GWAS");
+    g.G.writeEdges2CSVByType("/usr/local/neo4j/current/import/GWAS");
 //    g.G.writeNodes2CSV("/usr/local/neo4j/current/import/GWAS");
-    g.G.writeEdges2CSV("/usr/local/neo4j/current/import/GWAS");
+//    g.G.writeEdges2CSV("/usr/local/neo4j/current/import/GWAS");
     //g.G.write("/tmp/GWAS.20150407");
   }
 
@@ -106,6 +106,9 @@ public class GraphReaderTest extends TestAbstract
     DrugBankReader dbank = new DrugBankReader();
     dbank.parseDocument("/media/data/import/drugbank/drugbank.xml");
     System.out.println(dbank.G.inventory());
+
+    dbank.G.writeNodes2CSVByLabel("/usr/local/neo4j/current/import/DrugBank");
+    dbank.G.writeEdges2CSVByType( "/usr/local/neo4j/current/import/DrugBank");
   }
 
   @Test

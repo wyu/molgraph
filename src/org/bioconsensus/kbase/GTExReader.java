@@ -46,7 +46,7 @@ public class GTExReader extends TabReader
           List<String> diseases = IOs.listFiles(fldr, new WildcardFileFilter("nodes"));
           // setup the disease node
           // type	title	uid_tissue	uid_location	file
-          if (Tools.isSet(diseases)) curated=G.curation(diseases.get(0), Strs.newMap('=', "uid_tissue="+Graphs.UID, "type="+Graphs.TYPE, "title="+Graphs.TITLE));
+          if (Tools.isSet(diseases)) curated=G.curation(diseases.get(0), Strs.newMap('=', "uid="+Graphs.UID, "type="+Graphs.TYPE, "title="+Graphs.TITLE));
 
           for (String fname : dir_file.get(fldr))
           {
@@ -70,9 +70,14 @@ public class GTExReader extends TabReader
     {
       tab = new TabFile(doc, TabFile.tabb);
       Collection<Integer> active = new HashSet<>();
+      String tissues = null;
       if (Tools.isSet(curated))
         for (Integer i : curated)
-          if (Strs.indexOf(doc, G.node_label_val.get(i, "file"))>=0) active.add(i);
+          if (Strs.indexOf(doc, G.node_label_val.get(i, "file"))>=0)
+          {
+            active.add(i);
+            tissues = Strs.extend(tissues, G.node_label_val.get(i, "uid"), ";");
+          }
 
       while (tab.hasNext())
       {
@@ -89,14 +94,12 @@ public class GTExReader extends TabReader
           int E = G.addDirectedSimpleEdge(As.toIntArray()[0], Bs.toIntArray()[0]);
           G.setEdgeLabelProperties(E, Graphs.TYPE, "is_eQTL_of");
           G.setEdgeWeight(E, -10f * (float) Math.log10(new Double(tab.get("P_Val"))));
-          // copy the curation to the edges
-          if (Tools.isSet(active))
-            for (int i : active)
-              for (String tag : G.node_label_val.row(i).keySet())
-                G.setEdgeLabelProperties(E, tag, G.node_label_val.get(i, tag));
+          // copy the UID of the tissue
+          if (Strs.isSet(tissues)) G.setEdgeLabelProperties(E, "tissue", tissues);
+
+          G.edges++;
         }
       }
-
     }
     catch (IOException e)
     {

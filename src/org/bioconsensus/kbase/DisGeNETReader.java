@@ -92,6 +92,7 @@ public class DisGeNETReader extends TabReader
           G.setEdgeLabelProperties(E, Graphs.TYPE, tab.get("associationType"));
           G.setEdgeLabelProperties(E, "Source", tab.get("source"), "nPubMed", tab.get("NumberOfPubmeds"));
           G.setEdgeWeight(E, new Float(tab.get("score")));
+          G.edges++;
         }
       }
 

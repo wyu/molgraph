@@ -137,7 +137,7 @@ class PropertyGraph extends InMemoryGrph implements Serializable
     {
       setEdgeLabelProperties(Es, tagval);
       if (weight!=null)
-       for (int i : Es.toIntArray()) setEdgeWeight(i, weight);
+       for (int i : Es.toIntArray()) if (weight!=null) setEdgeWeight(i, weight);
     }
 
     return Es;

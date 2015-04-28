@@ -96,34 +96,6 @@ public class DrugBankReader extends GraphHandler
     return this;
   }
 
-  /** An unit of kbase builder where the contents from 'fnames' with the 'root' are read and saved to 'out'
-   *
-   * @param root is the top level folder where the contents reside
-   * @param out is a binary file where the graph data will be stored
-   * @param fnames are the file or folder names where the source data are located.
-   * @return we should return a stat object that summarize the data inventory
-   */
-  public static PsiMI25Reader build(String out, String root, String... fnames)
-  {
-    PsiMI25Reader interact = new PsiMI25Reader();
-
-    if (Tools.isSet(fnames))
-      for (String fname : fnames)
-        // expand the file list if this is a folder
-        for (String fn : IOs.listFiles(root+fname, new WildcardFileFilter("*.xml")))
-        {
-          System.out.println("Reading PSI-MI contents from " + fn);
-          interact.parseDocument(fn);
-        }
-
-    if (Strs.isSet(out))
-    {
-      System.out.println("Writing the graph contents to " + out);
-      interact.G.write(out);
-    }
-    return interact;
-  }
-
   private void init()
   {
     setContentList("name", "description","drugbank-id","identifier","resource");
@@ -166,7 +138,7 @@ public class DrugBankReader extends GraphHandler
         for (PropertyEdge E : interactors.get(DRUG_TRGT))
         {
           IntSet target = G.putNodeByUIDType(Graphs.UID, E.getProperty(Graphs.GENE), Graphs.TYPE, Graphs.GENE, Graphs.NAME, E.getProperty("name"));
-          G.putEdges(drugIdx, target, true, 1f);
+          G.putEdges(drugIdx, target, true, null, Graphs.TYPE, "is_target_of");
         }
 
       // drug-drug interaction
@@ -174,7 +146,7 @@ public class DrugBankReader extends GraphHandler
         for (PropertyEdge E : interactors.get(DRUG_INCT))
         {
           IntSet drugB = G.putNodeByUIDType(Graphs.UID, E.getProperty(DRUGID), Graphs.TYPE, Graphs.DRUG, Graphs.NAME, E.getProperty(DRUG_NAME));
-          G.putEdges(drugIdx, drugB, true, 1f, Graphs.TITLE, E.getProperty(DRUG_INCT_DESC));
+          G.putEdges(drugIdx, drugB, true, 1f, Graphs.TITLE, E.getProperty(DRUG_INCT_DESC), Graphs.TYPE, "interact_with");
         }
 
 //      G.putDirectedEdges(drugIdx, Graphs.GENE, interactors.get(DRUG_TRGT), Graphs.LABEL, DRUG_TRGT);
