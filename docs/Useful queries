@@ -1,0 +1,4 @@
+# select multiple genes
+MATCH (g:GENE)
+WHERE g.uid IN ['AKT1','PIK3CD']
+return g;

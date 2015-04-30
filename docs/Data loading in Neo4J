@@ -1,3 +1,8 @@
+Remove all nodes and edges
+
+MATCH (n) OPTIONAL MATCH (n)-[r]-() DELETE n,r
+MATCH ()-[r]-() DELETE r
+
 # load the nodes by their 'labels'
 LOAD CSV WITH HEADERS FROM 'file:///usr/local/neo4j/current/import/GWAS_nodes.GENE' AS line FIELDTERMINATOR '\t'
 CREATE (:GENE { id: toInt(line.id), uid: line.label})
@@ -55,13 +60,35 @@ LOAD CSV WITH HEADERS FROM 'file:///usr/local/neo4j/current/import/Combined_node
 CREATE (:TRAIT { id:toInt(line.id), uid:line.uid, title:line.Trait })
 
 LOAD CSV WITH HEADERS FROM 'file:///usr/local/neo4j/current/import/Combined_nodes.DISEASE' AS line FIELDTERMINATOR '\t'
-CREATE (:TRAIT { id:toInt(line.id), uid:line.uid, title:line.name })
+CREATE (:DISEASE { id:toInt(line.id), uid:line.uid, title:line.name })
 
 LOAD CSV WITH HEADERS FROM 'file:///usr/local/neo4j/current/import/Combined_nodes.TISSUE' AS line FIELDTERMINATOR '\t'
-CREATE (:TRAIT { id:toInt(line.id), uid:line.uid, title:line.title })
+CREATE (:TISSUE { id:toInt(line.id), uid:line.uid, title:line.title })
 
 LOAD CSV WITH HEADERS FROM 'file:///usr/local/neo4j/current/import/Combined_nodes.DRUG' AS line FIELDTERMINATOR '\t'
-CREATE (:TRAIT { id:toInt(line.id), uid:line.uid, title:line.title, name:line.name, type:line.type })
+CREATE (:DRUG { id:toInt(line.id), uid:line.uid, title:line.title, name:line.name, type:line.type })
+
+LOAD CSV WITH HEADERS FROM 'file:///usr/local/neo4j/current/import/Combined_nodes.SM' AS line FIELDTERMINATOR '\t'
+CREATE (:SM { id:toInt(line.id), uid:line.uid })
+
+# load the edges
+LOAD CSV WITH HEADERS FROM "file:///usr/local/neo4j/current/import/Combined_edges.Biomarker" AS line FIELDTERMINATOR '\t'
+match (a:GENE), (b:DISEASE) where a.id=toInt(line.start) AND b.id=toInt(line.end)
+create (a)-[r:is_biomarker_for  { weight:toFloat(line.weight), source:line.Source, pubmed:toInt(line.nPubMed)}]->(b) return r;
+
+USING PERIODIC COMMIT 5000
+LOAD CSV WITH HEADERS FROM "file:///usr/local/neo4j/current/import/Combined_edges.association" AS line FIELDTERMINATOR '\t'
+match (a:GENE), (b:GENE) where a.id=toInt(line.start) AND b.id=toInt(line.end)
+create (a)-[r:associate_with  { weight:toFloat(line.weight), uid:line.uid, assay:line.ASSAY, tissue:line.TISSUE, dataset:line.dataset, name:line.name, organism:line.organism}]->(b) return r;
+
+LOAD CSV WITH HEADERS FROM "file:///usr/local/neo4j/current/import/Combined_edges.is_target_of" AS line FIELDTERMINATOR '\t'
+match (a:DRUG), (b:GENE) where a.id=toInt(line.start) AND b.id=toInt(line.end)
+create (a)-[r:is_target_of  { weight:toFloat(line.weight) }]->(b) return r;
+
+LOAD CSV WITH HEADERS FROM "file:///usr/local/neo4j/current/import/Combined_edges.association" AS line FIELDTERMINATOR '\t'
+match (a:DRUG), (b:GENE) where a.id=toInt(line.start) AND b.id=toInt(line.end)
+create (a)-[r:is_target_of  { weight:toFloat(line.weight), uid:line.uid, dataset:line.dataset, tissue:line.TISSUE }]->(b) return r;
+
 
 # load the edges in one swoop
 USING PERIODIC COMMIT 5000
