@@ -779,6 +779,26 @@ class PropertyGraph extends InMemoryGrph implements Serializable
       e.printStackTrace();
     }
   }
+  public Collection<String> writeNodes2Batch(String filename)
+  {
+    char d = '\t';
+    Collection<String> files = new ArrayList<>();
+    try
+    {
+      // divide the nodes by their types
+      for (String type : label_val_node.row(Graphs.TYPE).keySet())
+      {
+        String f = filename+"_nodes."+type.replaceAll(" ", "_");
+        files.add(f);
+        writeNodes2Batch(f, type, d);
+      }
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
+    }
+    return files;
+  }
   public void writeNodes2CSV(String nodefile, String type, char d) throws IOException
   {
     // name:ID – global id column by which the node is looked up for later reconnecting, if property name is left off
@@ -802,6 +822,51 @@ class PropertyGraph extends InMemoryGrph implements Serializable
       if (Strs.equals(node_label_val.row(row).get(Graphs.TYPE), type))
       {
         w.write(row.toString());
+        if (Tools.isSet(columns))
+        {
+          w.write(d);
+          IOs.write(w,d, Tools.toCols(node_label_val.row(row), columns));
+        }
+        w.write("\n");
+      }
+
+    w.close();
+  }
+  public void writeBatch(String nodefile, String db) throws IOException
+  {
+    Collection<String> ns = writeNodes2Batch(nodefile);
+    Collection<String> es = writeEdges2Batch(nodefile);
+    // write the shell script to run it all
+    String cmd = "cd /usr/local/neo4j/current/data;../bin/neo4j-import  --delimiter TAB --stacktrace --id-type INTEGER --into "+db+" ";
+    for (String f : ns) cmd = Strs.extend(cmd, "--nodes "         + f, " ");
+    for (String f : es) cmd = Strs.extend(cmd, "--relationships " + f, " ");
+
+    IOs.writeTo(nodefile+".sh", cmd);
+    new File(nodefile+".sh").setExecutable(true);
+  }
+  public void writeNodes2Batch(String nodefile, String type, char d) throws IOException
+  {
+    // name:ID – global id column by which the node is looked up for later reconnecting, if property name is left off
+    //           it will be not stored (temporary), this is what the --id-type refers to currently this node-id has
+    //           to be globally unique even across entities
+    // :LABEL  – label column for nodes, multiple labels can be separated by delimiter
+    // all other columns are treated as properties but skipped if empty
+    // type conversion is possible by suffixing the name, e.g. by :INT, :BOOLEAN, etc.
+    Set<String> cols = new HashSet<>();
+    for (int i : getVertices().toIntArray())
+      if (Strs.equals(node_label_val.row(i).get(Graphs.TYPE), type))
+        cols.addAll(node_label_val.row(i).keySet());
+
+    cols.remove(Graphs.TYPE);cols.remove(Graphs.LABEL);
+    List<String> columns = new ArrayList<>(cols);
+//      cols.add(Graphs.LABEL);
+    FileWriter w = new FileWriter(nodefile);
+
+    w.write("id:ID"+d+":LABEL"+Strs.toString(cols, d+"")+"\n");
+    for (Integer row : getVertices().toIntArray())
+      if (Strs.equals(node_label_val.row(row).get(Graphs.TYPE), type))
+      {
+        IOs.write(w,d, row.toString(), type);
         if (Tools.isSet(columns))
         {
           w.write(d);
@@ -862,45 +927,55 @@ class PropertyGraph extends InMemoryGrph implements Serializable
       // divide the nodes by their types
       for (String type : label_val_edge.row(Graphs.TYPE).keySet())
       {
-        writeEdges2CSV(filename+"_edges."+type.replaceAll(" ", "_"), type, d);
-      }
-/*
+        // check the start and end type
+        Multimap<String, Integer> types_edge = HashMultimap.create();
+        for (Integer i : edge_label_val.rowKeySet())
+          if (Strs.equals(edge_label_val.row(i).get(Graphs.TYPE), type))
+          {
+            int[] nodes = getVerticesIncidentToEdge(i).toIntArray();
+            types_edge.put(node_label_val.get(nodes[0], Graphs.TYPE)+"_"+node_label_val.get(nodes[1], Graphs.TYPE), i);
+          }
 
-      FileWriter w = new FileWriter(filename);
-      // :START_ID, :END_ID – relationship file columns referring to global node-lookup-id
-      // :TYPE – relationship-type column
-      // all other columns are treated as properties but skipped if empty
-      // type conversion is possible by suffixing the name, e.g. by :INT, :BOOLEAN, etc.
-      w.write(":START_ID"+d+":END_ID"+d+":TYPE");
-      List<String> cols = new ArrayList<>();
-//      cols.add(Graphs.LABEL);
-      for (String col : edge_label_val.columnKeySet())
-      {
-        if (Strs.isA(col, Graphs.TYPE)) continue;
-        w.write(d+col); cols.add(col);
+        for (String types : types_edge.keySet())
+          writeEdges2CSV(filename+"_edges_"+type.replaceAll(" ", "_")+"_"+types, types_edge.get(types), d);
       }
-      w.write("\n");
-      for (int i : getEdges().toIntArray())
-      {
-        IntSet nodes = getVerticesIncidentToEdge(i);
-        if (nodes==null || nodes.size()!=2)
-        {
-          System.out.println("edge="+i+", nodes="+nodes.size());
-          continue;
-        }
-//        assert nodes!=null && nodes.size()==2;
-        IOs.write(w,d,nodes.toIntArray()[0]+"", nodes.toIntArray()[1]+"", edge_label_val.get(i, Graphs.TYPE));
-        w.write(d+"");
-        IOs.write(w,d, Tools.toCols(edge_label_val.row(i), cols));
-        w.write("\n");
-      }
-      w.close();
-*/
     }
     catch (IOException e)
     {
       e.printStackTrace();
     }
+  }
+  public Collection<String> writeEdges2Batch(String filename)
+  {
+    char d = '\t';
+    Collection<String> files = new ArrayList<>();
+    try
+    {
+      // divide the nodes by their types
+      for (String type : label_val_edge.row(Graphs.TYPE).keySet())
+      {
+        // check the start and end type
+        Multimap<String, Integer> types_edge = HashMultimap.create();
+        for (Integer i : edge_label_val.rowKeySet())
+          if (Strs.equals(edge_label_val.row(i).get(Graphs.TYPE), type))
+          {
+            int[] nodes = getVerticesIncidentToEdge(i).toIntArray();
+            types_edge.put(node_label_val.get(nodes[0], Graphs.TYPE)+"_"+node_label_val.get(nodes[1], Graphs.TYPE), i);
+          }
+
+        for (String types : types_edge.keySet())
+        {
+          String f = filename+"_edges_"+type.replaceAll(" ", "_")+"_"+types;
+          writeEdges2Batch(f, types_edge.get(types), d, type);
+          files.add(f);
+        }
+      }
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
+    }
+    return files;
   }
   public void writeEdges2CSV(String filename, String type, char d) throws IOException
   {
@@ -918,7 +993,7 @@ class PropertyGraph extends InMemoryGrph implements Serializable
     // :TYPE – relationship-type column
     // all other columns are treated as properties but skipped if empty
     // type conversion is possible by suffixing the name, e.g. by :INT, :BOOLEAN, etc.
-    w.write("start"+d+"end"+d+"weight"+Strs.toString(cols, d+"")+"\n");
+    w.write("start"+d+"end"+d+"start_type"+d+"end_type"+d+"weight"+Strs.toString(cols, d+"")+"\n");
     for (Integer row : getEdges().toIntArray())
       if (Strs.equals(edge_label_val.row(row).get(Graphs.TYPE), type))
       {
@@ -929,50 +1004,86 @@ class PropertyGraph extends InMemoryGrph implements Serializable
           continue;
         }
         IOs.write(w,d,nodes.toIntArray()[0]+"", nodes.toIntArray()[1]+"", (getEdgeWeight(row)!=null?getEdgeWeight(row).toString():""));
+        // spell out the type of the nodes
+        IOs.write(w,d,node_label_val.get(nodes.toIntArray()[0], Graphs.TYPE), node_label_val.get(nodes.toIntArray()[1], Graphs.TYPE));
         if (Tools.isSet(columns))
         {
           w.write(d);
           IOs.write(w,d, Tools.toCols(edge_label_val.row(row), columns));
         }
         w.write("\n");
-//        w.write(row.toString()+d+edge_label_val.get(row, Graphs.LABEL));
-//        if (Tools.isSet(columns))
-//        {
-//          w.write(d);
-//          IOs.write(w,d, Tools.toCols(node_label_val.row(row), columns));
-//        }
-//        w.write("\n");
       }
     w.close();
-/*
+  }
+  public void writeEdges2Batch(String filename, Collection<Integer> edgeset, char d, String type) throws IOException
+  {
+    Set<String> cols = new HashSet<>();
+    for (int i : edgeset)
+      cols.addAll(edge_label_val.row(i).keySet());
 
+    cols.remove(Graphs.TYPE); cols.remove(Graphs.LABEL);
+    List<String> columns = new ArrayList<>(cols);
 
     FileWriter w = new FileWriter(filename);
-    w.write(":START_ID"+d+":END_ID");
-    List<String> cols = new ArrayList<>();
-//      cols.add(Graphs.LABEL);
-    for (String col : edge_label_val.columnKeySet())
+
+    // :START_ID, :END_ID – relationship file columns referring to global node-lookup-id
+    // :TYPE – relationship-type column
+    // all other columns are treated as properties but skipped if empty
+    // type conversion is possible by suffixing the name, e.g. by :INT, :BOOLEAN, etc.
+    w.write(":START_ID"+d+":END_ID"+d+":TYPE"+d+"weight"+Strs.toString(cols, d+"")+"\n");
+    for (Integer row : edgeset)
     {
-      if (Strs.isA(col, Graphs.TYPE)) continue;
-      w.write(d+col); cols.add(col);
-    }
-    w.write("\n");
-    for (int i : getEdges().toIntArray())
-    {
-      IntSet nodes = getVerticesIncidentToEdge(i);
-      if (nodes==null || nodes.size()!=2)
+      int[] nodes = getVerticesIncidentToEdge(row).toIntArray();
+      if (nodes==null || nodes.length!=2)
       {
-        System.out.println("edge="+i+", nodes="+nodes.size());
+        System.out.println("edge="+row+", nodes="+nodes.length);
         continue;
       }
-//        assert nodes!=null && nodes.size()==2;
-      IOs.write(w,d,nodes.toIntArray()[0]+"", nodes.toIntArray()[1]+"", edge_label_val.get(i, Graphs.TYPE));
-      w.write(d+"");
-      IOs.write(w,d, Tools.toCols(edge_label_val.row(i), cols));
+      IOs.write(w,d,nodes[0]+"", nodes[1]+"", type, (getEdgeWeight(row)!=null?getEdgeWeight(row).toString():""));
+      if (Tools.isSet(columns))
+      {
+        w.write(d);
+        IOs.write(w,d, Tools.toCols(edge_label_val.row(row), columns));
+      }
       w.write("\n");
     }
     w.close();
-*/
+  }
+  public void writeEdges2CSV(String filename, Collection<Integer> edgeset, char d) throws IOException
+  {
+    Set<String> cols = new HashSet<>();
+    for (int i : edgeset)
+      cols.addAll(edge_label_val.row(i).keySet());
+
+    cols.remove(Graphs.TYPE); cols.remove(Graphs.LABEL);
+    List<String> columns = new ArrayList<>(cols);
+
+    FileWriter w = new FileWriter(filename);
+
+    // :START_ID, :END_ID – relationship file columns referring to global node-lookup-id
+    // :TYPE – relationship-type column
+    // all other columns are treated as properties but skipped if empty
+    // type conversion is possible by suffixing the name, e.g. by :INT, :BOOLEAN, etc.
+    w.write("start"+d+"end"+d+"start_type"+d+"end_type"+d+"weight"+Strs.toString(cols, d+"")+"\n");
+    for (Integer row : edgeset)
+    {
+      int[] nodes = getVerticesIncidentToEdge(row).toIntArray();
+      if (nodes==null || nodes.length!=2)
+      {
+        System.out.println("edge="+row+", nodes="+nodes.length);
+        continue;
+      }
+      IOs.write(w,d,nodes[0]+"", nodes[1]+"", (getEdgeWeight(row)!=null?getEdgeWeight(row).toString():""));
+      // spell out the type of the nodes
+      IOs.write(w,d,node_label_val.get(nodes[0], Graphs.TYPE), node_label_val.get(nodes[1], Graphs.TYPE));
+      if (Tools.isSet(columns))
+      {
+        w.write(d);
+        IOs.write(w,d, Tools.toCols(edge_label_val.row(row), columns));
+      }
+      w.write("\n");
+    }
+    w.close();
   }
   /** read a tab-delimited file that contains the private set of nodes
    *

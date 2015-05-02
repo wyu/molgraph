@@ -142,15 +142,9 @@ public class GraphReaderTest extends TestAbstract
 //    interact.G.write("/tmp/IBD02");
     System.out.println(interact.G.inventory());
 
-    interact.G.writeNodes2CSVByLabel("/usr/local/neo4j/current/import/IntAct");
-    interact.G.writeEdges2CSVByType( "/usr/local/neo4j/current/import/IntAct");
-
-//    PropertyGraph g2 = PropertyGraph.read("/tmp/IBD02");
-//    System.out.println(g2.inventory());
-
-//    IOs.write("/tmp/IBD01.grp", PropertyGraph.toBytes(interact.G));
-//    PropertyGraph g2 = PropertyGraph.fromBytes(IOs.readBytes("/tmp/IBD01.grp"));
-//    System.out.println(g2.inventory());
+//    interact.G.writeNodes2CSVByLabel("/usr/local/neo4j/current/import/IntAct");
+//    interact.G.writeEdges2CSVByType( "/usr/local/neo4j/current/import/IntAct");
+    interact.G.writeBatch("/usr/local/neo4j/current/import/IntActBatch", "intact.db");
   }
   @Test
   public void getDisGeNET() throws Exception

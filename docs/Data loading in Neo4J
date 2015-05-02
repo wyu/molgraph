@@ -72,6 +72,28 @@ LOAD CSV WITH HEADERS FROM 'file:///usr/local/neo4j/current/import/Combined_node
 CREATE (:SM { id:toInt(line.id), uid:line.uid })
 
 # load the edges
+# start with small one of the same type
+USING PERIODIC COMMIT 5000
+LOAD CSV WITH HEADERS FROM "file:///usr/local/neo4j/current/import/Combined_edges_cleavage_GENE_GENE" AS line FIELDTERMINATOR '\t'
+WITH toInt(line.start) as s, toInt(line.end) as e, line.start_type as st, line.end_type as et, toFloat(line.weight) as w, line.uid as u, line.ASSAY as ay, line.dataset as ds, line.name as n
+match (a:GENE), (b:GENE) where a.id=s AND b.id=e
+create (a)-[r:is_target_of  { weight:w, uid:u, dataset:ds, assay:ay, name:n }]->(b) return count(r);
+
+# try the edges between diff types
+USING PERIODIC COMMIT 5000
+LOAD CSV WITH HEADERS FROM "file:///usr/local/neo4j/current/import/Combined_edges_phosphorylation_GENE_SM" AS line FIELDTERMINATOR '\t'
+WITH toInt(line.start) as s, toInt(line.end) as e, line.start_type as st, line.end_type as et, toFloat(line.weight) as w, line.uid as u, line.ASSAY as ay, line.dataset as ds, line.name as n
+match (a:GENE), (b:SM) where a.id=s AND b.id=e
+create (a)-[r:is_target_of  { weight:w, uid:u, dataset:ds, assay:ay, name:n }]->(b) return count(r);
+
+# try the biggest one with 482531 edges
+USING PERIODIC COMMIT 5000
+LOAD CSV WITH HEADERS FROM "file:///usr/local/neo4j/current/import/Combined_edges_association_GENE_GENE" AS line FIELDTERMINATOR '\t'
+WITH toInt(line.start) as s, toInt(line.end) as e, line.start_type as st, line.end_type as et, toFloat(line.weight) as w, line.uid as u, line.ASSAY as ay, line.dataset as ds, line.name as n
+match (a:GENE), (b:GENE) where a.id=s AND b.id=e
+create (a)-[r:is_target_of  { weight:w, uid:u, dataset:ds, assay:ay, name:n }]->(b) return count(r);
+## Set 1457278 properties, created 478140 relationships, returned 1 row in 28961 ms.
+
 LOAD CSV WITH HEADERS FROM "file:///usr/local/neo4j/current/import/Combined_edges.Biomarker" AS line FIELDTERMINATOR '\t'
 match (a:GENE), (b:DISEASE) where a.id=toInt(line.start) AND b.id=toInt(line.end)
 create (a)-[r:is_biomarker_for  { weight:toFloat(line.weight), source:line.Source, pubmed:toInt(line.nPubMed)}]->(b) return r;
@@ -89,6 +111,20 @@ LOAD CSV WITH HEADERS FROM "file:///usr/local/neo4j/current/import/Combined_edge
 match (a:DRUG), (b:GENE) where a.id=toInt(line.start) AND b.id=toInt(line.end)
 create (a)-[r:is_target_of  { weight:toFloat(line.weight), uid:line.uid, dataset:line.dataset, tissue:line.TISSUE }]->(b) return r;
 
+*** NOT WORKING, CAN NOT use parameter as the label of the nodes
+USING PERIODIC COMMIT 5000
+LOAD CSV WITH HEADERS FROM "file:///usr/local/neo4j/current/import/Combined_edges.hydroxylation" AS line FIELDTERMINATOR '\t'
+WITH toInt(line.start) as s, toInt(line.end) as e, line.start_type as st, line.end_type as et, toFloat(line.weight) as w, line.uid as u, line.ASSAY as ay, line.dataset as ds, line.name as n
+match (a:st), (b:et) where a.id=s AND b.id=e
+create (a)-[r:is_target_of  { weight:w, uid:u, dataset:ds, assay:ay, name:n }]->(b) return a, b;
+
+LOAD CSV WITH HEADERS FROM "file:///usr/local/neo4j/current/import/Combined_edges.hydroxylation" AS line FIELDTERMINATOR '\t'
+WITH toInt(line.start) as s, toInt(line.end) as e, line.start_type as st, line.end_type as et, toFloat(line.weight) as w, line.uid as u, line.ASSAY as ay, line.dataset as ds, line.name as n
+match (a:st), (b:et) where a.id=s AND b.id=e
+return a, b;
+
+start	end	start_type	end_type	weight	uid	ASSAY	dataset	name	organism
+
 
 # load the edges in one swoop
 USING PERIODIC COMMIT 5000
@@ -102,9 +138,3 @@ LOAD CSV WITH HEADERS FROM "file:///usr/local/neo4j/current/import/Combined_edge
 WITH line.type as t, toInt(line.start) as s, toInt(line.end) as e, line.DISEASE as d, line.Context as c, toFloat(line.weight) as w, line.title as l, line.uid as u
 match (a), (b) where a.id=s AND b.id=e
 create (a)-[r:t { context:c, disease:c, weight:w, title:l, uid:u}]->(b) return r;
-
-
-
-
-
-start	end	type	weight	Context	DISEASE	title	uid	file	Source	nPubMed
