@@ -9,6 +9,7 @@ import org.ms2ms.utils.IOs;
 import org.ms2ms.utils.Strs;
 import org.ms2ms.utils.TabFile;
 import org.ms2ms.utils.Tools;
+import toools.set.IntHashSet;
 import toools.set.IntSet;
 
 import java.io.IOException;
@@ -69,7 +70,7 @@ public class GTExReader extends TabReader
     try
     {
       tab = new TabFile(doc, TabFile.tabb);
-      Collection<Integer> active = new HashSet<>();
+      IntSet active = new IntHashSet();
       String tissues = null;
       if (Tools.isSet(curated))
         for (Integer i : curated)
@@ -89,16 +90,27 @@ public class GTExReader extends TabReader
         if (tab.get("SNP")!=null)
           As = G.putNodeByUIDType(Graphs.UID, tab.get("SNP"),  Graphs.TYPE, Graphs.SNP, Graphs.CHR, tab.get("SNP_Chr"), Graphs.CHR_POS, tab.get("SNP_Pos"));
 
+        if (G.nodes%1000  ==0) System.out.print(".");
+        if (G.nodes%100000==0) System.out.println();
+
         if (Tools.isSet(As) && Tools.isSet(Bs))
         {
-          int E = G.addDirectedSimpleEdge(As.toIntArray()[0], Bs.toIntArray()[0]);
-          G.setEdgeLabelProperties(E, Graphs.TYPE, "is_eQTL_of");
-          G.setEdgeWeight(E, -10f * (float) Math.log10(new Double(tab.get("P_Val"))));
+          G.putDirectedEdgesByUIDType(As.toIntArray()[0], Bs.toIntArray()[0],
+              -10f * (float) Math.log10(new Double(tab.get("P_Val"))),
+              Strs.newMap('=', Graphs.TYPE+"=is_eQTL_of", Graphs.UID+"="+tissues));
+//          int E = G.addDirectedSimpleEdge(As.toIntArray()[0], Bs.toIntArray()[0]);
+//          G.setEdgeLabelProperties(E, Graphs.TYPE, "is_eQTL_of");
+//          G.setEdgeWeight(E, -10f * (float) Math.log10(new Double(tab.get("P_Val"))));
           // copy the UID of the tissue
-          if (Strs.isSet(tissues)) G.setEdgeLabelProperties(E, "tissue", tissues);
-
-          G.edges++;
+//          if (Strs.isSet(tissues)) G.setEdgeLabelProperties(E, "tissue", tissues);
+//
+//          G.edges++;
         }
+//        if (Tools.isSet(active) && Tools.isSet(Bs))
+//          G.putDirectedEdgesByUIDType(Bs, active, null, Strs.newMap('=', Graphs.TYPE+"=in"));
+
+//        for (Integer tissue : active)
+//            G.putDirectedEdgesByUIDType(As.toIntArray()[0], Bs.toIntArray()[0], -10f * (float) Math.log10(new Double(tab.get("P_Val"))), Strs.newMap('=', Graphs.TYPE+"=is_eQTL_of"));
       }
     }
     catch (IOException e)

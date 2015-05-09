@@ -143,8 +143,6 @@ public class GraphReaderTest extends TestAbstract
 //    interact.G.write("/tmp/IBD02");
     System.out.println(interact.G.inventory());
 
-//    interact.G.writeNodes2CSVByLabel("/usr/local/neo4j/current/import/IntAct");
-//    interact.G.writeEdges2CSVByType( "/usr/local/neo4j/current/import/IntAct");
     interact.G.writeBatch("/usr/local/neo4j/current/import/IntActBatch", "intact.db");
   }
   @Test

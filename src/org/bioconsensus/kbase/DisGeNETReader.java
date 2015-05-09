@@ -88,11 +88,13 @@ public class DisGeNETReader extends TabReader
 
         if (Tools.isSet(As) && Tools.isSet(Bs))
         {
-          int E = G.addDirectedSimpleEdge(Bs.toIntArray()[0], As.toIntArray()[0]);
-          G.setEdgeLabelProperties(E, Graphs.TYPE, tab.get("associationType"));
-          G.setEdgeLabelProperties(E, "Source", tab.get("source"), "nPubMed", tab.get("NumberOfPubmeds"));
-          G.setEdgeWeight(E, new Float(tab.get("score")));
-          G.edges++;
+          G.putDirectedEdgesByUIDType(Bs, As, new Float(tab.get("score")), Strs.newMap('=', Graphs.TYPE+"="+tab.get("associationType"), "Source="+tab.get("source"), "nPubMed="+tab.get("NumberOfPubmeds")));
+//
+//          int E = G.addDirectedSimpleEdge(Bs.toIntArray()[0], As.toIntArray()[0]);
+//          G.setEdgeLabelProperties(E, Graphs.TYPE, tab.get("associationType"));
+//          G.setEdgeLabelProperties(E, "Source", tab.get("source"), "nPubMed", tab.get("NumberOfPubmeds"));
+//          G.setEdgeWeight(E, new Float(tab.get("score")));
+//          G.edges++;
         }
       }
 

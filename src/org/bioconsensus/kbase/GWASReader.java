@@ -43,10 +43,15 @@ public class GWASReader extends TabReader
         if (Tools.isSet(genes))
           for (String gene : genes) Bs.addAll(G.putNodeByUIDType(Graphs.UID, gene, Graphs.TYPE, Graphs.GENE));
 
-        G.putEdges(As, Cs, false, null, Graphs.TYPE, "has_trait");
-        G.putEdges(As, Ds, false, null, Graphs.TYPE, "from_study");
-        G.putEdges(As, Bs, false,
-            Stats.toFloat(tab.get("PVALUE_MLOG")), Graphs.DISEASE, tab.get("DISEASE/TRAIT"), "Context", tab.get("P-VALUE (TEXT)"), Graphs.TYPE, "related_to");
+        G.putDirectedEdgesByUIDType(As, Cs, null, Strs.newMap('=', Graphs.TYPE+"=has_trait"));
+        G.putDirectedEdgesByUIDType(As, Ds, null, Strs.newMap('=', Graphs.TYPE+"=from_study"));
+        G.putDirectedEdgesByUIDType(As, Bs, Stats.toFloat(tab.get("PVALUE_MLOG")),
+            Strs.newMap('=', Graphs.DISEASE+"="+tab.get("DISEASE/TRAIT"), "Context="+tab.get("P-VALUE (TEXT)"), Graphs.TYPE+"=related_to"));
+
+//        G.putEdges(As, Cs, false, null, Graphs.TYPE, "has_trait");
+//        G.putEdges(As, Ds, false, null, Graphs.TYPE, "from_study");
+//        G.putEdges(As, Bs, false,
+//            Stats.toFloat(tab.get("PVALUE_MLOG")), Graphs.DISEASE, tab.get("DISEASE/TRAIT"), "Context", tab.get("P-VALUE (TEXT)"), Graphs.TYPE, "related_to");
 
         //if (G.getVertices().size()>20000) break;
       }

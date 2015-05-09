@@ -224,7 +224,7 @@ public class PsiMI25Reader extends GraphHandler
     {
       if (matchStack(1, "names"))
       {
-        if      (matchStack(2, "interaction"))            interaction.setDescription(content.toString());
+        if      (matchStack(2, "interaction"))            interaction.setProperty(Graphs.TITLE, content.toString());
         else if (matchStack(2, "interactor"))             set(Graphs.GENE,        actor, content);
         else if (matchStack(2, "interactorType"))         set(TYPE_ACTOR,  actor, content);
 //        else if (matchStack(2, ORGANISM))                 set(ORGANISM,    actor, content);
@@ -259,7 +259,27 @@ public class PsiMI25Reader extends GraphHandler
           else
             System.out.println("participant not found");
 
-        if (parties.size()>1)
+        Float weight=null;
+
+        if (parties.size()==2)
+        {
+          // pairwise interaction
+          Integer[] pair = parties.toArray(new Integer[]{});
+          G.putEdgeByUIDType(pair[0], pair[1], weight, interaction);
+//          if (++G.edges%10000==0) System.out.print(".");
+        }
+        else if (parties.size()>2)
+        {
+          // a protein complex?
+          IntSet N = G.putNodeByUIDType(Graphs.UID, interaction.getProperty("uid"), Graphs.TYPE, Graphs.COMPLEX, Graphs.TITLE, interaction.getProperty(Graphs.TITLE));
+          // point the genes to the complex node
+          int n = N.toIntArray()[0];
+          for (Integer A : parties)
+          {
+            G.putDirectedEdgesByUIDType(A, n, weight, interaction.getProperties());
+//            if (++G.edges%10000==0) System.out.print(".");
+          }
+/*
           for (Integer A : parties)
             for (Integer B : parties)
               if (!Tools.equals(A,B) && (!Tools.isSet(hashes) || !hashes.contains(A.hashCode()+B.hashCode())))
@@ -269,6 +289,8 @@ public class PsiMI25Reader extends GraphHandler
                 hashes.add(A.hashCode() + B.hashCode());
                 if (++G.edges%10000==0) System.out.print(".");
               }
+*/
+        }
       }
       participants.clear();
     }

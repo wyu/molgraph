@@ -138,7 +138,8 @@ public class DrugBankReader extends GraphHandler
         for (PropertyEdge E : interactors.get(DRUG_TRGT))
         {
           IntSet target = G.putNodeByUIDType(Graphs.UID, E.getProperty(Graphs.GENE), Graphs.TYPE, Graphs.GENE, Graphs.NAME, E.getProperty("name"));
-          G.putEdges(drugIdx, target, true, null, Graphs.TYPE, "is_target_of");
+          G.putDirectedEdgesByUIDType(drugIdx, target, null, Strs.newMap('=', Graphs.TYPE+"=is_target_of"));
+//          G.putEdges(drugIdx, target, true, null, Graphs.TYPE, "is_target_of");
         }
 
       // drug-drug interaction
@@ -146,7 +147,8 @@ public class DrugBankReader extends GraphHandler
         for (PropertyEdge E : interactors.get(DRUG_INCT))
         {
           IntSet drugB = G.putNodeByUIDType(Graphs.UID, E.getProperty(DRUGID), Graphs.TYPE, Graphs.DRUG, Graphs.NAME, E.getProperty(DRUG_NAME));
-          G.putEdges(drugIdx, drugB, true, 1f, Graphs.TITLE, E.getProperty(DRUG_INCT_DESC), Graphs.TYPE, "interact_with");
+          G.putDirectedEdgesByUIDType(drugIdx, drugB, 1f, Strs.newMap('=', Graphs.TITLE+"="+E.getProperty(DRUG_INCT_DESC), Graphs.TYPE+"=interact_with"));
+//          G.putEdges(drugIdx, drugB, true, 1f, Graphs.TITLE, E.getProperty(DRUG_INCT_DESC), Graphs.TYPE, "interact_with");
         }
 
 //      G.putDirectedEdges(drugIdx, Graphs.GENE, interactors.get(DRUG_TRGT), Graphs.LABEL, DRUG_TRGT);

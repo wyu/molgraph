@@ -33,7 +33,7 @@ class PropertyGraph extends InMemoryGrph implements Serializable
 {
   private static final long serialVersionUID = 8472752523296641668L;
 
-  public long nodes=0, edges=0;
+  public long nodes=0, edges=0, edge2=0;
 
   public Table<String,  String, IntSet> label_val_node = HashBasedTable.create();
   public Table<Integer, String, String> node_label_val = HashBasedTable.create();
@@ -206,6 +206,19 @@ class PropertyGraph extends InMemoryGrph implements Serializable
     }
     return combined;
   }
+  public int putEdgeByUIDType(Integer A, Integer B, Float weight, PropertyEdge edge)
+  {
+    IntSet Es = hasEdge(A, B, edge.getProperty(Graphs.UID), edge.getProperty(Graphs.TYPE));
+    if (Es!=null) { edge2++; return Es.toIntArray()[0]; }
+
+    int E = addUndirectedSimpleEdge(A, B);
+    if (weight!=null) setEdgeWeight(E, weight);
+
+    setEdgeLabelProperty(E, edge);
+    edges++;
+
+    return E;
+  }
   public IntSet putDirectedEdges(IntSet starters, String tag, Collection<PropertyEdge> ps,
                                      String edge_tag, String edge_val)
   {
@@ -228,6 +241,51 @@ class PropertyGraph extends InMemoryGrph implements Serializable
           }
       }
     return L;
+  }
+  public IntSet hasEdge(int start, int end, String uid, String type)
+  {
+    IntSet Es = getEdgesConnecting(start, end);
+    if (Tools.isSet(Es))
+      for (Integer i : Es.toIntegerArrayList())
+        if (Strs.equals(edge_label_val.get(i, Graphs.UID),  uid) &&
+            Strs.equals(edge_label_val.get(i, Graphs.TYPE), type))
+        {
+          edge2++;
+          return Es;
+        }
+
+    return null;
+  }
+  public IntSet putDirectedEdgesByUIDType(IntSet As, IntSet Bs, Float weight, Map<String, String> ps)
+  {
+    if (Tools.isSet(As) && Tools.isSet(Bs))
+    {
+      IntSet Es = new IntHashSet();
+      for (Integer A : As.toIntegerArrayList())
+        for (Integer B : Bs.toIntegerArrayList())
+          Tools.addAll(Es, putDirectedEdgesByUIDType(A, B, weight, ps));
+
+      return Es;
+    }
+    return null;
+  }
+  public IntSet putDirectedEdgesByUIDType(int start, int end, Float weight, Map<String, String> ps)
+  {
+    // make sure the edge is not already in place
+    IntSet Es = hasEdge(start, end,ps.get(Graphs.UID), ps.get(Graphs.TYPE));
+
+    if (Es!=null) { edge2++; return Es; }
+
+    // create the edge
+    int E = addDirectedSimpleEdge(start, end);
+    if (weight!=null) setEdgeWeight(E, weight);
+
+    if (Tools.isSet(ps))
+      for (String k : ps.keySet())
+        setEdgeLabelProperty(E, k, ps.get(k));
+
+    edges++;
+    return Tools.newIntSet(E);
   }
   public boolean hasNodeLabel(String lab, String val)
   {
@@ -362,7 +420,7 @@ class PropertyGraph extends InMemoryGrph implements Serializable
   public StringBuffer inventory()
   {
     StringBuffer buf = new StringBuffer();
-    buf.append("nodes/edges: " + nodes + "/" + edges + "\n\n");
+    buf.append("nodes/edges: " + nodes + "/" + edges + "\\" + edge2 + "\n\n");
     buf = Reporters.inventory_col(buf, node_label_val, 50);
     buf = Reporters.inventory_col(buf, edge_label_val, 50);
 /*
