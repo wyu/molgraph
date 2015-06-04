@@ -161,6 +161,14 @@ abstract public class GraphHandler extends DefaultHandler
     p.setProperty(label, content);
     return p;
   }
+  public Property append(String label, Property p, String content)
+  {
+    if (p==null) return p;
+    if (!Tools.isA(ele, contentList)) throw new RuntimeException("element " + ele + " not specified in the pre-defined content list");
+
+    p.appendProperty(label, content);
+    return p;
+  }
   @Override
   public void startElement(String uri, String localName, String elementName, Attributes attributes) throws SAXException
   {

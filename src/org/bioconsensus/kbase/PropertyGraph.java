@@ -271,6 +271,8 @@ class PropertyGraph extends InMemoryGrph implements Serializable
   }
   public IntSet putDirectedEdgesByUIDType(int start, int end, Float weight, Map<String, String> ps)
   {
+    if (!Tools.isSet(ps)) return null;
+
     // make sure the edge is not already in place
     IntSet Es = hasEdge(start, end,ps.get(Graphs.UID), ps.get(Graphs.TYPE));
 
@@ -904,6 +906,7 @@ class PropertyGraph extends InMemoryGrph implements Serializable
   }
   public void writeNodes2Batch(String nodefile, String type, char d) throws IOException
   {
+    // https://github.com/jexp/batch-import
     // name:ID – global id column by which the node is looked up for later reconnecting, if property name is left off
     //           it will be not stored (temporary), this is what the --id-type refers to currently this node-id has
     //           to be globally unique even across entities

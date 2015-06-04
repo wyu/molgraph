@@ -115,7 +115,7 @@ public class PsiMI25Reader extends GraphHandler
 
   public void init()
   {
-    setContentList("shortLabel","interactorRef","experimentRef","attribute","fullName","alias");
+    setContentList("shortLabel","interactorRef","experimentRef","attribute","fullName","alias","secondaryRef","primaryRef");
     if (G==null) G= new PropertyGraph();
   }
   @Override
@@ -131,10 +131,15 @@ public class PsiMI25Reader extends GraphHandler
     }
     else if (matchStack("primaryRef","xref","interactor") && Strs.equals(attributes.getValue("db"), "ensembl"))
     {
+      append(attributes.getValue("db"), actor, attributes.getValue("id"));
       actor.setProperty(ENSEMBLE, attributes.getValue("id"));
       Object g = (es2gene!=null?es2gene.get(actor.getProperty(GraphHandler.ENSEMBLE)):null);
       if (g!=null)
         actor.setProperty(Graphs.GENE, g.toString().toUpperCase());
+    }
+    else if (matchStack("secondaryRef","xref", "interactor") && actor!=null)
+    {
+      append(attributes.getValue("db")+":string_array", actor, attributes.getValue("id"));
     }
     else if (elementName.equalsIgnoreCase("interactor"))
     {
@@ -176,11 +181,15 @@ public class PsiMI25Reader extends GraphHandler
     {
       set(ORGANISM, actor, content);
     }
+    else if (matchElementStack("alias","names", "interactor") && actor!=null &&
+             Strs.equals(attrs.getValue("type"), "gene name synonym"))
+    {
+      append("alias:string_array", actor, content.toString());
+    }
     else if (Strs.equals(element,"interactor") && actor!=null && !G.hasNodeLabel(Graphs.UID, actor.getProperty(Graphs.UID)) &&
         (!Tools.isSet(species) || !Strs.isSet(actor.getProperty(ORGANISM)) || Strs.isA(actor.getProperty(ORGANISM), species)))
     {
-      if (/*Strs.equals(actor.getProperty("actorType"), "protein") &&*/
-          Strs.isSet(actor.getProperty("gene name")))
+      if (Strs.isSet(actor.getProperty("gene name")))
       {
         actor.rename("gene name", Graphs.GENE);
       }
@@ -188,6 +197,29 @@ public class PsiMI25Reader extends GraphHandler
 //      {
 //        System.out.println();
 //      }
+      // grab the gene name if avail
+      String gene = actor.getProperty(Graphs.GENE);
+      if      (gene.indexOf("_human") >0) gene = gene.split("_human" )[0].toUpperCase();
+      else if (gene.indexOf("_fusion")>0) gene = gene.split("_fusion")[0].toUpperCase();
+      else if (gene.indexOf(" fusion")>0) gene = gene.split(" fusion")[0].toUpperCase();
+      else                                gene = gene.toUpperCase();
+
+      // create an 'GENE' node upstream of the 'INSTANCE" node
+      IntSet _G = Strs.isSet(gene) ? G.putNodeByUIDType(Graphs.UID, gene, Graphs.TYPE, Graphs.GENE) : null,
+              N = G.putNodeByUIDType(Graphs.UID, gene, Graphs.TYPE, Graphs.INSTANCE+","+actor.getProperty(TYPE_ACTOR));
+      // set the edge
+      G.putDirectedEdgesByUIDType(N, _G, 1f, Tools.slice(interaction!=null?interaction.getProperties():null, ORGANISM));
+      // setup the curation
+      if (N!=null)
+      {
+        lastID=N.toIntArray()[0];
+        G.curates(curated, "curated_to", N.toIntArray());
+        actor_id.putAll(actor.getProperty(Graphs.UID), N.toIntegerArrayList());
+      }
+
+      if (++G.nodes%5000==0) System.out.print(".");
+
+/*
       if (!Strs.isA(actor.getProperty(TYPE_ACTOR), "dna", "peptide"))
       {
         String gene = actor.getProperty(Graphs.GENE);
@@ -214,6 +246,7 @@ public class PsiMI25Reader extends GraphHandler
 
         if (++G.nodes%5000==0) System.out.print(".");
       }
+*/
     }
     else if (matchElementStack("primaryRef","xref", "tissue","hostOrganism","experimentDescription") && interaction!=null)
     {
@@ -279,17 +312,6 @@ public class PsiMI25Reader extends GraphHandler
             G.putDirectedEdgesByUIDType(A, n, weight, interaction.getProperties());
 //            if (++G.edges%10000==0) System.out.print(".");
           }
-/*
-          for (Integer A : parties)
-            for (Integer B : parties)
-              if (!Tools.equals(A,B) && (!Tools.isSet(hashes) || !hashes.contains(A.hashCode()+B.hashCode())))
-              {
-                int E = G.addUndirectedSimpleEdge(A, B);
-                G.setEdgeLabelProperty(E, interaction);
-                hashes.add(A.hashCode() + B.hashCode());
-                if (++G.edges%10000==0) System.out.print(".");
-              }
-*/
         }
       }
       participants.clear();

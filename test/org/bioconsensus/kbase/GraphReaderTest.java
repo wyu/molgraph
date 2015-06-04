@@ -72,8 +72,8 @@ public class GraphReaderTest extends TestAbstract
     disease.readRecursive("/media/data/import/DisGeNET/all_gene_disease_associations.txt");
     System.out.println(disease.G.inventory());
 
-//    disease.G.writeNodes2CSVByLabel("/usr/local/neo4j/current/import/Combined");
-//    disease.G.writeEdges2CSVByType( "/usr/local/neo4j/current/import/Combined");
+    disease.G.write("/usr/local/neo4j/current/import/Combined.grph");
+
     disease.G.writeBatch("/usr/local/neo4j/current/import/Combined", "combined.db");
   }
 

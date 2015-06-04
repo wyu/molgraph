@@ -2,3 +2,5 @@
 MATCH (g:GENE)
 WHERE g.uid IN ['AKT1','PIK3CD']
 return g;
+
+MATCH (g:GENE) WHERE g.uid IN ['SCARF2','COLEC12','ELMO1','MARCO'] return g;
