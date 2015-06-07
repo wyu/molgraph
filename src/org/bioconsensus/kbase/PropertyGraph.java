@@ -310,10 +310,25 @@ class PropertyGraph extends InMemoryGrph implements Serializable
 
     return this;
   }
+  public PropertyGraph appendNodeLabelProperty(int n, Property p)
+  {
+    for (String tag : p.getProperties().keySet())
+      if (tag.charAt(0)!='^' && node_label_val.get(n, tag)==null)
+        setNodeLabelProperty(n, tag, p.getProperty(tag));
+
+    return this;
+  }
   public PropertyGraph setNodeLabelProperty(IntSet ns, Property p)
   {
     if (Tools.isSet(ns) && p!=null && Tools.isSet(p.getProperties()))
       for (int n : ns.toIntArray()) setNodeLabelProperty(n, p);
+
+    return this;
+  }
+  public PropertyGraph appendNodeLabelProperty(IntSet ns, Property p)
+  {
+    if (Tools.isSet(ns) && p!=null && Tools.isSet(p.getProperties()))
+      for (int n : ns.toIntArray()) appendNodeLabelProperty(n, p);
 
     return this;
   }
@@ -848,7 +863,7 @@ class PropertyGraph extends InMemoryGrph implements Serializable
       // divide the nodes by their types
       for (String type : label_val_node.row(Graphs.TYPE).keySet())
       {
-        String f = filename+"_nodes."+type.replaceAll(" ", "_");
+        String f = (filename+"_nodes."+type.replaceAll(" ", "_")).replaceAll("\\,","_");
         files.add(f);
         writeNodes2Batch(f, type, d);
       }
@@ -898,21 +913,22 @@ class PropertyGraph extends InMemoryGrph implements Serializable
     Collection<String> es = writeEdges2Batch(nodefile);
     // write the shell script to run it all
     String cmd = "cd /usr/local/neo4j/current/data;../bin/neo4j-import  --delimiter TAB --stacktrace --id-type INTEGER --into "+db+" ";
-    for (String f : ns) cmd = Strs.extend(cmd, "--nodes "         + f, " ");
-    for (String f : es) cmd = Strs.extend(cmd, "--relationships " + f, " ");
+    for (String f : ns) cmd = Strs.extend(cmd, "--nodes '"         + f + "'", " ");
+    for (String f : es) cmd = Strs.extend(cmd, "--relationships '" + f + "'", " ");
 
     IOs.writeTo(nodefile+".sh", cmd);
     new File(nodefile+".sh").setExecutable(true);
   }
   public void writeNodes2Batch(String nodefile, String type, char d) throws IOException
   {
-    // https://github.com/jexp/batch-import
+    // http://neo4j.com/docs/stable/import-tool-header-format.html
     // name:ID – global id column by which the node is looked up for later reconnecting, if property name is left off
     //           it will be not stored (temporary), this is what the --id-type refers to currently this node-id has
     //           to be globally unique even across entities
     // :LABEL  – label column for nodes, multiple labels can be separated by delimiter
     // all other columns are treated as properties but skipped if empty
     // type conversion is possible by suffixing the name, e.g. by :INT, :BOOLEAN, etc.
+    // :string[] to indicate array type for the property
     Set<String> cols = new HashSet<>();
     for (int i : getVertices().toIntArray())
       if (Strs.equals(node_label_val.row(i).get(Graphs.TYPE), type))

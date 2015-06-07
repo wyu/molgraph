@@ -35,6 +35,13 @@ public class PsiMI25Reader extends GraphHandler
   private Set<String> participants = new HashSet<>();
   private int                 lastID;
   private Map<String, PropertyNode> expts = new HashMap<>();
+  public static Map<String, String> sDBs = new HashMap<>();
+
+  static
+  {
+    sDBs = Strs.toStrMap("ddbj/embl/genbank", "genbank","genbank_protein_gi","gi", "rcsb pdb","pdb");
+    sDBs.putAll(Strs.toStrMap1("chebi","intact","pubmed","mint","matrixdb","reactome","refseq","uniprotkb","ensemble","interpro","go","alias","ipi"));
+  }
 
   public PsiMI25Reader()                { super(); init(); }
   public PsiMI25Reader(PropertyGraph g) { super(g); init(); }
@@ -123,23 +130,30 @@ public class PsiMI25Reader extends GraphHandler
   {
     super.startElement(uri, localName, elementName, attributes);
 
+//    if (attributes.getValue("db")!=null && attributes.getValue("db").indexOf(" ")>0)
+//    {
+//      System.out.println();
+//    }
     if      (elementName.equalsIgnoreCase("interaction"))
     {
       // add to the graph. it's a new node by definition, assuming we're not re-import the same uniprot
       interaction = new PropertyEdge();
       interaction.setProperty(Graphs.UID, attributes.getValue("id"));
     }
-    else if (matchStack("primaryRef","xref","interactor") && Strs.equals(attributes.getValue("db"), "ensembl"))
+    else if (matchStack("primaryRef","xref","interactor") && toDB(attributes)!=null)
     {
-      append(attributes.getValue("db"), actor, attributes.getValue("id"));
-      actor.setProperty(ENSEMBLE, attributes.getValue("id"));
-      Object g = (es2gene!=null?es2gene.get(actor.getProperty(GraphHandler.ENSEMBLE)):null);
-      if (g!=null)
-        actor.setProperty(Graphs.GENE, g.toString().toUpperCase());
+      append(toDB(attributes)+":string[]", actor, attributes.getValue("id"));
+//      actor.setProperty(ENSEMBLE, attributes.getValue("id"));
+      if (Strs.equals(toDB(attributes), "ensembl"))
+      {
+        Object g = (es2gene!=null?es2gene.get(actor.getProperty(GraphHandler.ENSEMBLE)):null);
+        if (g!=null)
+          actor.setProperty(Graphs.GENE, g.toString().toUpperCase());
+      }
     }
-    else if (matchStack("secondaryRef","xref", "interactor") && actor!=null)
+    else if (matchStack("secondaryRef","xref", "interactor") && actor!=null && toDB(attributes)!=null)
     {
-      append(attributes.getValue("db")+":string_array", actor, attributes.getValue("id"));
+      append(toDB(attributes)+":string[]", actor, attributes.getValue("id"));
     }
     else if (elementName.equalsIgnoreCase("interactor"))
     {
@@ -184,7 +198,7 @@ public class PsiMI25Reader extends GraphHandler
     else if (matchElementStack("alias","names", "interactor") && actor!=null &&
              Strs.equals(attrs.getValue("type"), "gene name synonym"))
     {
-      append("alias:string_array", actor, content.toString());
+      append("alias:string[]", actor, content.toString());
     }
     else if (Strs.equals(element,"interactor") && actor!=null && !G.hasNodeLabel(Graphs.UID, actor.getProperty(Graphs.UID)) &&
         (!Tools.isSet(species) || !Strs.isSet(actor.getProperty(ORGANISM)) || Strs.isA(actor.getProperty(ORGANISM), species)))
@@ -198,7 +212,7 @@ public class PsiMI25Reader extends GraphHandler
 //        System.out.println();
 //      }
       // grab the gene name if avail
-      String gene = actor.getProperty(Graphs.GENE);
+      String gene = actor.getProperty(Graphs.GENE), type = actor.getProperty(TYPE_ACTOR);
       if      (gene.indexOf("_human") >0) gene = gene.split("_human" )[0].toUpperCase();
       else if (gene.indexOf("_fusion")>0) gene = gene.split("_fusion")[0].toUpperCase();
       else if (gene.indexOf(" fusion")>0) gene = gene.split(" fusion")[0].toUpperCase();
@@ -206,7 +220,7 @@ public class PsiMI25Reader extends GraphHandler
 
       // create an 'GENE' node upstream of the 'INSTANCE" node
       IntSet _G = Strs.isSet(gene) ? G.putNodeByUIDType(Graphs.UID, gene, Graphs.TYPE, Graphs.GENE) : null,
-              N = G.putNodeByUIDType(Graphs.UID, gene, Graphs.TYPE, Graphs.INSTANCE+","+actor.getProperty(TYPE_ACTOR));
+              N = G.putNodeByUIDType(Graphs.UID, gene+">>"+type, Graphs.TYPE, Graphs.INSTANCE+","+type);
       // set the edge
       G.putDirectedEdgesByUIDType(N, _G, 1f, Tools.slice(interaction!=null?interaction.getProperties():null, ORGANISM));
       // setup the curation
@@ -215,6 +229,8 @@ public class PsiMI25Reader extends GraphHandler
         lastID=N.toIntArray()[0];
         G.curates(curated, "curated_to", N.toIntArray());
         actor_id.putAll(actor.getProperty(Graphs.UID), N.toIntegerArrayList());
+        // append the properties if not already in-place. will not over-write the existing ones
+        G.appendNodeLabelProperty(N, actor);
       }
 
       if (++G.nodes%5000==0) System.out.print(".");
@@ -258,7 +274,7 @@ public class PsiMI25Reader extends GraphHandler
       if (matchStack(1, "names"))
       {
         if      (matchStack(2, "interaction"))            interaction.setProperty(Graphs.TITLE, content.toString());
-        else if (matchStack(2, "interactor"))             set(Graphs.GENE,        actor, content);
+        else if (matchStack(2, "interactor"))             set(Graphs.TITLE,        actor, content);
         else if (matchStack(2, "interactorType"))         set(TYPE_ACTOR,  actor, content);
 //        else if (matchStack(2, ORGANISM))                 set(ORGANISM,    actor, content);
         else if (matchStack(2, "hostOrganism"))           set(ORGANISM,    expt,  content);
@@ -317,5 +333,9 @@ public class PsiMI25Reader extends GraphHandler
       participants.clear();
     }
     isParsing=false;
+  }
+  static public String toDB(Attributes attrs)
+  {
+    return sDBs!=null&&attrs!=null?sDBs.get(attrs.getValue("db")):null;
   }
 }
