@@ -177,7 +177,7 @@ public class PsiMI25Reader extends GraphHandler
     }
     else if (matchElementStack("alias","names","interactor") && Strs.equals(attrs.getValue("type"), "gene name"))
     {
-      set("gene name", actor, content);
+      set(Graphs.GENE, actor, content);
     }
     else if (Strs.equals(element,"experimentDescription") && expt!=null)
     {
@@ -213,14 +213,17 @@ public class PsiMI25Reader extends GraphHandler
 //      }
       // grab the gene name if avail
       String gene = actor.getProperty(Graphs.GENE), type = actor.getProperty(TYPE_ACTOR);
-      if      (gene.indexOf("_human") >0) gene = gene.split("_human" )[0].toUpperCase();
-      else if (gene.indexOf("_fusion")>0) gene = gene.split("_fusion")[0].toUpperCase();
-      else if (gene.indexOf(" fusion")>0) gene = gene.split(" fusion")[0].toUpperCase();
-      else                                gene = gene.toUpperCase();
+      if (gene!=null)
+      {
+        if      (gene.indexOf("_human") >0) gene = gene.split("_human" )[0].toUpperCase();
+        else if (gene.indexOf("_fusion")>0) gene = gene.split("_fusion")[0].toUpperCase();
+        else if (gene.indexOf(" fusion")>0) gene = gene.split(" fusion")[0].toUpperCase();
+        else                                gene = gene.toUpperCase();
+      }
 
       // create an 'GENE' node upstream of the 'INSTANCE" node
       IntSet _G = Strs.isSet(gene) ? G.putNodeByUIDType(Graphs.UID, gene, Graphs.TYPE, Graphs.GENE) : null,
-              N = G.putNodeByUIDType(Graphs.UID, gene+">>"+type, Graphs.TYPE, Graphs.INSTANCE+","+type);
+              N = G.putNodeByUIDType(Graphs.UID, gene+">>"+type, Graphs.TYPE, Graphs.INSTANCE+";"+type);
       // set the edge
       G.putDirectedEdgesByUIDType(N, _G, 1f, Tools.slice(interaction!=null?interaction.getProperties():null, ORGANISM));
       // setup the curation
@@ -230,6 +233,7 @@ public class PsiMI25Reader extends GraphHandler
         G.curates(curated, "curated_to", N.toIntArray());
         actor_id.putAll(actor.getProperty(Graphs.UID), N.toIntegerArrayList());
         // append the properties if not already in-place. will not over-write the existing ones
+        actor.removeProperty(Graphs.GENE);
         G.appendNodeLabelProperty(N, actor);
       }
 

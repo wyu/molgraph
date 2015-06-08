@@ -65,6 +65,7 @@ class PropertyGraph extends InMemoryGrph implements Serializable
       }
 
     // setup the node type
+/*
     for (Integer row : graph.node_label_val.rowKeySet())
     {
       String type=null;
@@ -82,6 +83,7 @@ class PropertyGraph extends InMemoryGrph implements Serializable
       }
       graph.setNode(Graphs.TYPE, type, row);
     }
+*/
     return graph;
   }
 
@@ -863,7 +865,7 @@ class PropertyGraph extends InMemoryGrph implements Serializable
       // divide the nodes by their types
       for (String type : label_val_node.row(Graphs.TYPE).keySet())
       {
-        String f = (filename+"_nodes."+type.replaceAll(" ", "_")).replaceAll("\\,","_");
+        String f = (filename+"_nodes."+type.replaceAll(" ", "_")).replaceAll("\\;","_");
         files.add(f);
         writeNodes2Batch(f, type, d);
       }
@@ -1042,7 +1044,7 @@ class PropertyGraph extends InMemoryGrph implements Serializable
 
         for (String types : types_edge.keySet())
         {
-          String f = filename+"_edges_"+type.replaceAll(" ", "_")+"_"+types;
+          String f = (filename+"_edges_"+type.replaceAll(" ", "_")+"_"+types).replaceAll("\\;", "_");
           writeEdges2Batch(f, types_edge.get(types), d, type);
           files.add(f);
         }

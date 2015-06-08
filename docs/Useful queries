@@ -4,3 +4,6 @@ WHERE g.uid IN ['AKT1','PIK3CD']
 return g;
 
 MATCH (g:GENE) WHERE g.uid IN ['SCARF2','COLEC12','ELMO1','MARCO'] return g;
+
+# select a gene by the xrefs
+match (g:INSTANCE) where ( 'EBI-1550796' in g.intact ) return g;
