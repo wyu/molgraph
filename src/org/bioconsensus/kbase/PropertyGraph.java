@@ -304,6 +304,17 @@ class PropertyGraph extends InMemoryGrph implements Serializable
     }
     return this;
   }
+  public PropertyGraph setNodeLabelProperty(IntSet n, String lable, String val)
+  {
+    if (Strs.isSet(lable) && Strs.isSet(val) && Tools.isSet(n))
+      for (int nn : n.toIntArray())
+      {
+        Tools.put(label_val_node, lable, val, nn);
+        node_label_val.put(nn, lable, val);
+      }
+
+    return this;
+  }
   public PropertyGraph setNodeLabelProperty(int n, Property p)
   {
     for (String tag : p.getProperties().keySet())

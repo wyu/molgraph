@@ -94,11 +94,19 @@ public class GraphReaderTest extends TestAbstract
     g.parseDocument("/media/data/import/GWAS/gwas_catalog_v1.0.1-downloaded_2015-04-08.tsv");
     System.out.println(g.G.inventory());
 
-    g.G.writeNodes2CSVByLabel("/usr/local/neo4j/current/import/GWAS");
-    g.G.writeEdges2CSVByType("/usr/local/neo4j/current/import/GWAS");
-//    g.G.writeNodes2CSV("/usr/local/neo4j/current/import/GWAS");
-//    g.G.writeEdges2CSV("/usr/local/neo4j/current/import/GWAS");
-    //g.G.write("/tmp/GWAS.20150407");
+    g.G.writeBatch("/usr/local/neo4j/current/import/GWASBatch", "gwas.db");
+
+//    g.G.writeNodes2CSVByLabel("/usr/local/neo4j/current/import/GWAS");
+//    g.G.writeEdges2CSVByType("/usr/local/neo4j/current/import/GWAS");
+  }
+  @Test
+  public void dbSNP() throws Exception
+  {
+    dbSNPReader g = new dbSNPReader(new PropertyGraph());
+    g.parseDocument("/media/data/import/dbSNP/common_all_20150603.vcf");
+    System.out.println(g.G.inventory());
+
+    g.G.writeBatch("/usr/local/neo4j/current/import/dbSNPBatch", "dbSNP.db");
   }
 
   @Test
